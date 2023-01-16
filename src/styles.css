@@ -1,0 +1,300 @@
+/*noinspection CssUnknownTarget*/
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    list-style-type: none;
+}
+
+@media only screen and (min-width: 768px) {
+
+}
+
+body {
+    font-family: 'Fredoka One', cursive;
+    background-color: lightgrey;
+}
+
+hr {
+    border: 1px dashed #000; width: 100%; margin-top: 0.5%; margin-bottom: 1.5%;
+}
+.backdrop {
+    z-index: 10000;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f7f1f185;
+    left: 0;
+    top: 0;
+}
+
+.backdrop__popup {
+    z-index: 10001;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 10rem;
+    width: 30rem;
+    background: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.container {
+    height: 100vh;
+}
+
+.main-nav a {
+    text-decoration: none;
+    color: #FCBF49;
+    font-size: 28px;
+}
+
+.main-nav {
+    position: relative;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    background-color: #D62828;
+    justify-content: space-between;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.main-nav-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.main-nav__button {
+    /*right: 2px;*/
+    /*top: 2px;*/
+    z-index: 10;
+    cursor: pointer;
+    background: transparent;;
+    border: none;
+    margin-left: 10px;
+    height: 25px;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.main-nav__button--closed {
+    color: #D62828;
+}
+
+.main-nav__button--open {
+    color: #FCBF49
+}
+
+.main-nav__list {
+    list-style: none;
+    position: fixed;
+    top: 0;
+    background: #FCBF49;
+    right: 0;
+    height: auto;
+    overflow: hidden;
+    width: fit-content;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/*.main-nav__item a {*/
+/*    color: #003049;*/
+/*    font-size: 19px;*/
+/*}*/
+
+.main-nav__item {
+    margin: 5px 4px;
+    width: fit-content;
+    color: #003049;
+    font-size: 19px;
+}
+
+.recipe {
+    background-color: #eae2b7;
+    box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, .75);
+    margin-left: 8px;
+    margin-right: 8px;
+    margin-bottom: 10px;
+    font-family: \"Arial Rounded MT Bold\", sans-serif;
+}
+
+.recipe-title {
+    font-size: 25px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.recipe-list {
+    line-height: 1.5;
+    font-size: large;
+}
+
+.recipe-list__item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.recipe-list__item__left {
+    display: flex;
+    align-items: center;
+}
+
+.recipe-list__item__right {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.recipe-list__item__center {
+    margin: auto;
+    font-style: italic;
+}
+
+.symbol {
+    align-items: center;
+    display: flex;
+}
+
+.recipe__item__ingredient__item {
+    display: flex;
+    justify-content: space-between;
+}
+
+.tab {
+    width: 5rem;
+    display: flex;
+    justify-content: right;
+}
+
+/*.recipe__item__ingredient__item__symbol {*/
+/*    display: flex;*/
+/*    align-items: center;*/
+/*    justify-content: right;*/
+/*    margin-left: 10px;*/
+/*}*/
+
+/*.recipe__item__ingredients {*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*}*/
+
+/*.recipe__item__recursive {*/
+/*    box-shadow: none;*/
+/*    margin-top: -2px;*/
+/*    margin-left: 8px;*/
+/*}*/
+
+/*.recipe__item__title {*/
+/*    font-size: 25px;*/
+/*    display: flex;*/
+/*    justify-content: space-between;*/
+/*    !*align three dots;*!*/
+/*    !*margin-right: -7px;*!*/
+/*}*/
+
+
+.recipes-ingredients-list {
+    margin-left: 8px;
+    margin-right: 8px;
+    font-family: \"Arial Rounded MT Bold\", sans-serif;
+    font-size: 25px;
+}
+
+.recipes-ingredients-list__item * {
+    line-height: 1.5;
+    color: #003049;
+    text-decoration: none;
+}
+
+.recipes-ingredients-list__item a {
+    border-top: 2px solid lightgrey;
+    margin-top: 2px;
+}
+
+.recipes-ingredients-list__item {
+    background-color: #EAE2B7;
+    margin-top: 8px;
+    padding: 5px;
+    box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
+}
+
+.recipes-ingredients-list__item__title {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: -7px;
+}
+
+.recipes-ingredients-list__item__title__popup {
+    position: absolute;
+    background-color: lightgrey;
+    top: 20px;
+    right: 7px;
+    padding: 5px;
+    box-shadow: 10px 10px 34px 0 rgba(0, 0, 0, 0.75);
+}
+
+.recipe-item__title__popup {
+    position: absolute;
+    background-color: lightgrey;
+    top: 75px;
+    right: 12px;
+    padding: 5px;
+    box-shadow: 10px 10px 34px 0 rgba(0, 0, 0, 0.75);
+    display: flex;
+    align-items: center;
+}
+
+.recipes-ingredients-list__item_length {
+    font-size: large;
+}
+
+.tabs {
+    display: flex;
+    justify-content: space-around;
+    background-color: #F77F00;
+    height: 30px;
+}
+
+.tabs__item {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+    border-top: 3px solid #F77F00;
+    border-bottom: 3px solid #F77F00;
+    font-size: larger;
+}
+
+.tabs__item.--active {
+    border-bottom: 3px solid #003049
+}
+
+.tabs__item:first-child {
+    border-right: 1px solid grey;
+}
+
+.tabs__item:last-child {
+    border-left: 1px solid grey;
+}
+
