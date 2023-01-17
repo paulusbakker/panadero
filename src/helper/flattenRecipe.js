@@ -1,4 +1,3 @@
-import {getRecipeIdFromRecipeName} from './getRecipeIDfromRecipeName'
 import {FlattenedRecipeItem} from '../classes/FlattenedRecipeItem'
 
 export function flattenRecipe(recipe, recipeBook) {
@@ -8,29 +7,29 @@ export function flattenRecipe(recipe, recipeBook) {
         flattenedRecipe.push
         (new FlattenedRecipeItem(
             true,
+            recipe.name,
             depth,
-            getRecipeIdFromRecipeName(recipe.name, recipeBook),
             false,
             false,
             recipePercentage))
 
         recipe.ingredients.forEach(ingredient => {
+            const ingredientName=recipeBook.ingredients.get(ingredient.id).name
             flattenedRecipe.push(new FlattenedRecipeItem(
                 false,
+                ingredientName,
                 depth,
-                ingredient.id,
                 ingredient.isFlour,
                 ingredient.isLiquid,
                 ingredient.percentage,
             ))
-            let stepPercentage = recipePercentage
-             const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(recipeItem =>
-                recipeItem.id === ingredient.id &&
+            const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(recipeItem =>
+                recipeItem.name === ingredientName &&
                 recipeItem.isFlour === ingredient.isFlour &&
                 recipeItem.isLiquid === ingredient.isLiquid &&
                 recipeItem.depth === depth - 1
             )
-            if (parentRecipeItemToBeAltered>=0)  flattenedRecipe[parentRecipeItemToBeAltered].stepPercentage-=ingredient.percentage*recipePercentage
+            if (parentRecipeItemToBeAltered >= 0) flattenedRecipe[parentRecipeItemToBeAltered].stepPercentage -= ingredient.percentage * recipePercentage
 
         })
 

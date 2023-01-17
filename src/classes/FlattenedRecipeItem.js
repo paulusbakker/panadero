@@ -1,8 +1,8 @@
 export class FlattenedRecipeItem {
-    constructor(isRecipe, depth, id, isFlour, isLiquid, percentage) {
+    constructor(isRecipe, name,depth, isFlour, isLiquid, percentage) {
         this.isRecipe = isRecipe
+        this.name=name
         this.depth = depth
-        this.id = id
         this.isFlour = isFlour
         this.isLiquid = isLiquid
         this.percentage = percentage

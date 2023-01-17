@@ -34,7 +34,7 @@ function Recipe() {
     return <>
         <div className="recipe">
             <div
-                className="recipe-title">{recipeBook.recipes.get(flattenedRecipe[0].id).name}<BiDotsVertical
+                className="recipe-title">{flattenedRecipe[0].name}<BiDotsVertical
                 onClick={handleClick}/>
             </div>
             <ul className="recipe-list">
@@ -44,7 +44,7 @@ function Recipe() {
                         <span className="recipe-list__item__left">
                             {recipeItem.isRecipe ? indent(recipeItem.depth - 1) : indent(recipeItem.depth)}
                             {!recipeItem.isRecipe && recipeItem.depth !== 0 && '- '}
-                            {recipeItem.isRecipe ? recipeBook.recipes.get(recipeItem.id).name : recipeBook.ingredients.get(recipeItem.id).name}
+                            {recipeItem.name}
                             </span>
                         <span className="recipe-list__item__right">
                             <Symbol type={recipeItem.isRecipe && 'recipe'}/>
@@ -97,7 +97,7 @@ function Recipe() {
                         <span className="recipe-list__item__left">
                             {recipeItem.isRecipe ? indent(recipeItem.depth - 1) : indent(recipeItem.depth)}
                             {!recipeItem.isRecipe && recipeItem.depth !== 0 && '- '}
-                            {recipeItem.isRecipe ? recipeBook.recipes.get(recipeItem.id).name : recipeBook.ingredients.get(recipeItem.id).name}
+                            {recipeItem.name}
                             </span>
                         <span className="recipe-list__item__right">
                             <Symbol
@@ -108,7 +108,7 @@ function Recipe() {
                                 </> :
                                 <>
                                     <span className="tab"></span>
-                                    <Calculator index={index + 1000} handleWeight={handleWeight}/>
+                                    <Calculator index={-index} handleWeight={handleWeight}/>
                                 </>}
                         </span>
                     </li>)}
@@ -127,14 +127,14 @@ function Recipe() {
                         recipeItem.depth === 0 && <li className="recipe-list__item" key={index}>
                             {!recipeItem.isRecipe && <>
                             <span className="recipe-list__item__left">
-                                {recipeBook.ingredients.get(recipeItem.id).name}
+                                {recipeItem.name}
                             </span>
                                 <span className="recipe-list__item__right">
                                    <span
-                                       className="tab"><Symbol type={'coins'}/>{recipeBook.ingredients.get(recipeItem.id).pricePerKilo.toFixed(2)}/kg
+                                       className="tab"><Symbol type={'coins'}/>{recipeItem.pricePerKilo.toFixed(2)}/kg
                                    </span>
                                    <span
-                                       className="tab"><Symbol type={'coins'}/>{(recipeBook.ingredients.get(recipeItem.id).pricePerKilo / 1000 * recipeItem.weight).toFixed(2)}
+                                       className="tab"><Symbol type={'coins'}/>{(recipeItem.pricePerKilo / 1000 * recipeItem.weight).toFixed(2)}
                                    </span>
 
                             </span>

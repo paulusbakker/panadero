@@ -32,8 +32,8 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         }
         if (ingredient.isLiquid) totalLiquidPercentage += ingredient.percentage
     }
-    let totalFlourWeight
-    let totalRecipePercentage = 0, totalLiquidWeight = 0
+    let totalFlourWeight, totalLiquidWeight
+    let totalRecipePercentage = 0
     switch (index) {
         case 'totalFlour':
             totalFlourWeight = weight
@@ -51,9 +51,11 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         default:
             // add 1 to index because the received index is one number too low because of the sliced off recipe title
             index++
+
+            // if index is negative , it was sent from the dough minus predoughs section
             let minusPredoughs = false
-            if (index > 1000) {
-                index -= 1000
+            if (index < 0) {
+                index =-index
                 minusPredoughs = true
             }
             // first calculate the weight of 100% flour of the recipe where the index is in:
