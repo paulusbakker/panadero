@@ -134,7 +134,7 @@ function Recipe() {
                                        className="tab"><Symbol type={'coins'}/>{recipeItem.pricePerKilo.toFixed(2)}/kg
                                    </span>
                                    <span
-                                       className="tab"><Symbol type={'coins'}/>{(recipeItem.pricePerKilo / 1000 * recipeItem.weight).toFixed(2)}
+                                       className="tab"><Symbol type={'coins'}/>{recipeItem.price.toFixed(2)}
                                    </span>
 
                             </span>
@@ -143,6 +143,13 @@ function Recipe() {
                         </li>)
                     }
                     <hr/>
+                    <li className="recipe-list__item">
+                        <span
+                            className="recipe-list__item__left">Total
+                        </span>
+                        <span className="recipe-list__item__right"><Symbol type={'coins'}/>{flattenedRecipe[0].price.toFixed(2)}
+                        </span>
+                    </li>
                 </ul>
             </>}
         </div>

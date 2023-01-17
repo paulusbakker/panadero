@@ -123,6 +123,16 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
     //     if (recipeItem.isRecipe) return false
     //     recipeItem.pricePerKilo=recipeBook.ingredients.get(recipeItem.id).pricePerKilo
     // })
+    let totalPrice=0
+    flattenedRecipe.slice(1).forEach(recipeItem=> {
+            if (recipeItem.depth===0) {
+                const price=recipeItem.pricePerKilo/1000*recipeItem.weight
+                recipeItem.price=price
+                totalPrice+=price
+            }
+        }
+    )
+    flattenedRecipe[0].price=totalPrice
     return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight]
 }
 

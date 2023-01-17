@@ -11,7 +11,8 @@ export function flattenRecipe(recipe, recipeBook) {
             depth,
             false,
             false,
-            recipePercentage))
+            recipePercentage,
+            0))
 
         recipe.ingredients.forEach(ingredient => {
             const ingredientName=recipeBook.ingredients.get(ingredient.id).name
@@ -22,6 +23,7 @@ export function flattenRecipe(recipe, recipeBook) {
                 ingredient.isFlour,
                 ingredient.isLiquid,
                 ingredient.percentage,
+                recipeBook.ingredients.get(ingredient.id).pricePerKilo
             ))
             const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(recipeItem =>
                 recipeItem.name === ingredientName &&
