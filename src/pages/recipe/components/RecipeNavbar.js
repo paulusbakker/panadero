@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {MdClose} from 'react-icons/md'
-import {FiMenu} from 'react-icons/fi'
-import {BsFillPencilFill} from 'react-icons/bs'
 import {Outlet, Link} from 'react-router-dom'
+import Symbol from '../../../components/Symbol'
 
 function RecipeNavbar() {
     const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false)
@@ -19,14 +18,14 @@ function RecipeNavbar() {
                 {/*<span className="main-nav__recipe-name">Recipe: {location.state.recipe}</span>*/}
                 <ul className="main-nav-right">
                     {!hamburgerMenuOpen && <li>
-                        <BsFillPencilFill className="main-nav__button"/>
+                        <Symbol type={'pencil'} className="main-nav__button"/>
                     </li>}
                     <li>
                         <button className="main-nav__button" onClick={handleToggle}>
                             {hamburgerMenuOpen ? (
                                 <MdClose className="main-nav__button--closed"/>
                             ) : (
-                                <FiMenu className="main-nav__button--open"/>
+                                <Symbol type={'menu'} className="main-nav__button--open"/>
                             )}
                         </button>
                     </li>

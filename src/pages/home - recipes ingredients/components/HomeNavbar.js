@@ -1,9 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react'
 import '../../../styles.css'
-import {MdClose} from 'react-icons/md'
-import {FiMenu} from 'react-icons/fi'
-
 import {Outlet, Link} from 'react-router-dom'
+import Symbol from '../../../components/Symbol'
 
 function HomeNavbar() {
     const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false)
@@ -27,9 +25,9 @@ function HomeNavbar() {
                 <Link className="main-nav__link" onClick={()=>toggleHamburgerMenuOpen(false)} to="/">PANADERO</Link>
                 <button className="main-nav__button" onClick={()=>toggleHamburgerMenuOpen(!hamburgerMenuOpen)}>
                     {hamburgerMenuOpen ? (
-                        <MdClose className="main-nav__button--closed"/>
+                        <Symbol type={'closeMenu'} className="main-nav__button--closed"/>
                     ) : (
-                        <FiMenu className="main-nav__button--open"/>
+                        <Symbol type={'menu'} className="main-nav__button--open"/>
                     )}
                 </button>
                 {hamburgerMenuOpen &&
