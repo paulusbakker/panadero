@@ -3,13 +3,13 @@ import Symbol from '../../../components/Symbol'
 import RecipeListItemLeft from './RecipeListItemLeft'
 import RecipeListItemRight from './RecipeListItemRight'
 
-function RecipeItemTotal({name, isRecipe, isFlour, isLiquid, showAmounts, handleRecipeItemIndex, weight}) {
+function RecipeItemTotal({name, isRecipe, isFlour, isLiquid, totalLiquidPercentage,showAmounts, handleRecipeItemIndex, weight}) {
     const index = name
     return <li className="recipe-list__item"
                onClick={() => {
                    handleRecipeItemIndex(index)
                }}>
-        <RecipeListItemLeft>{name}</RecipeListItemLeft>
+        <RecipeListItemLeft>{name}{isLiquid && `  (${totalLiquidPercentage*100}%)`}</RecipeListItemLeft>
         <RecipeListItemRight>
             <Symbol type={isRecipe && 'recipe'}/>
             <Symbol type={isFlour && 'flour'}/>

@@ -179,12 +179,6 @@ hr {
     justify-content: space-between;
 }
 
-.tab {
-    width: 5rem;
-    display: flex;
-    justify-content: right;
-}
-
 /*.recipe__item__ingredient__item__symbol {*/
 /*    display: flex;*/
 /*    align-items: center;*/
@@ -267,6 +261,12 @@ hr {
 
 .recipes-ingredients-list__item_length {
     font-size: large;
+}
+
+.tab {
+    width: 7pc;
+    display: flex;
+    justify-content: right;
 }
 
 .tabs {

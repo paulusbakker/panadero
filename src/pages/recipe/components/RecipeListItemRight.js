@@ -1,11 +1,9 @@
 import React from 'react'
 
 function RecipeListItemRight({children}) {
-    return (
-        <span className="recipe-list__item__right">
+    return (<span className="recipe-list__item__right">
                             {children}
-             </span>
-    )
+    </span>)
 }
 
 export default RecipeListItemRight

@@ -11,6 +11,7 @@ import EnterAmount from './components/EnterAmount'
 import RecipeItemCenter from './components/RecipeItemCenter'
 import RecipeItemTotal from './components/RecipeItemTotal'
 import RecipeItemCost from './components/RecipeItemCost'
+import {calculateTotalLiquidPercentage} from '../../helper/calculateTotalLiquidPercentage'
 
 function Recipe() {
     const location = useLocation()
@@ -61,26 +62,29 @@ function Recipe() {
                 {/*totals*/}
                 <ul className="recipe-list">
                     <RecipeItemTotal
-                        name={'Total flour'}
+                        name={'total flour'}
                         isRecipe={false}
                         isFlour={true}
                         isLiquid={false}
+                        totalLiquidPercentage={null}
                         showAmounts={showAmounts}
                         handleRecipeItemIndex={handleRecipeItemIndex}
                         weight={totals.totalFlourWeight}/>
                     <RecipeItemTotal
-                        name={'Total liquid'}
+                        name={'total liquid'}
                         isRecipe={false}
-                        isFlour={true}
-                        isLiquid={false}
+                        isFlour={false}
+                        isLiquid={true}
+                        totalLiquidPercentage={calculateTotalLiquidPercentage(flattenedRecipe)}
                         showAmounts={showAmounts}
                         handleRecipeItemIndex={handleRecipeItemIndex}
                         weight={totals.totalLiquidWeight}/>
                     <RecipeItemTotal
-                        name={'Total recipe'}
+                        name={'total recipe'}
                         isRecipe={true}
                         isFlour={false}
                         isLiquid={false}
+                        totalLiquidPercentage={null}
                         showAmounts={showAmounts}
                         handleRecipeItemIndex={handleRecipeItemIndex}
                         weight={flattenedRecipe[0].weight}/>

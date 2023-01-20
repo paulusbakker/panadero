@@ -6,7 +6,7 @@ import RecipeListItemRight from './RecipeListItemRight'
 function RecipeItemCost({recipeItem, totalRecipe}) {
     const {name, isFlour, isLiquid, pricePerKilo, price} = recipeItem
     return <li className="recipe-list__item">
-        <RecipeListItemLeft>{!totalRecipe ? name : 'Total'}</RecipeListItemLeft>
+        <RecipeListItemLeft>{!totalRecipe ? name : 'total'}</RecipeListItemLeft>
         <RecipeListItemRight>
             <Symbol type={isFlour && 'flour'}/>
             <Symbol type={isLiquid && 'isLiquid'}/>

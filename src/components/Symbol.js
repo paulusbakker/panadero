@@ -15,7 +15,7 @@ function Symbol({type}) {
             {type === 'flour' && <GiGrainBundle className="symbol"/>}
             {type === 'isLiquid' && <BsDroplet className="symbol"/>}
             {type === 'recipe' && <BsBook className="symbol"/>}
-            {type === 'money' && <BsCurrencyExchange className="symbol"/>}
+            {type === 'coins' && <BsCurrencyExchange className="symbol"/>}
             {type === 'calculator' && <ImCalculator className="symbol"/>}
             {type === 'menu' && <BiDotsVertical className="symbol"/>}
             {type === 'closeMenu' && <MdClose className="symbol"/>}

@@ -1,5 +1,6 @@
-export function calculateAmounts(flattenedRecipe, weight, index) {
+import {calculateTotalLiquidPercentage} from './calculateTotalLiquidPercentage'
 
+export function calculateAmounts(flattenedRecipe, weight, index) {
     // find parent recipe
     function findParentRecipe(currentIndex) {
         let depth = flattenedRecipe[currentIndex].depth
@@ -22,28 +23,27 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         }
         return totalRecipePercentage
     }
-
     // calculate total percentage of liquids
-    let totalLiquidPercentage = 0
-    for (let currentIndex = 1; currentIndex < flattenedRecipe.length; currentIndex++) {
-        const ingredient = flattenedRecipe[currentIndex]
-        if (ingredient.isRecipe) {
-            break
-        }
-        if (ingredient.isLiquid) totalLiquidPercentage += ingredient.percentage
-    }
+    const totalLiquidPercentage=calculateTotalLiquidPercentage(flattenedRecipe)
+    // for (let currentIndex = 1; currentIndex < flattenedRecipe.length; currentIndex++) {
+    //     const ingredient = flattenedRecipe[currentIndex]
+    //     if (ingredient.isRecipe) {
+    //         break
+    //     }
+    //     if (ingredient.isLiquid) calculateTotalLiquidPercentage += ingredient.percentage
+    // }
     let totalFlourWeight, totalLiquidWeight
     let totalRecipePercentage = 0
     switch (index) {
-        case 'Total flour':
+        case 'total flour':
             totalFlourWeight = weight
             totalLiquidWeight = weight * totalLiquidPercentage
             break
-        case 'Total liquid':
+        case 'total liquid':
             totalFlourWeight = weight / totalLiquidPercentage
             totalLiquidWeight = weight
             break
-        case 'Total recipe':
+        case 'total recipe':
             totalRecipePercentage = calculateRecipePercentage(0)
             totalFlourWeight = weight / totalRecipePercentage
             totalLiquidWeight = totalFlourWeight * totalLiquidPercentage
@@ -106,16 +106,16 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
     }
 
 
-// let totalLiquidPercentage = 0
+// let calculateTotalLiquidPercentage = 0
 // flattenedRecipe.forEach((recipeItem) => {
 //     if (recipeItem.isRecipe) {
 //         return
 //     }
 //     if (recipeItem.isLiquid) {
-//         totalLiquidPercentage += recipeItem.percentage
+//         calculateTotalLiquidPercentage += recipeItem.percentage
 //     }
 // })
-// = totalLiquidPercentage * totalFlourWeightHistory[0]
+// = calculateTotalLiquidPercentage * totalFlourWeightHistory[0]
 // let totalPrice = 0
 // flattenedRecipe.slice(1).every(recipeItem=>{
 //     if (recipeItem.isRecipe) return false
