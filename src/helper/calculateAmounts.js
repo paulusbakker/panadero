@@ -35,15 +35,15 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
     let totalFlourWeight, totalLiquidWeight
     let totalRecipePercentage = 0
     switch (index) {
-        case 'totalFlour':
+        case 'Total flour':
             totalFlourWeight = weight
             totalLiquidWeight = weight * totalLiquidPercentage
             break
-        case 'totalLiquid':
+        case 'Total liquid':
             totalFlourWeight = weight / totalLiquidPercentage
             totalLiquidWeight = weight
             break
-        case 'totalRecipe':
+        case 'Total recipe':
             totalRecipePercentage = calculateRecipePercentage(0)
             totalFlourWeight = weight / totalRecipePercentage
             totalLiquidWeight = totalFlourWeight * totalLiquidPercentage
@@ -131,6 +131,8 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         }
     )
     flattenedRecipe[0].price = totalPrice
+    console.log(flattenedRecipe)
+    flattenedRecipe[0].pricePerKilo=totalPrice/flattenedRecipe[0].weight*1000
     return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight]
 }
 
