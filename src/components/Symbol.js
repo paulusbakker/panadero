@@ -6,6 +6,8 @@ import {MdClose} from 'react-icons/md'
 import {BsFillPencilFill} from 'react-icons/bs'
 import {BiDotsVertical} from 'react-icons/bi'
 import {ImCalculator} from 'react-icons/im'
+import {GiBread} from 'react-icons/gi'
+import {FaBalanceScale} from 'react-icons/fa'
 
 
 
@@ -20,6 +22,8 @@ function Symbol({type}) {
             {type === 'menu' && <BiDotsVertical className="symbol"/>}
             {type === 'closeMenu' && <MdClose className="symbol"/>}
             {type === 'pencil' && <BsFillPencilFill className="symbol"/>}
+            {type === 'bread' && <GiBread className="symbol"/>}
+            {type === 'scale' && <FaBalanceScale className="symbol"/>}
         </>
     )
 }

@@ -28,20 +28,18 @@ function Recipe() {
     }
 
     const handleSubmit = (weight) => {
-        setShowAmounts(true)
         setEnterAmountWindow(false)
+        if (weight=='cancel') return
+        setShowAmounts(true)
+
         const [calculatedRecipe, totalFLourWeight, totalLiquidWeight] = calculateAmounts(flattenedRecipe, weight, index)
         setTotals({totalFlourWeight: totalFLourWeight, totalLiquidWeight: totalLiquidWeight})
         setFlattenedRecipe(calculatedRecipe)
     }
-    // useEffect(() => {
-    //     document.addEventListener('click', handleClick)
-    //     return () =>
-    //         document.removeEventListener('click', handleClick)
-    // },)
+
 
     return <>
-        {enterAmountWindow && <EnterAmount index={index} handleSubmit={handleSubmit}/>}
+        {enterAmountWindow && !showAmounts && <EnterAmount  name={isNaN(index) ? index : flattenedRecipe[Math.abs(index)+1].name} handleSubmit={handleSubmit}/>}
         <div className="recipe">
             <div
                 className="recipe-title">{flattenedRecipe[0].name}<Symbol type={'menu'}/>
@@ -88,6 +86,7 @@ function Recipe() {
                         showAmounts={showAmounts}
                         handleRecipeItemIndex={handleRecipeItemIndex}
                         weight={flattenedRecipe[0].weight}/>
+                    {showAmounts && <button onClick={()=>setShowAmounts(false)}>C</button>}
                 </ul>
 
             </ul>

@@ -38,10 +38,11 @@ hr {
     position: relative;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 10rem;
-    width: 30rem;
+    /*align-items: center;*/
+    /*justify-content: center;*/
+    /*height: 100%;*/
+    /*width: 30rem;*/
+    padding: 1em 1em 1em 1em;
     background: rgba(255, 255, 255, 0.25);
     box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
     backdrop-filter: blur(7px);
@@ -170,8 +171,8 @@ hr {
 }
 
 .symbol {
-    align-items: center;
-    display: flex;
+    /*align-items: center;*/
+    /*display: flex;*/
 }
 
 .recipe__item__ingredient__item {

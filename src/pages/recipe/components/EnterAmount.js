@@ -1,51 +1,77 @@
-import React, {useState} from 'react'
+import React, {useEffect, useRef, useState} from 'react'
+import Symbol from '../../../components/Symbol'
 
-function EnterAmount({handleSubmit}) {
+function EnterAmount({handleSubmit, name}) {
+    const [batchViewMode, toggleBatchViewMode] = useState(true)
     const [weight, setWeight] = useState(0)
+    const [unitCount, setUnitCount] = useState(1)
+    const ref = useRef(false)
 
-    // useEffect(() => {
-    //     if (submit) {
-    //         handleSubmit()
-    //         setSubmit(false)
-    //     }
-    // }, [submit])
+    useEffect(() => {
+        document.addEventListener('click', handleClick)
+        return () =>
+            document.removeEventListener('click', handleClick)
+    },)
 
 
+    const handleClick = (e) => {
 
-    // const handleClick = (e) => {
-    //
-    //     if (ref1.current) {
-    //         if (e.target.className === 'backdrop') {
-    //             setShowCalculatorWindow(false)
-    //         }
-    //         e.stopPropagation()
-    //         e.preventDefault()
-    //     }
-    //     if (ref2.current) {
-    //         if (e.target.className === 'backdrop__popup__submit') {
-    //             setSubmit(true)
-    //
-    //         }
-    //     }
-    // }
+            if (ref.current && e.target.className === 'backdrop') {
+                handleSubmit('cancel')
+            }
+
+    }
     const handleChange = (e) => {
-        setWeight(e.target.value)
+        if (e.target.id === 'batch')
+            setWeight(e.target.value)
+        else
+            setUnitCount(e.target.value)
+        e.stopPropagation()
     }
 
-       return (
+    return (
         <>
-                <div className="backdrop">
-                    <div className="backdrop__popup">
-                        <p className="backdrop__popup__name">Enter amount</p>
-                        <input type="number"
-                               id="input"
-                               aria-label="input"
-                               onChange={handleChange}
-                               value={weight}
-                        />
-                        <button onClick={()=>handleSubmit(weight)} className="backdrop__popup__submit" >Submit</button>
-                    </div>
-                </div>}
+            <div ref={ref} className="backdrop">
+                <div className="backdrop__popup">
+                    <h2 className="backdrop__popup__name">{name.charAt(0).toUpperCase() + name.slice(1)}</h2>
+                    <span>
+                    <label htmlFor="batch">
+                        <input type="radio"
+                               id="batch"
+                               onChange={() => toggleBatchViewMode(true)}
+                               checked={batchViewMode}
+                        />Total Batch
+                    </label>
+                    <label htmlFor="unit">
+                        <input type="radio"
+                               id="unit"
+                               onChange={() => toggleBatchViewMode(false)}
+                               checked={!batchViewMode}
+                        />Per Unit
+                    </label></span>
+                    <span>
+                    <Symbol type={'scale'}/>
+                    <input type="number"
+                           id="batch"
+                           aria-label="input"
+                           onChange={handleChange}
+                           value={weight}
+                    /></span>
+                    {!batchViewMode &&
+                        <span>
+                            <Symbol type={'bread'}/>
+                            <input type="number"
+                                   id="unit"
+                                   aria-label="input"
+                                   onChange={handleChange}
+                                   value={unitCount}
+                            />
+                        </span>}
+                    <span>
+                        <button onClick={()=>handleSubmit('cancel')}>Cancel</button>
+                    <button onClick={() => handleSubmit(weight*unitCount)} className="backdrop__popup__submit">Calculate</button></span>
+                </div>
+            </div>
         </>
     )
 }
