@@ -21,20 +21,20 @@ function App() {
 
 
     return (<BrowserRouter>
-            <Routes>
-                <Route path="/recipebook" element={<RecipeBookNavbar/>}>
-                    <Route index element={<RecipeBook/>}/>
-                </Route>
-                <Route path="/" element={<Navigate replace to="/recipebook"/>}/>
-                <Route path="*" element={<NoPage/>}/>
-                <Route path="/viewrecipe/" element={<RecipeNavbar/>}>
-                    <Route path=":id" element={<Recipe/>}/>
-                </Route>
-                <Route path="/editrecipe/" element={<EditRecipeNavbar/>}>
-                    <Route path=":id" element={<EditRecipe/>}/>
-                </Route>
-            </Routes>
-        </BrowserRouter>)
+        <Routes>
+            <Route path="/recipebook" element={<RecipeBookNavbar/>}>
+                <Route index element={<RecipeBook/>}/>
+            </Route>
+            <Route path="/" element={<Navigate replace to="/recipebook"/>}/>
+            <Route path="*" element={<NoPage/>}/>
+            <Route path="/viewrecipe/" element={<RecipeNavbar/>}>
+                <Route path=":id" element={<Recipe/>}/>
+            </Route>
+            <Route path="/editrecipe/" element={<EditRecipeNavbar/>}>
+                <Route path=":id" element={<EditRecipe/>}/>
+            </Route>
+        </Routes>
+    </BrowserRouter>)
 }
 
 export default App

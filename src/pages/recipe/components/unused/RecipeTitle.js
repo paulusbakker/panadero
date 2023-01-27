@@ -42,8 +42,7 @@ function RecipeTitle({flattenedRecipe, percent, recipeBook}) {
 
     return (<div className={isRootRecipe ? 'recipe__item__title' : 'recipe__item__recursive__title'}>
             <span
-                className={isRootRecipe ?
-                    'recipe__item__title__item' : 'recipe__item__recursive__title__item'}>
+                className={isRootRecipe ? 'recipe__item__title__item' : 'recipe__item__recursive__title__item'}>
                 {isRootRecipe ? recipeName : <Link to="" state={{recipeName: recipeName}}>
                     {recipeName}
                 </Link>}
@@ -59,12 +58,10 @@ function RecipeTitle({flattenedRecipe, percent, recipeBook}) {
 
                 </div>}
 
-            {!isRootRecipe &&
-                <span className="symbol"><BsBook/><span
-                    className="recipe__item__ingredient__item__percentage">{(percent * 100).toFixed(2)}%</span><span
-                    className="recipe__item__ingredient__item__symbol"><ImCalculator/></span></span>}
-        </div>
-    )
+            {!isRootRecipe && <span className="symbol"><BsBook/><span
+                className="recipe__item__ingredient__item__percentage">{(percent * 100).toFixed(2)}%</span><span
+                className="recipe__item__ingredient__item__symbol"><ImCalculator/></span></span>}
+        </div>)
 }
 
 export default RecipeTitle

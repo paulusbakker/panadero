@@ -10,19 +10,16 @@ function IngredientsAccordion({category, recipeBook}) {
         setIsOpen(false)
     }, [recipeBook])
 
-    return (
-        <li className="recipes-ingredients-list__item" onClick={() => setIsOpen(!isOpen)}>
-            <CategoryTitle categoryName={category.categoryName} categoryLength={category.ingredientsInCategory.length} isRecipe={false}/>
+    return (<li className="recipes-ingredients-list__item" onClick={() => setIsOpen(!isOpen)}>
+            <CategoryTitle categoryName={category.categoryName} categoryLength={category.ingredientsInCategory.length}
+                           isRecipe={false}/>
             {isOpen &&
                 <ul className="recipes-ingredients-list__item__list">{category.ingredientsInCategory.map((ingredient, index) =>
                     <Link key={index} to="/ingredient" state={{recipe: ingredient}}>
                         <li className="recipes-ingredients-list__item__list__item" key={index}>{ingredient}</li>
-                    </Link>
-                )}</ul>
-            }
+                    </Link>)}</ul>}
 
-        </li>
-    )
+        </li>)
 }
 
 export default IngredientsAccordion
