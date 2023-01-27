@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import {Link} from 'react-router-dom'
 import CategoryTitle from './CategoryTitle'
+import {slugify} from '../../../helper/slugify'
 
 function RecipesAccordion({category, recipeBook}) {
     const [isOpen, setIsOpen] = useState(false)
@@ -16,7 +17,7 @@ function RecipesAccordion({category, recipeBook}) {
                            isRecipe={true}/>
             {isOpen &&
                 <ul className="recipes-ingredients-list__item__list">{category.recipesInCategory.map((recipeName, index) =>
-                    <Link key={index} to="recipe" state={{recipeName: recipeName}}>
+                    <Link key={index} to={`/viewrecipe/${slugify(recipeName)}`}  state={{recipeName: recipeName}}>
                         <li className="recipes-ingredients-list__item__list__item" key={index}>{recipeName}</li>
                     </Link>
                 )}</ul>

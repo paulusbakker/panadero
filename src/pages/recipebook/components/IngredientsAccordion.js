@@ -15,7 +15,7 @@ function IngredientsAccordion({category, recipeBook}) {
             <CategoryTitle categoryName={category.categoryName} categoryLength={category.ingredientsInCategory.length} isRecipe={false}/>
             {isOpen &&
                 <ul className="recipes-ingredients-list__item__list">{category.ingredientsInCategory.map((ingredient, index) =>
-                    <Link key={index} to="ingredient" state={{recipe: ingredient}}>
+                    <Link key={index} to="/ingredient" state={{recipe: ingredient}}>
                         <li className="recipes-ingredients-list__item__list__item" key={index}>{ingredient}</li>
                     </Link>
                 )}</ul>

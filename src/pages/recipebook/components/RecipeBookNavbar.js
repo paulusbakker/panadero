@@ -3,7 +3,7 @@ import '../../../styles.css'
 import {Outlet, Link} from 'react-router-dom'
 import Symbol from '../../../components/Symbol'
 
-function HomeNavbar() {
+function RecipeBookNavbar() {
     const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false)
 
     const ref = useRef(null)
@@ -22,7 +22,7 @@ function HomeNavbar() {
     return (
         <>
             <nav className="main-nav">
-                <Link className="main-nav__link" onClick={()=>toggleHamburgerMenuOpen(false)} to="/">PANADERO</Link>
+                <Link className="main-nav__link" onClick={()=>toggleHamburgerMenuOpen(false)} to="/recipebook">PANADERO</Link>
                 <button className="main-nav__button" onClick={()=>toggleHamburgerMenuOpen(!hamburgerMenuOpen)}>
                     {hamburgerMenuOpen ? (
                         <Symbol type={'closeMenu'} className="main-nav__button--closed"/>
@@ -54,4 +54,4 @@ function HomeNavbar() {
     )
 }
 
-export default HomeNavbar
+export default RecipeBookNavbar

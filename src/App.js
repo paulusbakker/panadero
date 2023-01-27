@@ -1,45 +1,40 @@
 import './styles.css'
-import {BrowserRouter, Route, Routes} from 'react-router-dom'
-import HomeNavbar from './pages/home - recipes ingredients/components/HomeNavbar'
-import RecipeBook from './pages/home - recipes ingredients/RecipeBook'
+import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
+import RecipeBookNavbar from './pages/recipebook/components/RecipeBookNavbar'
+import RecipeBook from './pages/recipebook/RecipeBook'
 import NoPage from './pages/NoPage'
-import AddRecipe from './pages/AddRecipe'
-import AddIngredient from './pages/AddIngredient'
-import AddRecipeCategory from './pages/AddRecipeCategory'
-import AddIngredientCategory from './pages/AddIngredientCategory'
+import EditRecipe from './pages/editRecipe/EditRecipe'
 import {recipeBookAtom} from './atom/recipeBookAtom'
 import {useRecoilState} from 'recoil'
 import {makeRecipeBook} from './helper/makeRecipeBook'
 import React, {useEffect} from 'react'
 import Recipe from './pages/recipe/Recipe.js'
 import RecipeNavbar from './pages/recipe/components/RecipeNavbar.js'
+import EditRecipeNavbar from './pages/editRecipe/EditRecipeNavbar'
 
 function App() {
 
     const [, setRecipeBook] = useRecoilState(recipeBookAtom)
     useEffect(() => {
-            setRecipeBook(makeRecipeBook())
-        },
-        [])
+        setRecipeBook(makeRecipeBook())
+    }, [])
 
-    return (
-        <BrowserRouter>
+
+    return (<BrowserRouter>
             <Routes>
-                <Route path="/" element={(<HomeNavbar/>)}>
+                <Route path="/recipebook" element={<RecipeBookNavbar/>}>
                     <Route index element={<RecipeBook/>}/>
-                    {/*<Route path="add_recipe" element={<AddRecipe/>}/>*/}
-                    {/*<Route path="recipe" element={<Recipe/>}/>*/}
-                    {/*<Route path="add_ingredient" element={<AddIngredient/>}/>*/}
-                    {/*<Route path="add_recipe_category" element={<AddRecipeCategory/>}/>*/}
-                    {/*<Route path="add_ingredient_category" element={<AddIngredientCategory/>}/>*/}
-                    <Route path="*" element={<NoPage/>}/>
                 </Route>
-                <Route path="/recipe" element={(<RecipeNavbar/>)}>
-                    <Route index element={<Recipe/>}/>
+                <Route path="/" element={<Navigate replace to="/recipebook"/>}/>
+                <Route path="*" element={<NoPage/>}/>
+                <Route path="/viewrecipe/" element={<RecipeNavbar/>}>
+                    <Route path=":id" element={<Recipe/>}/>
+                </Route>
+                <Route path="/editrecipe/" element={<EditRecipeNavbar/>}>
+                    <Route path=":id" element={<EditRecipe/>}/>
                 </Route>
             </Routes>
-        </BrowserRouter>
-    )
+        </BrowserRouter>)
 }
 
 export default App
