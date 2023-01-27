@@ -156,6 +156,7 @@ export function makeRecipeBook() {
     ingredients.set(106, new Ingredient('Clearjel', 5, 0, 0))
     ingredients.set(107, new Ingredient('Cream of Tartar', 5, 2.58, 0))
     ingredients.set(108, new Ingredient('Xanthan Gum', 5, 0, 0))
+
     ingredients.set(109, new Ingredient('Water', 4, 0, 0))
     ingredients.set(110, new Ingredient('Beer (Lager)', 4, 0, 0))
     ingredients.set(111, new Ingredient('Beer (Ale)', 4, 0, 0))
@@ -231,8 +232,13 @@ export function makeRecipeBook() {
     ingredients.set(181, new Ingredient('Tarwemeel De Vriendschap', 1, 3.7, 0.816))
     ingredients.set(182, new Ingredient('Roggemeel De Vriendschap', 1, 3.7, 0.816))
     ingredients.set(183, new Ingredient('Boekweitmeel De Vriendschap', 1, 3.7, 1.92))
-    ingredients.set(184, new Ingredient('Zonnebloemolie Dirk', 1, 3.7, 2.79))
-    ingredients.set(185, new Ingredient('Bakkerszout De Vriendschap', 1, 3.7, 0.96))
+    ingredients.set(184, new Ingredient('Zonnebloemolie Dirk', 8, 3.7, 2.79))
+    ingredients.set(185, new Ingredient('Bakkerszout De Vriendschap', 6, 3.7, 0.96))
+    ingredients.set(186, new Ingredient('Harina integral de centeno Jumbo', 1, 3.7, 1899))
+    ingredients.set(187, new Ingredient('Harina integral de trigo  Jumbo', 1, 3.7, 2299))
+    ingredients.set(188, new Ingredient('Aceite Vegetal Lider', 8, 3.7, 2290))
+    ingredients.set(189, new Ingredient('Sal Fina Seleccionada Lider', 6, 3.7, 350))
+    ingredients.set(190, new Ingredient('Agua', 4, 0, 0))
 
     let recipeIngredients = []
     let includedRecipes = []
@@ -305,6 +311,31 @@ export function makeRecipeBook() {
     recipeIngredients.push(new RecipeIngredient(true, false, 182, 1))
     recipeIngredients.push(new RecipeIngredient(false, true, 109, 1))
     recipes.set(9, new Recipe('Zuurdesem starter', 3, recipeIngredients, includedRecipes))
+
+    recipeIngredients = []
+    includedRecipes = []
+    recipeIngredients.push(new RecipeIngredient(true, false, 186, 1))
+    recipeIngredients.push(new RecipeIngredient(false, true, 190, 1))
+    recipes.set(10, new Recipe('Masa madre', 3, recipeIngredients, includedRecipes))
+
+    recipeIngredients = []
+    includedRecipes = []
+    recipeIngredients.push(new RecipeIngredient(true, false, 186, .1))
+    recipeIngredients.push(new RecipeIngredient(true, false, 187, .9))
+    recipeIngredients.push(new RecipeIngredient(false, true, 190, 1))
+    includedRecipes.push(new IncludedRecipe(10, .10))
+    recipes.set(11, new Recipe('Masa previa', 3, recipeIngredients, includedRecipes))
+
+    recipeIngredients = []
+    includedRecipes = []
+    recipeIngredients.push(new RecipeIngredient(true, false, 187, .975))
+    recipeIngredients.push(new RecipeIngredient(true, false, 186, .025))
+    recipeIngredients.push(new RecipeIngredient(false, true, 190, .75))
+    recipeIngredients.push(new RecipeIngredient(false, true, 188, .05))
+    recipeIngredients.push(new RecipeIngredient(false, false, 189, .018))
+
+    includedRecipes.push(new IncludedRecipe(11, .25))
+    recipes.set(12, new Recipe('Pan Karen', 2, recipeIngredients, includedRecipes))
 
     return new RecipeBook('Recipe book', recipeCategories, ingredientCategories, ingredients, recipes)
 }

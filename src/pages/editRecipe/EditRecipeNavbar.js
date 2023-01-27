@@ -19,7 +19,7 @@ function EditRecipeNavbar() {
             <span className="main-nav__recipe-name">Recipe: {location.state.recipeName}</span>
             <ul className="main-nav-right">
                 {!hamburgerMenuOpen && <li>
-                    <Link to="/editRecipe" state={location.state.recipeName}>
+                    <Link to="/edit-recipe" state={location.state.recipeName}>
                         <Symbol type={'pencil'} className="main-nav__button"/>
                     </Link>
                 </li>}

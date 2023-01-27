@@ -10,8 +10,7 @@ function RecipeBookNavbar() {
 
     useEffect(() => {
         document.addEventListener('click', handleClickOnContent, true)
-        return () =>
-            document.removeEventListener('click', handleClickOnContent, true)
+        return () => document.removeEventListener('click', handleClickOnContent, true)
     }, [])
 
     const handleClickOnContent = () => {
@@ -19,39 +18,34 @@ function RecipeBookNavbar() {
 
     }
 
-    return (
-        <>
-            <nav className="main-nav">
-                <Link className="main-nav__link" onClick={()=>toggleHamburgerMenuOpen(false)} to="/recipebook">PANADERO</Link>
-                <button className="main-nav__button" onClick={()=>toggleHamburgerMenuOpen(!hamburgerMenuOpen)}>
-                    {hamburgerMenuOpen ? (
-                        <Symbol type={'closeMenu'} className="main-nav__button--closed"/>
-                    ) : (
-                        <Symbol type={'menu'} className="main-nav__button--open"/>
-                    )}
-                </button>
-                {hamburgerMenuOpen &&
-                    <ul className="main-nav__list">
-                        <li className="main-nav__item">
-                            ADD RECIPE
-                        </li>
-                        <li className="main-nav__item">
-                            ADD INGREDIENT
-                        </li>
-                        <li className="main-nav__item">
-                            ADD RECIPE CATEGORY
-                        </li>
-                        <li className="main-nav__item">
-                            ADD INGREDIENT
-                        </li>
-                    </ul>}
+    return (<>
+        <nav className="main-nav">
+            <Link className="main-nav__link" onClick={() => toggleHamburgerMenuOpen(false)}
+                  to="/recipebook">PANADERO</Link>
+            <button className="main-nav__button" onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}>
+                {hamburgerMenuOpen ? (<Symbol type={'closeMenu'} className="main-nav__button--closed"/>) : (
+                    <Symbol type={'menu'} className="main-nav__button--open"/>)}
+            </button>
+            {hamburgerMenuOpen && <ul className="main-nav__list">
+                <li className="main-nav__item">
+                    ADD RECIPE
+                </li>
+                <li className="main-nav__item">
+                    ADD INGREDIENT
+                </li>
+                <li className="main-nav__item">
+                    ADD RECIPE CATEGORY
+                </li>
+                <li className="main-nav__item">
+                    ADD INGREDIENT
+                </li>
+            </ul>}
 
-            </nav>
-            <div ref={ref}>
-                <Outlet/>
-            </div>
-        </>
-    )
+        </nav>
+        <div ref={ref}>
+            <Outlet/>
+        </div>
+    </>)
 }
 
 export default RecipeBookNavbar

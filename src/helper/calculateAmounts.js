@@ -1,6 +1,8 @@
 import {calculateTotalLiquidPercentage} from './calculateTotalLiquidPercentage'
 
 export function calculateAmounts(flattenedRecipe, weight, index) {
+    console.log(index)
+
     // find parent recipe
     function findParentRecipe(currentIndex) {
         let depth = flattenedRecipe[currentIndex].depth
@@ -23,8 +25,9 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         }
         return totalRecipePercentage
     }
+
     // calculate total percentage of liquids
-    const totalLiquidPercentage=calculateTotalLiquidPercentage(flattenedRecipe)
+    const totalLiquidPercentage = calculateTotalLiquidPercentage(flattenedRecipe)
     // for (let currentIndex = 1; currentIndex < flattenedRecipe.length; currentIndex++) {
     //     const ingredient = flattenedRecipe[currentIndex]
     //     if (ingredient.isRecipe) {
@@ -51,7 +54,8 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
         default:
             // if index is negative , it was sent from the dough minus predoughs section
             let minusPredoughs = false
-            if (index < 0) {
+            // Object.is(index, -0) needed to detect the index=-0 in case of first minus predough item
+            if (index < 0 || Object.is(index, -0)) {
                 index = -index
                 minusPredoughs = true
             }
@@ -60,8 +64,7 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
             index++
             // first calculate the weight of 100% flour of the recipe where the index is in:
             if (!flattenedRecipe[index].isRecipe) {
-                !minusPredoughs ?
-                    totalFlourWeight = weight / flattenedRecipe[index].percentage : totalFlourWeight = weight / flattenedRecipe[index].stepPercentage
+                !minusPredoughs ? totalFlourWeight = weight / flattenedRecipe[index].percentage : totalFlourWeight = weight / flattenedRecipe[index].stepPercentage
                 // go up until index at a recipe:
                 while (!flattenedRecipe[index].isRecipe) {
                     index--
@@ -86,20 +89,18 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
     let currentDepth = -1
     for (const [index, recipeItem] of flattenedRecipe.entries()) {
         const {isRecipe, depth, percentage, stepPercentage} = recipeItem
-        if (isRecipe)
-            if (depth > currentDepth) {
-                totalFlourWeight = totalFlourWeight * percentage
-                totalRecipePercentage = calculateRecipePercentage(index)
-                recipeItem.weight = recipeItem.stepWeight = totalFlourWeight * totalRecipePercentage
-                totalFlourWeightHistory.push(totalFlourWeight)
-                currentDepth++
-            } else {
-                while (depth < currentDepth) {
-                    totalFlourWeightHistory.pop()
-                    currentDepth--
-                }
+        if (isRecipe) if (depth > currentDepth) {
+            totalFlourWeight = totalFlourWeight * percentage
+            totalRecipePercentage = calculateRecipePercentage(index)
+            recipeItem.weight = recipeItem.stepWeight = totalFlourWeight * totalRecipePercentage
+            totalFlourWeightHistory.push(totalFlourWeight)
+            currentDepth++
+        } else {
+            while (depth < currentDepth) {
+                totalFlourWeightHistory.pop()
+                currentDepth--
             }
-        else {
+        } else {
             recipeItem.weight = percentage * totalFlourWeight
             recipeItem.stepWeight = stepPercentage * totalFlourWeight
         }
@@ -123,16 +124,15 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
 // })
     let totalPrice = 0
     flattenedRecipe.slice(1).forEach(recipeItem => {
-            if (recipeItem.depth === 0) {
-                const price = recipeItem.pricePerKilo / 1000 * recipeItem.weight
-                recipeItem.price = price
-                totalPrice += price
-            }
+        if (recipeItem.depth === 0) {
+            const price = recipeItem.pricePerKilo / 1000 * recipeItem.weight
+            recipeItem.price = price
+            totalPrice += price
         }
-    )
+    })
     flattenedRecipe[0].price = totalPrice
     console.log(flattenedRecipe)
-    flattenedRecipe[0].pricePerKilo=totalPrice/flattenedRecipe[0].weight*1000
+    flattenedRecipe[0].pricePerKilo = totalPrice / flattenedRecipe[0].weight * 1000
     return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight]
 }
 
