@@ -8,8 +8,8 @@ import {BiDotsVertical} from 'react-icons/bi'
 import {ImCalculator} from 'react-icons/im'
 import {GiBread} from 'react-icons/gi'
 import {FaBalanceScale} from 'react-icons/fa'
-
-
+import {MdDelete} from 'react-icons/md'
+import {BsPlusLg} from 'react-icons/bs'
 
 function Symbol({type}) {
     return (
@@ -24,6 +24,8 @@ function Symbol({type}) {
             {type === 'pencil' && <BsFillPencilFill className="symbol"/>}
             {type === 'bread' && <GiBread className="symbol"/>}
             {type === 'scale' && <FaBalanceScale className="symbol"/>}
+            {type === 'delete' && <MdDelete className="symbol"/>}
+            {type === 'add' && <BsPlusLg className="symbol"/>}
         </>
     )
 }

@@ -3,14 +3,13 @@ import {BrowserRouter, Navigate, Route, Routes} from 'react-router-dom'
 import RecipeBookNavbar from './pages/recipebook/components/RecipeBookNavbar'
 import RecipeBook from './pages/recipebook/RecipeBook'
 import NoPage from './pages/NoPage'
-import EditRecipe from './pages/editRecipe/EditRecipe'
 import {recipeBookAtom} from './atom/recipeBookAtom'
 import {useRecoilState} from 'recoil'
 import {makeRecipeBook} from './helper/makeRecipeBook'
 import React, {useEffect} from 'react'
 import Recipe from './pages/recipe/Recipe.js'
 import RecipeNavbar from './pages/recipe/components/RecipeNavbar.js'
-import EditRecipeNavbar from './pages/editRecipe/EditRecipeNavbar'
+import RecipeNavbar from './pages/editRecipe/RecipeNavbar'
 
 function App() {
 
@@ -30,8 +29,7 @@ function App() {
             <Route path="/view-recipe/" element={<RecipeNavbar/>}>
                 <Route path=":id" element={<Recipe/>}/>
             </Route>
-            <Route path="/edit-recipe/" element={<EditRecipeNavbar/>}>
-                <Route path=":id" element={<EditRecipe/>}/>
+            <Route path="/edit-recipe/:id" element={<RecipeNavbar/>}>
             </Route>
         </Routes>
     </BrowserRouter>)
