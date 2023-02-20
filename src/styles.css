@@ -76,6 +76,11 @@ hr {
     padding-right: 5px;
 }
 
+.main-nav__recipe-left {
+    display: flex;
+    align-items: center;
+}
+
 .main-nav-right {
     display: flex;
     justify-content: center;

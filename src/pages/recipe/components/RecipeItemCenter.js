@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react";
 
-function RecipeItemCenter({children}) {
-    return (<li className="recipe-list__item">
-        <span
-            className="recipe-list__item__center">{children}
-        </span>
-    </li>)
+function RecipeItemCenter({ children }) {
+  return (
+    <li className="recipe-list__item">
+      <span className="recipe-list__item__center">{children}</span>
+    </li>
+  );
 }
 
-export default RecipeItemCenter
+export default RecipeItemCenter;

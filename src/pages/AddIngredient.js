@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function AddIngredient(props) {
-    return (
-        <div>Add Ingredient</div>
-    )
+  return <div>Add Ingredient</div>;
 }
 
-export default AddIngredient
+export default AddIngredient;

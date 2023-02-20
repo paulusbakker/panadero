@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 function NoPage(props) {
-    return (
-        <div>not found</div>
-    )
+  return <div>not found</div>;
 }
 
-export default NoPage
+export default NoPage;
