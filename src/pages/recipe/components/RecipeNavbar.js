@@ -5,9 +5,10 @@ import Symbol from "../../../components/Symbol";
 import { urlify } from "../../../helper/urlify";
 
 function RecipeNavbar() {
-  const {
-    state: { recipeName },
-  } = useLocation();
+  const { state } = useLocation();
+
+  const recipeName = state ? state.recipeName || "" : "";
+
   const [hamburgerMenuOpen, setHamburgerMenuOpen] = useState(false);
   const handleToggle = () => {
     setHamburgerMenuOpen(!hamburgerMenuOpen);
@@ -78,4 +79,4 @@ function RecipeNavbar() {
   );
 }
 
-export default RecipeNavbar
+export default RecipeNavbar;

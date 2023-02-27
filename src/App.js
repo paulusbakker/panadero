@@ -25,10 +25,10 @@ function App() {
         </Route>
         <Route path="/" element={<Navigate replace to="/recipebook" />} />
         <Route path="*" element={<NoPage />} />
-        <Route path="/view-recipe/" element={<RecipeNavbar />}>
+        <Route path="/" element={<RecipeNavbar />}>
           <Route path=":id" element={<Recipe />} />
         </Route>
-        <Route path="/edit-recipe/:id" element={<EditRecipe />}></Route>
+        {/*<Route path="/edit-recipe/:id" element={<EditRecipe />}></Route>*/}
       </Routes>
     </BrowserRouter>
   );

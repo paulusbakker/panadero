@@ -26,7 +26,7 @@ function RecipesAccordion({ category, recipeBook }) {
           {category.recipesInCategory.map((recipeName, index) => (
             <Link
               key={index}
-              to={`/view-recipe/${urlify(recipeName)}`}
+              to={`/${urlify(recipeName)}`}
               state={{ recipeName: recipeName }}
             >
               <li

@@ -1,7 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import Symbol from "../../../components/Symbol";
+import { ACTIONS } from "../Recipe";
 
-function EnterAmount({ handleSubmit, name }) {
+function EnterAmount({ name, dispatch }) {
   const [batchViewMode, toggleBatchViewMode] = useState(true);
   const [weight, setWeight] = useState(0);
   const [unitCount, setUnitCount] = useState(1);
@@ -14,7 +15,7 @@ function EnterAmount({ handleSubmit, name }) {
 
   const handleClick = (e) => {
     if (ref.current && e.target.className === "backdrop") {
-      handleSubmit("cancel");
+      dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT });
     }
   };
   const handleChange = (e) => {
@@ -71,9 +72,20 @@ function EnterAmount({ handleSubmit, name }) {
             </span>
           )}
           <span>
-            <button onClick={() => handleSubmit("cancel")}>Cancel</button>
             <button
-              onClick={() => handleSubmit(weight * unitCount)}
+              onClick={() =>
+                dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
+              }
+            >
+              Cancel
+            </button>
+            <button
+              onClick={() =>
+                dispatch({
+                  type: ACTIONS.HANDLE_SUBMIT,
+                  payload: { weight: weight * unitCount },
+                })
+              }
               className="backdrop__popup__submit"
             >
               Calculate
@@ -85,4 +97,4 @@ function EnterAmount({ handleSubmit, name }) {
   );
 }
 
-export default EnterAmount
+export default EnterAmount;

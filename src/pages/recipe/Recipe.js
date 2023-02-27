@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { useLocation } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
@@ -13,64 +13,91 @@ import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalLiquidPercentage } from "../../helper/calculateTotalLiquidPercentage";
 
+export const ACTIONS = {
+  CALCULATE_AMOUNTS: "calculate_amounts",
+  HANDLE_SUBMIT: "handle_submit",
+  HANDLE_RECIPE_INDEX: "handle_Recipe_item_index",
+  CANCEL_CALCULATE_AMOUNT: "cancel_calculate_amount",
+};
+export const VIEWMODE = {
+  VIEW_RECIPE: "view_recipe",
+  VIEW_AMOUNTS: "view_amounts",
+  ENTER_AMOUNTS: "enter_amounts",
+};
+const reducer = (recipeState, action) => {
+  switch (action.type) {
+    case ACTIONS.HANDLE_SUBMIT:
+      if (action.payload.weight === 0) return recipeState;
+      const [calculatedRecipe, totalFLourWeight, totalLiquidWeight] =
+        calculateAmounts(
+          recipeState.recipe,
+          action.payload.weight,
+          recipeState.index
+        );
+      return {
+        ...recipeState,
+        recipe: calculatedRecipe,
+        totalFlourWeight: totalFLourWeight,
+        totalLiquidWeight: totalLiquidWeight,
+        viewMode: VIEWMODE.VIEW_AMOUNTS,
+      };
+    case ACTIONS.HANDLE_RECIPE_INDEX:
+      return {
+        ...recipeState,
+        viewMode: VIEWMODE.ENTER_AMOUNTS,
+        index: action.payload.index,
+      };
+    case ACTIONS.CANCEL_CALCULATE_AMOUNT:
+      return { ...recipeState, viewMode: VIEWMODE.VIEW_RECIPE };
+    default:
+      return recipeState;
+  }
+};
+
 function Recipe() {
   const location = useLocation();
   const recipeName = location.state.recipeName;
   const recipeBook = useRecoilValue(recipeBookAtom);
-  const [index, setIndex] = useState();
-  const [flattenedRecipe, setFlattenedRecipe] = useState(
-    flattenRecipe(getRecipeFromRecipeName(recipeName, recipeBook), recipeBook)
-  );
-  const [totals, setTotals] = useState({
+  const initalState = {
+    recipe: flattenRecipe(
+      getRecipeFromRecipeName(recipeName, recipeBook),
+      recipeBook
+    ),
+    index: null,
+    currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
-  });
-  const [showAmounts, setShowAmounts] = useState(false);
-  const [enterAmountWindow, setEnterAmountWindow] = useState(false);
-  const handleRecipeItemIndex = (index) => {
-    setEnterAmountWindow(true);
-    setIndex(index);
+    viewMode: VIEWMODE.VIEW_RECIPE,
   };
-
-  const handleSubmit = (weight) => {
-    setEnterAmountWindow(false);
-    if (weight === "cancel") return;
-    setShowAmounts(true);
-
-    const [calculatedRecipe, totalFLourWeight, totalLiquidWeight] =
-      calculateAmounts(flattenedRecipe, weight, index);
-    setTotals({
-      totalFlourWeight: totalFLourWeight,
-      totalLiquidWeight: totalLiquidWeight,
-    });
-    setFlattenedRecipe(calculatedRecipe);
-  };
+  const [recipeState, dispatch] = useReducer(reducer, initalState);
 
   return (
     <>
-      {enterAmountWindow && !showAmounts && (
+      {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
         <EnterAmount
           name={
-            isNaN(index) ? index : flattenedRecipe[Math.abs(index) + 1].name
+            isNaN(recipeState.index) // index might be filled with for example 'Total flour'
+              ? recipeState.index
+              : recipeState.recipe[Math.abs(recipeState.index) + 1].name
           }
-          handleSubmit={handleSubmit}
+          dispatch={dispatch}
         />
       )}
       <div className="recipe">
         <div className="recipe-title">
-          {flattenedRecipe[0].name}
+          {recipeState.recipe[0].name}
           <Symbol type={"menu"} />
         </div>
         <ul className="recipe-list">
           {/*delete first element with slice because recipe title already printed*/}
-          {flattenedRecipe.slice(1).map((recipeItem, index) => (
+          {recipeState.recipe.slice(1).map((recipeItem, index) => (
             <RecipeItem
               key={`recipe-item-${index}`}
               recipeItem={recipeItem}
               index={index}
               showInclusive={true}
-              showAmounts={showAmounts}
-              handleRecipeItemIndex={handleRecipeItemIndex}
+              viewMode={recipeState.viewMode}
+              dispatch={dispatch}
             />
           ))}
           <hr />
@@ -82,9 +109,9 @@ function Recipe() {
               isFlour={true}
               isLiquid={false}
               totalLiquidPercentage={null}
-              showAmounts={showAmounts}
-              handleRecipeItemIndex={handleRecipeItemIndex}
-              weight={totals.totalFlourWeight}
+              viewMode={recipeState.viewMode}
+              dispatch={dispatch}
+              weight={recipeState.totalFlourWeight}
             />
             <RecipeItemTotal
               name={"total liquid"}
@@ -92,11 +119,11 @@ function Recipe() {
               isFlour={false}
               isLiquid={true}
               totalLiquidPercentage={calculateTotalLiquidPercentage(
-                flattenedRecipe
+                recipeState.recipe
               )}
-              showAmounts={showAmounts}
-              handleRecipeItemIndex={handleRecipeItemIndex}
-              weight={totals.totalLiquidWeight}
+              viewMode={recipeState.viewMode}
+              dispatch={dispatch}
+              weight={recipeState.totalLiquidWeight}
             />
             <RecipeItemTotal
               name={"total recipe"}
@@ -104,31 +131,37 @@ function Recipe() {
               isFlour={false}
               isLiquid={false}
               totalLiquidPercentage={null}
-              showAmounts={showAmounts}
-              handleRecipeItemIndex={handleRecipeItemIndex}
-              weight={flattenedRecipe[0].weight}
+              viewMode={recipeState.viewMode}
+              dispatch={dispatch}
+              weight={recipeState.recipe[0].weight}
             />
-            {showAmounts && (
-              <button onClick={() => setShowAmounts(false)}>C</button>
+            {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
+              <button
+                onClick={() =>
+                  dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
+                }
+              >
+                C
+              </button>
             )}
           </ul>
         </ul>
       </div>
 
       {/*Ingredients minus predoughs*/}
-      {flattenedRecipe.some((recipeItem) => recipeItem.depth !== 0) && (
+      {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
         <div className="recipe">
           <ul className="recipe-list">
             <RecipeItemCenter>Ingredients minus predoughs</RecipeItemCenter>
-            {flattenedRecipe.slice(1).map((recipeItem, index) => {
+            {recipeState.recipe.slice(1).map((recipeItem, index) => {
               return (
                 <RecipeItem
                   key={`recipe-item-${index}`}
                   recipeItem={recipeItem}
                   index={-index}
                   showInclusive={false}
-                  showAmounts={showAmounts}
-                  handleRecipeItemIndex={handleRecipeItemIndex}
+                  viewMode={recipeState.viewMode}
+                  dispatch={dispatch}
                 />
               );
             })}
@@ -136,11 +169,11 @@ function Recipe() {
         </div>
       )}
       {/*costs*/}
-      {showAmounts && (
+      {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
         <div className="recipe">
           <ul className="recipe-list">
             <RecipeItemCenter>Costs</RecipeItemCenter>
-            {flattenedRecipe
+            {recipeState.recipe
               .slice(1)
               .map(
                 (recipeItem, index) =>
@@ -154,7 +187,7 @@ function Recipe() {
               )}
             <hr />
             <RecipeItemCost
-              recipeItem={flattenedRecipe[0]}
+              recipeItem={recipeState.recipe[0]}
               totalRecipe={true}
             />
           </ul>
@@ -164,4 +197,4 @@ function Recipe() {
   );
 }
 
-export default Recipe
+export default Recipe;

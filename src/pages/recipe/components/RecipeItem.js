@@ -2,13 +2,14 @@ import React from "react";
 import Symbol from "../../../components/Symbol";
 import Indent from "./Indent";
 import RecipeListItemLeft from "./RecipeListItemLeft";
+import {ACTIONS, VIEWMODE} from '../Recipe'
 
 function RecipeItem({
   recipeItem,
   index,
   showInclusive,
-  showAmounts,
-  handleRecipeItemIndex,
+  viewMode,
+  dispatch,
 }) {
   const {
     isRecipe,
@@ -20,11 +21,12 @@ function RecipeItem({
     percentage,
     stepWeight,
   } = recipeItem;
+
   return (
     <li
       className="recipe-list__item"
       onClick={() => {
-        handleRecipeItemIndex(index);
+        dispatch({type: ACTIONS.HANDLE_RECIPE_INDEX, payload: { index: index}});
       }}
     >
       <RecipeListItemLeft>
@@ -36,7 +38,7 @@ function RecipeItem({
         <Symbol type={isRecipe && "recipe"} />
         <Symbol type={isFlour && "flour"} />
         <Symbol type={isLiquid && "isLiquid"} />
-        {showAmounts ? (
+        {viewMode===VIEWMODE.VIEW_AMOUNTS ? (
           <>
             <span className="tab">{`${(showInclusive
               ? weight
@@ -58,4 +60,4 @@ function RecipeItem({
   );
 }
 
-export default RecipeItem
+export default RecipeItem;
