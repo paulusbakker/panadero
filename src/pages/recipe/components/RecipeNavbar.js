@@ -22,7 +22,7 @@ function RecipeNavbar() {
         <Link
           className="main-nav__link"
           onClick={() => closeMenu()}
-          to="/recipebook"
+          to="/recipes"
         >
           PANADERO
         </Link>

@@ -7,6 +7,3 @@ export class Ingredient {
     this.pricePerKilo = pricePerKilo;
   }
 }
-
-
-

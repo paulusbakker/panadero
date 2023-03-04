@@ -21,6 +21,3 @@ export class FlattenedRecipeItem {
     this.price = 0;
   }
 }
-
-
-

@@ -13,5 +13,3 @@ export class RecipeBook {
     this.ingredientCategories = ingredientCategories;
   }
 }
-
-

@@ -294,6 +294,7 @@ hr {
     border-top: 3px solid #F77F00;
     border-bottom: 3px solid #F77F00;
     font-size: larger;
+    text-decoration: none;
 }
 
 .tabs__item.--active {

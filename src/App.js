@@ -1,15 +1,71 @@
 import "./styles.css";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
-import RecipeBookNavbar from "./pages/recipebook/components/RecipeBookNavbar";
-import RecipeBook from "./pages/recipebook/RecipeBook";
-import NoPage from "./pages/NoPage";
 import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
 import React, { useEffect } from "react";
-import Recipe from "./pages/recipe/Recipe.js";
+import HomeNavBar from "./pages/home/components/HomeNavBar";
+import Recipes from "./pages/home/recipes/components/Recipes";
+import Ingredients from "./pages/home/ingredients/components/Ingredients";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeNavbar from "./pages/recipe/components/RecipeNavbar";
-import EditRecipe from "./pages/editRecipe/EditRecipe";
+import Recipe from "./pages/recipe/Recipe";
+import NoPage from './pages/NoPage'
+
+const router = createBrowserRouter([
+  // Homepage #1, active tab=recipes: /recipes
+  {
+    path: "/recipes",
+    element: <HomeNavBar />,
+    children: [
+      {
+        path: "/recipes",
+        element: <Recipes />,
+      },
+    ],
+  },
+  // View recipe: /recipe/{recipe_id}
+  {
+    path: "/recipe/:id",
+    element: <RecipeNavbar />,
+    children: [
+      {
+        path: "/recipe/:id",
+        element: <Recipe />,
+      },
+    ],
+  },
+  // Edit recipe: /recipe/{recipe_id}/edit
+  // {
+  //   path: "/recipe/:id/edit",
+  //   element: <EditRecipeNavBar />,
+  // },
+
+  // Homepage #2, active tab=ingredients: /ingredients
+  {
+    path: "/ingredients",
+    element: <HomeNavBar />,
+    children: [
+      {
+        path: "/ingredients",
+        element: <Ingredients />,
+      },
+    ],
+  },
+  {
+    path: "*",
+    element: <NoPage />,
+
+  },
+  // View ingredient: /ingredient/{ingredient_id}
+  // {
+  //   path: "/ingredient/:id",
+  //   element: <RecipeIngredientNavBar />,
+  // },
+  // {
+  //   path: "/ingredient/:id/edit",
+  //   element: <EditIngredientNavBar />,
+  // },
+]);
 
 function App() {
   const [, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -17,21 +73,7 @@ function App() {
     setRecipeBook(makeRecipeBook());
   }, []);
 
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/recipebook" element={<RecipeBookNavbar />}>
-          <Route index element={<RecipeBook />} />
-        </Route>
-        <Route path="/" element={<Navigate replace to="/recipebook" />} />
-        <Route path="*" element={<NoPage />} />
-        <Route path="/" element={<RecipeNavbar />}>
-          <Route path=":id" element={<Recipe />} />
-        </Route>
-        {/*<Route path="/edit-recipe/:id" element={<EditRecipe />}></Route>*/}
-      </Routes>
-    </BrowserRouter>
-  );
+  return <RouterProvider router={router} />;
 }
 
 export default App;

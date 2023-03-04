@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { useLocation } from "react-router-dom";
+import React, { useEffect, useReducer } from "react";
+import { Navigate, useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
@@ -12,6 +12,7 @@ import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalLiquidPercentage } from "../../helper/calculateTotalLiquidPercentage";
+import { nativeTouchData } from "react-dom/test-utils";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -55,14 +56,27 @@ const reducer = (recipeState, action) => {
 };
 
 function Recipe() {
+  const navigate = useNavigate();
   const location = useLocation();
-  const recipeName = location.state.recipeName;
+  let recipeName =
+    location.state && location.state.recipeName
+      ? location.state.recipeName
+      : null;
+
+  // redirect non-existing url's
+  useEffect(() => {
+    if (!recipeName) navigate("/recipes", { replace: true });
+  }, []);
+
   const recipeBook = useRecoilValue(recipeBookAtom);
+
   const initalState = {
-    recipe: flattenRecipe(
-      getRecipeFromRecipeName(recipeName, recipeBook),
-      recipeBook
-    ),
+    recipe: recipeName
+      ? flattenRecipe(
+          getRecipeFromRecipeName(recipeName, recipeBook),
+          recipeBook
+        )
+      : null,
     index: null,
     currentWeight: 0,
     totalFlourWeight: 0,
@@ -70,6 +84,9 @@ function Recipe() {
     viewMode: VIEWMODE.VIEW_RECIPE,
   };
   const [recipeState, dispatch] = useReducer(reducer, initalState);
+
+  // if no recipeName, no output!
+  if (!recipeName) return null;
 
   return (
     <>
