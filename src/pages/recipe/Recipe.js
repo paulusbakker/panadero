@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { Navigate, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
@@ -12,7 +12,6 @@ import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalLiquidPercentage } from "../../helper/calculateTotalLiquidPercentage";
-import { nativeTouchData } from "react-dom/test-utils";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
