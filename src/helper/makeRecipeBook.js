@@ -410,6 +410,14 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
+  recipes.set(
+    12,
+    new Recipe("Ander simpel voordeeg", 3, recipeIngredients, includedRecipes)
+  );
+  recipeIngredients = [];
+  includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 187, 0.975));
   recipeIngredients.push(new RecipeIngredient(true, false, 186, 0.025));
   recipeIngredients.push(new RecipeIngredient(false, true, 190, 0.75));
@@ -418,10 +426,30 @@ export function makeRecipeBook() {
 
   includedRecipes.push(new IncludedRecipe(11, 0.25));
   recipes.set(
-    12,
+    13,
     new Recipe("Pan Karen", 2, recipeIngredients, includedRecipes)
   );
 
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
+
+  recipes.set(
+    14,
+    new Recipe("Voordeeg simpel", 3, recipeIngredients, includedRecipes)
+  );
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.6667));
+
+  includedRecipes.push(new IncludedRecipe(14, 0.20));
+  includedRecipes.push(new IncludedRecipe(12, 0.1));
+  recipes.set(
+    15,
+    new Recipe("Testbrood", 1, recipeIngredients, includedRecipes)
+  );
   return new RecipeBook(
     "Recipe book",
     recipeCategories,

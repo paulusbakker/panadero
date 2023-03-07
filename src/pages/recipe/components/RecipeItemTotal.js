@@ -2,7 +2,7 @@ import React from "react";
 import Symbol from "../../../components/Symbol";
 import RecipeListItemLeft from "./RecipeListItemLeft";
 import RecipeListItemRight from "./RecipeListItemRight";
-import {ACTIONS, VIEWMODE} from '../Recipe'
+import { ACTIONS, VIEWMODE } from "../Recipe";
 
 function RecipeItemTotal({
   name,
@@ -18,7 +18,10 @@ function RecipeItemTotal({
     <li
       className="recipe-list__item"
       onClick={() => {
-        dispatch({type: ACTIONS.HANDLE_RECIPE_INDEX, payload: { index: name}});
+        dispatch({
+          type: ACTIONS.HANDLE_RECIPE_INDEX,
+          payload: { index: name },
+        });
       }}
     >
       <RecipeListItemLeft>
@@ -29,7 +32,7 @@ function RecipeItemTotal({
         <Symbol type={isRecipe && "recipe"} />
         <Symbol type={isFlour && "flour"} />
         <Symbol type={isLiquid && "isLiquid"} />
-        {viewMode===VIEWMODE.VIEW_AMOUNTS ? (
+        {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
           <>
             <span className="tab">{weight.toFixed(2)}g</span>
           </>
@@ -44,4 +47,4 @@ function RecipeItemTotal({
   );
 }
 
-export default RecipeItemTotal
+export default RecipeItemTotal;

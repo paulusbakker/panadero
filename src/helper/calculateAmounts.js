@@ -1,76 +1,80 @@
-import { calculateTotalLiquidPercentage } from "./calculateTotalLiquidPercentage";
+import { calculateTotalOverallLiquidPercentage } from "./calculateTotalOverallLiquidPercentage";
 
-export function calculateAmounts(flattenedRecipe, weight, index) {
-  console.log(index);
+export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
+  console.log(flattenedRecipe);
 
   // find parent recipe
   function findParentRecipe(currentIndex) {
-    let depth = flattenedRecipe[currentIndex].depth;
-    // go up until recipe found with one depth less
-    while (
-      currentIndex > 0 &&
-      !(
-        flattenedRecipe[currentIndex].depth === depth - 1 &&
-        flattenedRecipe[currentIndex].isRecipe
-      )
-    ) {
-      currentIndex--;
+    const currentDepth = flattenedRecipe[currentIndex].depth;
+    let parentIndex = currentIndex;
+
+    while (parentIndex > 0) {
+      const isParentRecipe =
+        flattenedRecipe[parentIndex].depth === currentDepth - 1 &&
+        flattenedRecipe[parentIndex].isRecipe;
+
+      if (isParentRecipe) {
+        return parentIndex;
+      }
+
+      parentIndex--;
     }
-    return currentIndex;
+    return 0;
   }
 
-  // calculate total percentage of all ingredients in recipe, index=recipeItem where recipe begins
-  function calculateRecipePercentage(currentIndex) {
-    let totalRecipePercentage = 0;
+  // calculate total percentage of all ingredients in recipe, currentIndex = recipeItem where recipe begins
+  function calculateTotalIngredientPercentage(currentIndex) {
+    let totalIngredientPercentage = 0;
     for (let i = currentIndex + 1; i < flattenedRecipe.length; i++) {
       const ingredient = flattenedRecipe[i];
       if (ingredient.isRecipe) {
         break;
       }
-      totalRecipePercentage += ingredient.percentage;
+      totalIngredientPercentage += ingredient.percentage;
     }
-    return totalRecipePercentage;
+    return totalIngredientPercentage;
   }
 
   // calculate total percentage of liquids
-  const totalLiquidPercentage = calculateTotalLiquidPercentage(flattenedRecipe);
+  const overalTotallLiquidPercentage =
+    calculateTotalOverallLiquidPercentage(flattenedRecipe);
   // for (let currentIndex = 1; currentIndex < flattenedRecipe.length; currentIndex++) {
   //     const ingredient = flattenedRecipe[currentIndex]
   //     if (ingredient.isRecipe) {
   //         break
   //     }
-  //     if (ingredient.isLiquid) calculateTotalLiquidPercentage += ingredient.percentage
+  //     if (ingredient.isLiquid) calculateTotalOverallLiquidPercentage += ingredient.percentage
   // }
   let totalFlourWeight, totalLiquidWeight;
-  let totalRecipePercentage = 0;
+  let totalIngredientPercentage = 0;
   switch (index) {
     case "total flour":
       totalFlourWeight = weight;
-      totalLiquidWeight = weight * totalLiquidPercentage;
+      totalLiquidWeight = weight * overalTotallLiquidPercentage;
       break;
     case "total liquid":
-      totalFlourWeight = weight / totalLiquidPercentage;
+      totalFlourWeight = weight / overalTotallLiquidPercentage;
       totalLiquidWeight = weight;
       break;
     case "total recipe":
-      totalRecipePercentage = calculateRecipePercentage(0);
-      totalFlourWeight = weight / totalRecipePercentage;
-      totalLiquidWeight = totalFlourWeight * totalLiquidPercentage;
+      totalIngredientPercentage = calculateTotalIngredientPercentage(0);
+      totalFlourWeight = weight / totalIngredientPercentage;
+      totalLiquidWeight = totalFlourWeight * overalTotallLiquidPercentage;
       break;
     default:
       // if index is negative , it was sent from the dough minus predoughs section
-      let minusPredoughs = false;
+      // let minusPredoughs = false;
       // Object.is(index, -0) needed to detect the index=-0 in case of first minus predough item
-      if (index < 0 || Object.is(index, -0)) {
-        index = -index;
-        minusPredoughs = true;
-      }
+      // if (index < 0 || Object.is(index, -0)) {
+      //   index = -index;
+      //   minusPredoughs = true;
+      // }
 
       // add 1 to index because the received index is one number too low because of the sliced off recipe title
       index++;
       // first calculate the weight of 100% flour of the recipe where the index is in:
       if (!flattenedRecipe[index].isRecipe) {
-        !minusPredoughs
+        !stepsMode
           ? (totalFlourWeight = weight / flattenedRecipe[index].percentage)
           : (totalFlourWeight = weight / flattenedRecipe[index].stepPercentage);
         // go up until index at a recipe:
@@ -78,17 +82,14 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
           index--;
         }
       } else {
-        totalRecipePercentage = calculateRecipePercentage(index);
-        totalFlourWeight = weight / totalRecipePercentage;
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
+        totalFlourWeight = weight / totalIngredientPercentage;
       }
-
-      totalLiquidWeight = totalFlourWeight * totalLiquidPercentage;
 
       // calculate weight in root recipe:
       while (index > 0) {
         totalFlourWeight = totalFlourWeight / flattenedRecipe[index].percentage;
         index = findParentRecipe(index);
-        console.log(totalFlourWeight);
       }
   }
 
@@ -96,42 +97,39 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
   const totalFlourWeightHistory = [];
   let currentDepth = -1;
   for (const [index, recipeItem] of flattenedRecipe.entries()) {
+
     const { isRecipe, depth, percentage, stepPercentage } = recipeItem;
-    if (isRecipe)
+    if (isRecipe) {
       if (depth > currentDepth) {
         totalFlourWeight = totalFlourWeight * percentage;
-        totalRecipePercentage = calculateRecipePercentage(index);
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
         recipeItem.weight = recipeItem.stepWeight =
-          totalFlourWeight * totalRecipePercentage;
+          totalFlourWeight * totalIngredientPercentage;
         totalFlourWeightHistory.push(totalFlourWeight);
         currentDepth++;
       } else {
-        while (depth < currentDepth) {
+        do {
           totalFlourWeightHistory.pop();
           currentDepth--;
-        }
+        } while (depth < currentDepth);
+
+        totalFlourWeight =
+          totalFlourWeightHistory[totalFlourWeightHistory.length - 1] *
+          percentage;
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
+        recipeItem.weight = recipeItem.stepWeight =
+          totalFlourWeight * totalIngredientPercentage;
       }
-    else {
-      recipeItem.weight = percentage * totalFlourWeight;
-      recipeItem.stepWeight = stepPercentage * totalFlourWeight;
+      continue;
     }
+
+    // not a recipe
+    recipeItem.weight = percentage * totalFlourWeight;
+    recipeItem.stepWeight = stepPercentage * totalFlourWeight;
   }
 
-  // let calculateTotalLiquidPercentage = 0
-  // flattenedRecipe.forEach((recipeItem) => {
-  //     if (recipeItem.isRecipe) {
-  //         return
-  //     }
-  //     if (recipeItem.isLiquid) {
-  //         calculateTotalLiquidPercentage += recipeItem.percentage
-  //     }
-  // })
-  // = calculateTotalLiquidPercentage * totalFlourWeightHistory[0]
-  // let totalPrice = 0
-  // flattenedRecipe.slice(1).every(recipeItem=>{
-  //     if (recipeItem.isRecipe) return false
-  //     recipeItem.pricePerKilo=recipeBook.ingredients.get(recipeItem.id).pricePerKilo
-  // })
+  totalLiquidWeight = totalFlourWeightHistory[0] * overalTotallLiquidPercentage;
+
   let totalPrice = 0;
   flattenedRecipe.slice(1).forEach((recipeItem) => {
     if (recipeItem.depth === 0) {
@@ -147,3 +145,18 @@ export function calculateAmounts(flattenedRecipe, weight, index) {
   return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight];
 }
 
+// let calculateTotalOverallLiquidPercentage = 0
+// flattenedRecipe.forEach((recipeItem) => {
+//     if (recipeItem.isRecipe) {
+//         return
+//     }
+//     if (recipeItem.isLiquid) {
+//         calculateTotalOverallLiquidPercentage += recipeItem.percentage
+//     }
+// })
+// = calculateTotalOverallLiquidPercentage * totalFlourWeightHistory[0]
+// let totalPrice = 0
+// flattenedRecipe.slice(1).every(recipeItem=>{
+//     if (recipeItem.isRecipe) return false
+//     recipeItem.pricePerKilo=recipeBook.ingredients.get(recipeItem.id).pricePerKilo
+// })

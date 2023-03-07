@@ -11,12 +11,12 @@ import EnterAmount from "./components/EnterAmount";
 import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
-import { calculateTotalLiquidPercentage } from "../../helper/calculateTotalLiquidPercentage";
+import { calculateTotalOverallLiquidPercentage } from "../../helper/calculateTotalOverallLiquidPercentage";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
   HANDLE_SUBMIT: "handle_submit",
-  HANDLE_RECIPE_INDEX: "handle_Recipe_item_index",
+  HANDLE_RECIPE_INDEX: "handle_recipe_item_index",
   CANCEL_CALCULATE_AMOUNT: "cancel_calculate_amount",
 };
 export const VIEWMODE = {
@@ -27,12 +27,15 @@ export const VIEWMODE = {
 const reducer = (recipeState, action) => {
   switch (action.type) {
     case ACTIONS.HANDLE_SUBMIT:
+      // do nothing when 0 is entered by the user
       if (action.payload.weight === 0) return recipeState;
+
       const [calculatedRecipe, totalFLourWeight, totalLiquidWeight] =
         calculateAmounts(
           recipeState.recipe,
           action.payload.weight,
-          recipeState.index
+          recipeState.index,
+          recipeState.stepsMode
         );
       return {
         ...recipeState,
@@ -46,6 +49,7 @@ const reducer = (recipeState, action) => {
         ...recipeState,
         viewMode: VIEWMODE.ENTER_AMOUNTS,
         index: action.payload.index,
+        stepsMode: action.payload.stepsMode,
       };
     case ACTIONS.CANCEL_CALCULATE_AMOUNT:
       return { ...recipeState, viewMode: VIEWMODE.VIEW_RECIPE };
@@ -71,12 +75,14 @@ function Recipe() {
 
   const initalState = {
     recipe: recipeName
+        // there might be no recipeName, user tried a non-existing URL..
       ? flattenRecipe(
           getRecipeFromRecipeName(recipeName, recipeBook),
           recipeBook
         )
       : null,
     index: null,
+    stepsMode: false,
     currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
@@ -84,7 +90,7 @@ function Recipe() {
   };
   const [recipeState, dispatch] = useReducer(reducer, initalState);
 
-  // if no recipeName, no output!
+  // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
   if (!recipeName) return null;
 
   return (
@@ -111,7 +117,7 @@ function Recipe() {
               key={`recipe-item-${index}`}
               recipeItem={recipeItem}
               index={index}
-              showInclusive={true}
+              stepsMode={false}
               viewMode={recipeState.viewMode}
               dispatch={dispatch}
             />
@@ -134,7 +140,7 @@ function Recipe() {
               isRecipe={false}
               isFlour={false}
               isLiquid={true}
-              totalLiquidPercentage={calculateTotalLiquidPercentage(
+              totalLiquidPercentage={calculateTotalOverallLiquidPercentage(
                 recipeState.recipe
               )}
               viewMode={recipeState.viewMode}
@@ -164,7 +170,7 @@ function Recipe() {
         </ul>
       </div>
 
-      {/*Ingredients minus predoughs*/}
+      {/*StepsMode: Ingredients minus predoughs*/}
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
         <div className="recipe">
           <ul className="recipe-list">
@@ -174,8 +180,8 @@ function Recipe() {
                 <RecipeItem
                   key={`recipe-item-${index}`}
                   recipeItem={recipeItem}
-                  index={-index}
-                  showInclusive={false}
+                  index={index}
+                  stepsMode={true}
                   viewMode={recipeState.viewMode}
                   dispatch={dispatch}
                 />

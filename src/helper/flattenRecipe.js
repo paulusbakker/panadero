@@ -7,8 +7,7 @@ export function flattenRecipe(recipe, recipeBook) {
     recipe,
     parentRecipe,
     currentDepth,
-    recipePercentage,
-    recipeBook
+    recipePercentage
   ) {
     flattenedRecipe.push(
       new FlattenedRecipeItem(
@@ -36,6 +35,7 @@ export function flattenRecipe(recipe, recipeBook) {
           recipeBook.ingredients.get(id).pricePerKilo
         )
       );
+      // klopt dit? Ik geloof ook bij bv twee voordegen met depth 1 zoekt ie beiden keren in het recept met depth 0 en trekt het er dan vanaf..
       const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(
         (recipeItem) => {
           return (
@@ -84,14 +84,13 @@ export function flattenRecipe(recipe, recipeBook) {
         recipeBook.recipes.get(nestedRecipe.id),
         recipe,
         currentDepth,
-        nestedRecipe.percentage,
-        recipeBook
+        nestedRecipe.percentage
       );
     }
     currentDepth--;
   }
 
   buildFlattenedRecipe(recipe, null, 0, 1, recipeBook);
-
+  console.log(flattenedRecipe);
   return flattenedRecipe;
 }

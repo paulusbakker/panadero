@@ -2,15 +2,9 @@ import React from "react";
 import Symbol from "../../../components/Symbol";
 import Indent from "./Indent";
 import RecipeListItemLeft from "./RecipeListItemLeft";
-import {ACTIONS, VIEWMODE} from '../Recipe'
+import { ACTIONS, VIEWMODE } from "../Recipe";
 
-function RecipeItem({
-  recipeItem,
-  index,
-  showInclusive,
-  viewMode,
-  dispatch,
-}) {
+function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const {
     isRecipe,
     name,
@@ -26,7 +20,10 @@ function RecipeItem({
     <li
       className="recipe-list__item"
       onClick={() => {
-        dispatch({type: ACTIONS.HANDLE_RECIPE_INDEX, payload: { index: index}});
+        dispatch({
+          type: ACTIONS.HANDLE_RECIPE_INDEX,
+          payload: { index: index, stepsMode: stepsMode },
+        });
       }}
     >
       <RecipeListItemLeft>
@@ -38,16 +35,16 @@ function RecipeItem({
         <Symbol type={isRecipe && "recipe"} />
         <Symbol type={isFlour && "flour"} />
         <Symbol type={isLiquid && "isLiquid"} />
-        {viewMode===VIEWMODE.VIEW_AMOUNTS ? (
+        {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
           <>
-            <span className="tab">{`${(showInclusive
+            <span className="tab">{`${(!stepsMode
               ? weight
               : stepWeight
             ).toFixed(2)}g`}</span>
           </>
         ) : (
           <>
-            {showInclusive ? (
+            {!stepsMode ? (
               <span className="tab">{(percentage * 100).toFixed(2)}%</span>
             ) : (
               <span className="tab"></span>
