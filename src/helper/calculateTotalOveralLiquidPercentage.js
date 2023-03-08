@@ -1,10 +1,10 @@
-export function calculateTotalOverallLiquidPercentage(flattenedRecipe) {
+export function calculateTotalOveralLiquidPercentage(flattenedRecipe) {
   const liquids = flattenedRecipe.filter((recipeItem) => {
     return (recipeItem.depth === 0) & recipeItem.isLiquid;
   });
-  const overallTotalLiquidPercentage = liquids.reduce(
+  const overalTotalLiquidPercentage = liquids.reduce(
     (total, recipeItem) => total + recipeItem.percentage,
     0
   );
-  return overallTotalLiquidPercentage;
+  return overalTotalLiquidPercentage;
 }

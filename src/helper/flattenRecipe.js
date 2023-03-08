@@ -35,7 +35,9 @@ export function flattenRecipe(recipe, recipeBook) {
           recipeBook.ingredients.get(id).pricePerKilo
         )
       );
-      // klopt dit? Ik geloof ook bij bv twee voordegen met depth 1 zoekt ie beiden keren in het recept met depth 0 en trekt het er dan vanaf..
+
+
+      // find the corresponding ingredient in the mother recipe
       const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(
         (recipeItem) => {
           return (
@@ -46,38 +48,12 @@ export function flattenRecipe(recipe, recipeBook) {
           );
         }
       );
+      // if found subtract ingredient from the corresponding ingredient in the mother recipe
       if (parentRecipeItemToBeAltered >= 0)
         flattenedRecipe[parentRecipeItemToBeAltered].stepPercentage -=
           ingredient.percentage * recipePercentage;
     });
 
-    // // check if all ingredients in the nested recipes all present in the parent recipe
-    // // not sure if this check belongs here
-    // let isValidParentRecipe = true
-    // recipe.ingredients.forEach(ingredient => {
-    //     const ingredientPresentInParent = nestedParentRecipe ? nestedParentRecipe.ingredients.some(parentRecipeIngredient =>
-    //         parentRecipeIngredient.id === ingredient.id &&
-    //         parentRecipeIngredient.flour === ingredient.flour &&
-    //         parentRecipeIngredient.isLiquid === ingredient.isLiquid) : true
-    //
-    //     isValidParentRecipe = ingredientPresentInParent ? isValidParentRecipe : false
-    //     flattenedRecipe.push
-    //     (new FlattenedRecipeItem(false,
-    //         ingredientPresentInParent,
-    //         currentDepth,
-    //         ingredient.id,
-    //         ingredient.isLiquid,
-    //         ingredient.flour,
-    //         ingredient.percentage))
-    // })
-    // // mark parent recipe as invalid as concluded above
-    // if (!isValidParentRecipe)
-    //     for (let recipeListItem = flattenedRecipe.length - 1; recipeListItem >= 0; recipeListItem--) {
-    //         if (flattenedRecipe[recipeListItem].isRecipe && flattenedRecipe[recipeListItem].currentDepth === currentDepth - 1) {
-    //             flattenedRecipe[recipeListItem].isValid = false
-    //             break
-    //         }
-    //     }
     currentDepth++;
     for (let nestedRecipe of recipe.nestedRecipes) {
       buildFlattenedRecipe(
@@ -94,3 +70,32 @@ export function flattenRecipe(recipe, recipeBook) {
   console.log(flattenedRecipe);
   return flattenedRecipe;
 }
+
+
+// // check if all ingredients in the nested recipes all present in the parent recipe
+// // not sure if this check belongs here
+// let isValidParentRecipe = true
+// recipe.ingredients.forEach(ingredient => {
+//     const ingredientPresentInParent = nestedParentRecipe ? nestedParentRecipe.ingredients.some(parentRecipeIngredient =>
+//         parentRecipeIngredient.id === ingredient.id &&
+//         parentRecipeIngredient.flour === ingredient.flour &&
+//         parentRecipeIngredient.isLiquid === ingredient.isLiquid) : true
+//
+//     isValidParentRecipe = ingredientPresentInParent ? isValidParentRecipe : false
+//     flattenedRecipe.push
+//     (new FlattenedRecipeItem(false,
+//         ingredientPresentInParent,
+//         currentDepth,
+//         ingredient.id,
+//         ingredient.isLiquid,
+//         ingredient.flour,
+//         ingredient.percentage))
+// })
+// // mark parent recipe as invalid as concluded above
+// if (!isValidParentRecipe)
+//     for (let recipeListItem = flattenedRecipe.length - 1; recipeListItem >= 0; recipeListItem--) {
+//         if (flattenedRecipe[recipeListItem].isRecipe && flattenedRecipe[recipeListItem].currentDepth === currentDepth - 1) {
+//             flattenedRecipe[recipeListItem].isValid = false
+//             break
+//         }
+//     }

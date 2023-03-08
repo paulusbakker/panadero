@@ -11,7 +11,7 @@ import EnterAmount from "./components/EnterAmount";
 import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
-import { calculateTotalOverallLiquidPercentage } from "../../helper/calculateTotalOverallLiquidPercentage";
+import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -140,7 +140,7 @@ function Recipe() {
               isRecipe={false}
               isFlour={false}
               isLiquid={true}
-              totalLiquidPercentage={calculateTotalOverallLiquidPercentage(
+              totalLiquidPercentage={calculateTotalOveralLiquidPercentage(
                 recipeState.recipe
               )}
               viewMode={recipeState.viewMode}

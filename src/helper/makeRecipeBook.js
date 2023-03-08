@@ -12,7 +12,7 @@ export function makeRecipeBook() {
 
   recipeCategories.set(1, "Yeast Breads");
   recipeCategories.set(2, "Sourdough Breads");
-  recipeCategories.set(3, "Poolish & Starters");
+  recipeCategories.set(3, "Poolish & Starters & Sponges & Soakers");
   recipeCategories.set(4, "Quick Breads");
   recipeCategories.set(5, "Rolls, Bagles & Flatbread");
   recipeCategories.set(6, "Pizza");
@@ -286,14 +286,41 @@ export function makeRecipeBook() {
     new Ingredient("Sal Fina Seleccionada Lider", 6, 3.7, 350)
   );
   ingredients.set(190, new Ingredient("Agua", 4, 0, 0));
+  ingredients.set(191, new Ingredient("Rye Meal (Course)", 1, 3.84, 0));
+  ingredients.set(192, new Ingredient("Red Rye Malt", 1, 3.84, 0));
+  ingredients.set(193, new Ingredient("Water (Boiling)", 4, 0, 0));
+  ingredients.set(194, new Ingredient("Coriander (Ground)", 15, 0, 0));
 
   let recipeIngredients = [];
   let includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, 1));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, 0.3));
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 2.61));
+  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.03));
+  recipes.set(17, new Recipe("Scald", 3, recipeIngredients, includedRecipes));
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, .71));
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, .29));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, .089));
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.76));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.13));
+  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.01));
+  includedRecipes.push(new IncludedRecipe(16, .71));
+  includedRecipes.push(new IncludedRecipe(17, 0.29));
+  recipes.set(
+    18,
+    new Recipe("Scald-Sponge", 3, recipeIngredients, includedRecipes)
+  );
+
+  recipeIngredients = [];
+  includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 174, 1));
-  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.6));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
   recipes.set(
     1,
-    new Recipe("Sourdough starter", 3, recipeIngredients, includedRecipes)
+    new Recipe("Rye Sour Culture", 3, recipeIngredients, includedRecipes)
   );
 
   recipeIngredients = [];
@@ -423,7 +450,6 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(false, true, 190, 0.75));
   recipeIngredients.push(new RecipeIngredient(false, true, 188, 0.05));
   recipeIngredients.push(new RecipeIngredient(false, false, 189, 0.018));
-
   includedRecipes.push(new IncludedRecipe(11, 0.25));
   recipes.set(
     13,
@@ -434,22 +460,30 @@ export function makeRecipeBook() {
   includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 182, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
-
   recipes.set(
     14,
     new Recipe("Voordeeg simpel", 3, recipeIngredients, includedRecipes)
   );
+
   recipeIngredients = [];
   includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 182, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.6667));
-
-  includedRecipes.push(new IncludedRecipe(14, 0.20));
+  includedRecipes.push(new IncludedRecipe(14, 0.2));
   includedRecipes.push(new IncludedRecipe(12, 0.1));
   recipes.set(
     15,
     new Recipe("Testbrood", 1, recipeIngredients, includedRecipes)
   );
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.589));
+  includedRecipes.push(new IncludedRecipe(1, 0.1071));
+
+  recipes.set(16, new Recipe("Sponge", 3, recipeIngredients, includedRecipes));
+
   return new RecipeBook(
     "Recipe book",
     recipeCategories,

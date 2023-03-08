@@ -26,7 +26,7 @@ function RecipeItemTotal({
     >
       <RecipeListItemLeft>
         {name}
-        {isLiquid && `  (${totalLiquidPercentage * 100}%)`}
+        {isLiquid && `  (${(totalLiquidPercentage * 100).toFixed(2)}%)`}
       </RecipeListItemLeft>
       <RecipeListItemRight>
         <Symbol type={isRecipe && "recipe"} />
