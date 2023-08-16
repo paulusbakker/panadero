@@ -67,7 +67,6 @@ export function flattenRecipe(recipe, recipeBook) {
   }
 
   buildFlattenedRecipe(recipe, null, 0, 1, recipeBook);
-  console.log(flattenedRecipe);
   return flattenedRecipe;
 }
 

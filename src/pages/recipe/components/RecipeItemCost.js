@@ -1,5 +1,5 @@
 import React from "react";
-import Symbol from "../../../components/Symbol";
+import Symbol from "../../../components/shared/Symbol";
 import RecipeListItemLeft from "./RecipeListItemLeft";
 import RecipeListItemRight from "./RecipeListItemRight";
 

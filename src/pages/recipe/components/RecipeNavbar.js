@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { MdClose } from "react-icons/md";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import Symbol from "../../../components/Symbol";
-import { urlify } from "../../../helper/urlify";
+import Symbol from "../../../components/shared/Symbol";
+import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 
 function RecipeNavbar() {
   const { state } = useLocation();
@@ -30,7 +30,7 @@ function RecipeNavbar() {
           {!hamburgerMenuOpen && (
             <li>
               <Link
-                to={`/edit-recipe/${urlify(recipeName)}`}
+                to={`/edit-recipe/${convertToUrlFormat(recipeName)}`}
                 state={{ recipeName: recipeName }}
               >
                 <Symbol type={"pencil"} className="main-nav__button" />

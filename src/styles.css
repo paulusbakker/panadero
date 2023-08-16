@@ -1,28 +1,3 @@
-/*noinspection CssUnknownTarget*/
-@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    list-style-type: none;
-}
-
-@media only screen and (min-width: 768px) {
-
-}
-
-body {
-    font-family: 'Fredoka One', cursive;
-    background-color: lightgrey;
-}
-
-hr {
-    border: 1px dashed #000;
-    width: 100%;
-    margin-top: 0.5%;
-    margin-bottom: 1.5%;
-}
 
 .backdrop {
     z-index: 10000;
@@ -180,8 +155,8 @@ hr {
 }
 
 .symbol {
-    /*align-items: center;*/
-    /*display: flex;*/
+    align-items: center;
+    display: flex;
 }
 
 .recipe__item__ingredient__item {

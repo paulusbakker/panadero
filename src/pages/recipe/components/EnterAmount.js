@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import Symbol from "../../../components/Symbol";
+import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS } from "../Recipe";
 
 function EnterAmount({ name, dispatch }) {

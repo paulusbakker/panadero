@@ -290,32 +290,12 @@ export function makeRecipeBook() {
   ingredients.set(192, new Ingredient("Red Rye Malt", 1, 3.84, 0));
   ingredients.set(193, new Ingredient("Water (Boiling)", 4, 0, 0));
   ingredients.set(194, new Ingredient("Coriander (Ground)", 15, 0, 0));
+  ingredients.set(195, new Ingredient("Molasse (Dark)", 7, 0, 0));
+  ingredients.set(196, new Ingredient("Coriander Seed", 15, 0, 0));
 
-  let recipeIngredients = [];
+
+  let  recipeIngredients = [];
   let includedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, 191, 1));
-  recipeIngredients.push(new RecipeIngredient(false, false, 192, 0.3));
-  recipeIngredients.push(new RecipeIngredient(false, true, 193, 2.61));
-  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.03));
-  recipes.set(17, new Recipe("Scald", 3, recipeIngredients, includedRecipes));
-
-  recipeIngredients = [];
-  includedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, 174, .71));
-  recipeIngredients.push(new RecipeIngredient(true, false, 191, .29));
-  recipeIngredients.push(new RecipeIngredient(false, false, 192, .089));
-  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.76));
-  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.13));
-  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.01));
-  includedRecipes.push(new IncludedRecipe(16, .71));
-  includedRecipes.push(new IncludedRecipe(17, 0.29));
-  recipes.set(
-    18,
-    new Recipe("Scald-Sponge", 3, recipeIngredients, includedRecipes)
-  );
-
-  recipeIngredients = [];
-  includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 174, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
   recipes.set(
@@ -483,6 +463,57 @@ export function makeRecipeBook() {
   includedRecipes.push(new IncludedRecipe(1, 0.1071));
 
   recipes.set(16, new Recipe("Sponge", 3, recipeIngredients, includedRecipes));
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, 1));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, 0.3));
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 2.61));
+  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.03));
+  recipes.set(17, new Recipe("Scald", 3, recipeIngredients, includedRecipes));
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, .71));
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, .29));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, .089));
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.76));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.13));
+  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.01));
+  includedRecipes.push(new IncludedRecipe(16, .71));
+  includedRecipes.push(new IncludedRecipe(17, 0.29));
+  recipes.set(
+      18,
+      new Recipe("Scald-Sponge", 3, recipeIngredients, includedRecipes)
+  );
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  // Medium Rye Flour
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, .66));
+  // Rye Meal (Course)
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, .15));
+  // Bread Flour
+  recipeIngredients.push(new RecipeIngredient(true, false, 155, .19));
+  // Red Rye Malt
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, .06));
+  // Water (Boiling)
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.40));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, .60));
+  // Coriander (Ground)
+  recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.0054));
+  //  Sea Salt
+  recipeIngredients.push(new RecipeIngredient(false, false, 102, 0.013));
+  // Molasse (Dark)
+  recipeIngredients.push(new RecipeIngredient(false, false, 195, 0.054));
+  // Coriander Seed
+  recipeIngredients.push(new RecipeIngredient(false, false, 196, 0.0027));
+  includedRecipes.push(new IncludedRecipe(18, .53));
+  recipes.set(
+      19,
+      new Recipe("GOST Borondinsky", 2, recipeIngredients, includedRecipes)
+  );
 
   return new RecipeBook(
     "Recipe book",

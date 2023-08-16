@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer } from "react";
+import React, {useEffect, useMemo, useReducer} from 'react'
 import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
@@ -6,7 +6,7 @@ import { useRecoilValue } from "recoil";
 import { flattenRecipe } from "../../helper/flattenRecipe";
 import { calculateAmounts } from "../../helper/calculateAmounts";
 import RecipeItem from "./components/RecipeItem";
-import Symbol from "../../components/Symbol";
+import Symbol from "../../components/shared/Symbol";
 import EnterAmount from "./components/EnterAmount";
 import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
@@ -61,34 +61,29 @@ const reducer = (recipeState, action) => {
 function Recipe() {
   const navigate = useNavigate();
   const location = useLocation();
-  let recipeName =
-    location.state && location.state.recipeName
-      ? location.state.recipeName
-      : null;
+  const recipeBook = useRecoilValue(recipeBookAtom);
+  const recipeName = location.state?.recipeName;
 
   // redirect non-existing url's
   useEffect(() => {
     if (!recipeName) navigate("/recipes", { replace: true });
   }, []);
 
-  const recipeBook = useRecoilValue(recipeBookAtom);
-
-  const initalState = {
+  const initialState = useMemo(() => ({
     recipe: recipeName
-        // there might be no recipeName, user tried a non-existing URL..
-      ? flattenRecipe(
-          getRecipeFromRecipeName(recipeName, recipeBook),
-          recipeBook
+        ? flattenRecipe(
+            getRecipeFromRecipeName(recipeName, recipeBook),
+            recipeBook
         )
-      : null,
+        : null,
     index: null,
     stepsMode: false,
     currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
     viewMode: VIEWMODE.VIEW_RECIPE,
-  };
-  const [recipeState, dispatch] = useReducer(reducer, initalState);
+  }), [recipeName, recipeBook]);
+  const [recipeState, dispatch] = useReducer(reducer, initialState);
 
   // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
   if (!recipeName) return null;
@@ -170,7 +165,7 @@ function Recipe() {
         </ul>
       </div>
 
-      {/*StepsMode: Ingredients minus predoughs*/}
+      {/*StepsMode: ingredients minus predoughs*/}
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
         <div className="recipe">
           <ul className="recipe-list">

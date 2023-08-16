@@ -3,23 +3,23 @@ import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
 import React, { useEffect } from "react";
-import HomeNavBar from "./pages/home/components/HomeNavBar";
-import Recipes from "./pages/home/recipes/components/Recipes";
-import Ingredients from "./pages/home/ingredients/components/Ingredients";
+import NavBar from "./pages/home/navbar/NavBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import RecipeNavbar from "./pages/recipe/components/RecipeNavbar";
 import Recipe from "./pages/recipe/Recipe";
-import NoPage from './pages/NoPage'
+import NoPage from "./pages/NoPage";
+import { GlobalStyle } from "./styles/GlobalStyle";
+import TabContainer from "./pages/home/TabContainer";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
   {
     path: "/recipes",
-    element: <HomeNavBar />,
+    element: <NavBar />,
     children: [
       {
         path: "/recipes",
-        element: <Recipes />,
+        element: <TabContainer />,
       },
     ],
   },
@@ -43,18 +43,17 @@ const router = createBrowserRouter([
   // Homepage #2, active tab=ingredients: /ingredients
   {
     path: "/ingredients",
-    element: <HomeNavBar />,
+    element: <NavBar />,
     children: [
       {
         path: "/ingredients",
-        element: <Ingredients />,
+        element: <TabContainer />,
       },
     ],
   },
   {
     path: "*",
     element: <NoPage />,
-
   },
   // View ingredient: /ingredient/{ingredient_id}
   // {
@@ -71,9 +70,14 @@ function App() {
   const [, setRecipeBook] = useRecoilState(recipeBookAtom);
   useEffect(() => {
     setRecipeBook(makeRecipeBook());
-  }, []);
+  }, [setRecipeBook]);
 
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;

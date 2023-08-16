@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
-import Symbol from "../../components/Symbol";
+import Symbol from "../../components/shared/Symbol";
 import RecipeItem from '../recipe/components/RecipeItem'
 
 function EditRecipe() {
