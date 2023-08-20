@@ -49,7 +49,7 @@ function TabContainer() {
         }
         break;
 
-      case "category":
+      case "category-name":
         if (activeCategory) {
           setActiveCategory(null);
         } else {

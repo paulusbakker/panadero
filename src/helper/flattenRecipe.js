@@ -1,74 +1,148 @@
 import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
 
 export function flattenRecipe(recipe, recipeBook) {
+  // This will hold the final flattened recipe
   const flattenedRecipe = [];
 
-  function buildFlattenedRecipe(
-    recipe,
-    parentRecipe,
-    currentDepth,
-    recipePercentage
-  ) {
-    flattenedRecipe.push(
-      new FlattenedRecipeItem(
-        true,
-        recipe.name,
-        currentDepth,
-        false,
-        false,
-        recipePercentage,
-        0
-      )
-    );
+  /**
+   * Recursively processes a given recipe (and its nested recipes) to build the flattened version.
+   * @param {Object} recipe - The recipe object to process.
+   * @param {number} currentDepth - Represents the nesting level of the recipe.
+   * @param {number} recipePercentage - The percentage of the recipe to consider.
+   */
+  function buildFlattenedRecipe(recipe, currentDepth = 0, recipePercentage = 1) {
+    const { name, ingredients, nestedRecipes } = recipe;
 
-    recipe.ingredients.forEach((ingredient) => {
+    // Add the main recipe item to the flattened list
+    flattenedRecipe.push(new FlattenedRecipeItem(true, name, currentDepth, false, false, recipePercentage, 0));
+
+    // Process each ingredient of the recipe
+    ingredients.forEach((ingredient) => {
       const { id, isFlour, isLiquid, percentage } = ingredient;
-      const ingredientName = recipeBook.ingredients.get(id).name;
-      flattenedRecipe.push(
-        new FlattenedRecipeItem(
-          false,
-          ingredientName,
-          currentDepth,
-          isFlour,
-          isLiquid,
-          percentage,
-          recipeBook.ingredients.get(id).pricePerKilo
-        )
-      );
+      const { name: ingredientName, pricePerKilo } = recipeBook.ingredients.get(id);
 
+      // Add the ingredient to the flattened list
+      flattenedRecipe.push(new FlattenedRecipeItem(false, ingredientName, currentDepth, isFlour, isLiquid, percentage, pricePerKilo));
 
-      // find the corresponding ingredient in the mother recipe
-      const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(
-        (recipeItem) => {
-          return (
-            recipeItem.name === ingredientName &&
-            recipeItem.isFlour === isFlour &&
-            recipeItem.isLiquid === isLiquid &&
-            recipeItem.depth === currentDepth - 1
-          );
-        }
-      );
-      // if found subtract ingredient from the corresponding ingredient in the mother recipe
-      if (parentRecipeItemToBeAltered >= 0)
-        flattenedRecipe[parentRecipeItemToBeAltered].stepPercentage -=
-          ingredient.percentage * recipePercentage;
+      // Deduct the percentage from the parent recipe, if applicable
+      updateParentRecipeItemPercentage(ingredientName, isFlour, isLiquid, currentDepth, percentage * recipePercentage);
     });
 
-    currentDepth++;
-    for (let nestedRecipe of recipe.nestedRecipes) {
-      buildFlattenedRecipe(
-        recipeBook.recipes.get(nestedRecipe.id),
-        recipe,
-        currentDepth,
-        nestedRecipe.percentage
-      );
-    }
-    currentDepth--;
+    // Process nested recipes recursively
+    nestedRecipes.forEach(nestedRecipe => {
+      buildFlattenedRecipe(recipeBook.recipes.get(nestedRecipe.id), currentDepth + 1, nestedRecipe.percentage);
+    });
   }
 
-  buildFlattenedRecipe(recipe, null, 0, 1, recipeBook);
+  /**
+   * Updates the percentage of the parent recipe item in the flattened list based on a child ingredient.
+   * @param {string} ingredientName - Name of the ingredient.
+   * @param {boolean} isFlour - Indicates if the ingredient is flour.
+   * @param {boolean} isLiquid - Indicates if the ingredient is liquid.
+   * @param {number} currentDepth - Current nesting level.
+   * @param {number} deductionAmount - The amount to deduct from the parent recipe percentage.
+   */
+  function updateParentRecipeItemPercentage(ingredientName, isFlour, isLiquid, currentDepth, deductionAmount) {
+    const parentRecipeItemIndex = findParentRecipeItemIndex(ingredientName, isFlour, isLiquid, currentDepth);
+    if (parentRecipeItemIndex >= 0) {
+      flattenedRecipe[parentRecipeItemIndex].stepPercentage -= deductionAmount;
+    }
+  }
+
+  /**
+   * Finds the index of the parent recipe item in the flattened list for a given ingredient.
+   * @param {string} ingredientName - Name of the ingredient.
+   * @param {boolean} isFlour - Indicates if the ingredient is flour.
+   * @param {boolean} isLiquid - Indicates if the ingredient is liquid.
+   * @param {number} currentDepth - Current nesting level.
+   * @returns {number} - Index of the parent recipe item, or -1 if not found.
+   */
+  function findParentRecipeItemIndex(ingredientName, isFlour, isLiquid, currentDepth) {
+    return flattenedRecipe.findIndex(recipeItem => (
+        recipeItem.name === ingredientName &&
+        recipeItem.isFlour === isFlour &&
+        recipeItem.isLiquid === isLiquid &&
+        recipeItem.depth === currentDepth - 1
+    ));
+  }
+
+  // Start the flattening process with the main recipe
+  buildFlattenedRecipe(recipe);
   return flattenedRecipe;
 }
+
+
+// import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
+//
+// export function flattenRecipe(recipe, recipeBook) {
+//   const flattenedRecipe = [];
+//
+//   function buildFlattenedRecipe(
+//     recipe,
+//     parentRecipe,
+//     currentDepth,
+//     recipePercentage
+//   ) {
+//     flattenedRecipe.push(
+//       new FlattenedRecipeItem(
+//         true,
+//         recipe.name,
+//         currentDepth,
+//         false,
+//         false,
+//         recipePercentage,
+//         0
+//       )
+//     );
+//
+//     recipe.ingredients.forEach((ingredient) => {
+//       const { id, isFlour, isLiquid, percentage } = ingredient;
+//       const ingredientName = recipeBook.ingredients.get(id).name;
+//       flattenedRecipe.push(
+//         new FlattenedRecipeItem(
+//           false,
+//           ingredientName,
+//           currentDepth,
+//           isFlour,
+//           isLiquid,
+//           percentage,
+//           recipeBook.ingredients.get(id).pricePerKilo
+//         )
+//       );
+//
+//
+//       // find the corresponding ingredient in the mother recipe
+//       const parentRecipeItemToBeAltered = flattenedRecipe.findIndex(
+//         (recipeItem) => {
+//           return (
+//             recipeItem.name === ingredientName &&
+//             recipeItem.isFlour === isFlour &&
+//             recipeItem.isLiquid === isLiquid &&
+//             recipeItem.depth === currentDepth - 1
+//           );
+//         }
+//       );
+//       // if found subtract ingredient from the corresponding ingredient in the mother recipe
+//       if (parentRecipeItemToBeAltered >= 0)
+//         flattenedRecipe[parentRecipeItemToBeAltered].stepPercentage -=
+//           ingredient.percentage * recipePercentage;
+//     });
+//
+//     currentDepth++;
+//     for (let nestedRecipe of recipe.nestedRecipes) {
+//       buildFlattenedRecipe(
+//         recipeBook.recipes.get(nestedRecipe.id),
+//         recipe,
+//         currentDepth,
+//         nestedRecipe.percentage
+//       );
+//     }
+//     currentDepth--;
+//   }
+//
+//   buildFlattenedRecipe(recipe, null, 0, 1, recipeBook);
+//   return flattenedRecipe;
+// }
 
 
 // // check if all ingredients in the nested recipes all present in the parent recipe

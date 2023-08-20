@@ -53,7 +53,10 @@ function NavBar() {
         <TabItemStyled to="/recipes" active={pathname === "/recipes" ? 1 : 0}>
           RECIPES
         </TabItemStyled>
-        <TabItemStyled to="/ingredients" active={pathname === "/ingredients" ? 1 : 0}>
+        <TabItemStyled
+          to="/ingredients"
+          active={pathname === "/ingredients" ? 1 : 0}
+        >
           INGREDIENTS
         </TabItemStyled>
       </TabsStyled>
