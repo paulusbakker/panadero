@@ -3,14 +3,13 @@ import { useRecoilState } from "recoil";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
-import { TabContainerStyled } from "./Styles";
+import { MainCardStyled } from "./Styles";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./AccordionItem";
 
 function TabContainer() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
   const { pathname } = useLocation();
-
   const isRecipeTab = pathname === "/recipes";
   const categorizedItems = getItemsByCategory(recipeBook, isRecipeTab);
 
@@ -89,7 +88,7 @@ function TabContainer() {
   };
 
   return (
-    <TabContainerStyled onClick={handleContainerClick}>
+    <MainCardStyled onClick={handleContainerClick}>
       {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
         <AccordionItem
           key={categoryName}
@@ -104,7 +103,7 @@ function TabContainer() {
           handleCategoryUpdate={handleCategoryUpdate}
         />
       ))}
-    </TabContainerStyled>
+    </MainCardStyled>
   );
 }
 

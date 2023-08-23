@@ -12,6 +12,9 @@ import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
+import {findRecipesMissingIngredients} from '../../helper/findRecipesMissingIngredients'
+import {ContentHeaderStyled, MainCardStyled} from '../recipeBookApp/Styles'
+import {RecipeListStyled} from './Styles'
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -85,6 +88,8 @@ function Recipe() {
   }), [recipeName, recipeBook]);
   const [recipeState, dispatch] = useReducer(reducer, initialState);
 
+const faultyRecipes = findRecipesMissingIngredients(getRecipeFromRecipeName(recipeName, recipeBook), recipeBook);
+console.log(faultyRecipes);
   // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
   if (!recipeName) return null;
 
@@ -100,12 +105,12 @@ function Recipe() {
           dispatch={dispatch}
         />
       )}
-      <div className="recipe">
-        <div className="recipe-title">
+      <MainCardStyled>
+        <ContentHeaderStyled>
           {recipeState.recipe[0].name}
           <Symbol type={"menu"} />
-        </div>
-        <ul className="recipe-list">
+        </ContentHeaderStyled>
+        <RecipeListStyled>
           {/*delete first element with slice because recipe title already printed*/}
           {recipeState.recipe.slice(1).map((recipeItem, index) => (
             <RecipeItem
@@ -119,7 +124,7 @@ function Recipe() {
           ))}
           <hr />
           {/*totals*/}
-          <ul className="recipe-list">
+          <ul>
             <RecipeItemTotal
               name={"total flour"}
               isRecipe={false}
@@ -162,8 +167,8 @@ function Recipe() {
               </button>
             )}
           </ul>
-        </ul>
-      </div>
+        </RecipeListStyled>
+      </MainCardStyled>
 
       {/*StepsMode: ingredients minus predoughs*/}
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (

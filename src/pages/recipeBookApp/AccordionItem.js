@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  AccordionItemStyled,
-  CategoryLabelStyled,
+  MainCardStyled,
+  ContentHeaderStyled,
   ItemsCountStyled,
   LinkStyled,
 } from "./Styles";
@@ -48,13 +48,13 @@ function AccordionItem({
     );
 
   return (
-    <AccordionItemStyled>
+    <li>
       <div data-action="category-name" data-category-name={categoryName}>
-        <CategoryLabelStyled>
+        <ContentHeaderStyled>
           <div>{categoryName}</div>
           <Symbol type="menu" data-category-name={categoryName} />
           {activeCategory === categoryName && renderCategoryContent()}
-        </CategoryLabelStyled>
+        </ContentHeaderStyled>
         <ItemsCountStyled>{itemCountLabel}</ItemsCountStyled>
       </div>
 
@@ -71,7 +71,7 @@ function AccordionItem({
             </ul>
           );
         })}
-    </AccordionItemStyled>
+    </li>
   );
 }
 

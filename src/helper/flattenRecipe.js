@@ -71,7 +71,7 @@ export function flattenRecipe(recipe, recipeBook) {
   return flattenedRecipe;
 }
 
-
+// old codes
 // import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
 //
 // export function flattenRecipe(recipe, recipeBook) {
@@ -144,7 +144,7 @@ export function flattenRecipe(recipe, recipeBook) {
 //   return flattenedRecipe;
 // }
 
-
+// part of another helper?
 // // check if all ingredients in the nested recipes all present in the parent recipe
 // // not sure if this check belongs here
 // let isValidParentRecipe = true

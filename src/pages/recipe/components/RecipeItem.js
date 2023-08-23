@@ -3,6 +3,7 @@ import Symbol from "../../../components/shared/Symbol";
 import Indent from "./Indent";
 import RecipeListItemLeft from "./RecipeListItemLeft";
 import { ACTIONS, VIEWMODE } from "../Recipe";
+import {RecipeListItemLeftStyled, RecipeListItemRightStyled, RecipeListItemStyled, TabStyled} from '../Styles'
 
 function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const {
@@ -17,8 +18,7 @@ function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   } = recipeItem;
 
   return (
-    <li
-      className="recipe-list__item"
+    <RecipeListItemStyled
       onClick={() => {
         dispatch({
           type: ACTIONS.HANDLE_RECIPE_INDEX,
@@ -26,34 +26,32 @@ function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
         });
       }}
     >
-      <RecipeListItemLeft>
+      <RecipeListItemLeftStyled>
         {isRecipe ? <Indent depth={depth - 1} /> : <Indent depth={depth} />}
         {!isRecipe && depth !== 0 && "- "}
         {name}
-      </RecipeListItemLeft>
-      <span className="recipe-list__item__right">
+      </RecipeListItemLeftStyled>
+      <RecipeListItemRightStyled>
         <Symbol type={isRecipe && "recipe"} />
         <Symbol type={isFlour && "flour"} />
         <Symbol type={isLiquid && "isLiquid"} />
         {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
-          <>
-            <span className="tab">{`${(!stepsMode
+            <TabStyled>{`${(!stepsMode
               ? weight
               : stepWeight
-            ).toFixed(2)}g`}</span>
-          </>
+            ).toFixed(2)}g`}</TabStyled>
         ) : (
           <>
             {!stepsMode ? (
-              <span className="tab">{(percentage * 100).toFixed(2)}%</span>
+              <TabStyled>{(percentage * 100).toFixed(2)}%</TabStyled>
             ) : (
-              <span className="tab"></span>
+              <TabStyled/>
             )}
             <Symbol type={"calculator"} />
           </>
         )}
-      </span>
-    </li>
+      </RecipeListItemRightStyled>
+    </RecipeListItemStyled>
   );
 }
 

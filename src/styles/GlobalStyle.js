@@ -24,6 +24,11 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: lightgrey;
   }
+  
+  //div {
+  //  background-color: #EAE2B7;
+  //  
+  //}
 
   hr {
     border: 1px dashed #000;

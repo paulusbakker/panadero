@@ -399,6 +399,7 @@ export function makeRecipeBook() {
   includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 186, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 190, 1));
+  recipeIngredients.push(new RecipeIngredient(false, false, 190, 1));
   recipes.set(
     10,
     new Recipe("Masa madre", 3, recipeIngredients, includedRecipes)

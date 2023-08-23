@@ -71,7 +71,6 @@ function App() {
   useEffect(() => {
     setRecipeBook(makeRecipeBook());
   }, [setRecipeBook]);
-
   return (
     <>
       <GlobalStyle />

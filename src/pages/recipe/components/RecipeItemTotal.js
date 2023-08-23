@@ -3,6 +3,7 @@ import Symbol from "../../../components/shared/Symbol";
 import RecipeListItemLeft from "./RecipeListItemLeft";
 import RecipeListItemRight from "./RecipeListItemRight";
 import { ACTIONS, VIEWMODE } from "../Recipe";
+import {RecipeListItemLeftStyled, RecipeListItemRightStyled, TabStyled} from '../Styles'
 
 function RecipeItemTotal({
   name,
@@ -24,25 +25,24 @@ function RecipeItemTotal({
         });
       }}
     >
-      <RecipeListItemLeft>
+      <RecipeListItemLeftStyled>
         {name}
         {isLiquid && `  (${(totalLiquidPercentage * 100).toFixed(2)}%)`}
-      </RecipeListItemLeft>
-      <RecipeListItemRight>
+      </RecipeListItemLeftStyled>
+      <RecipeListItemRightStyled>
         <Symbol type={isRecipe && "recipe"} />
         <Symbol type={isFlour && "flour"} />
         <Symbol type={isLiquid && "isLiquid"} />
         {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
           <>
-            <span className="tab">{weight.toFixed(2)}g</span>
+            <TabStyled>{weight.toFixed(2)}g</TabStyled>
           </>
         ) : (
-          <>
-            <span className="tab"></span>
+            <TabStyled>
             <Symbol type={"calculator"} />
-          </>
-        )}
-      </RecipeListItemRight>
+          </TabStyled>)
+        }
+      </RecipeListItemRightStyled>
     </li>
   );
 }
