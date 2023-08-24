@@ -1,99 +1,100 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useState } from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS } from "../Recipe";
+import {
+} from "../../recipeBookApp/Styles";
+import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
+
+const INPUT_IDS = {
+  BATCH: "batch",
+  UNIT: "unit",
+};
 
 function EnterAmount({ name, dispatch }) {
   const [batchViewMode, toggleBatchViewMode] = useState(true);
   const [weight, setWeight] = useState(0);
   const [unitCount, setUnitCount] = useState(1);
-  const ref = useRef(false);
-
-  useEffect(() => {
-    document.addEventListener("click", handleClick);
-    return () => document.removeEventListener("click", handleClick);
-  });
 
   const handleClick = (e) => {
-    if (ref.current && e.target.className === "backdrop") {
+    const insidePopup = e.target.closest(`[data-action='popup']`);
+    console.log(insidePopup);
+    if (!insidePopup) {
       dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT });
     }
   };
+
   const handleChange = (e) => {
-    // no need for seperate id in the input statement because the id is set by the htmlFor statement
-    if (e.target.id === "batch") setWeight(e.target.value);
+    if (e.target.id === INPUT_IDS.BATCH) setWeight(e.target.value);
     else setUnitCount(e.target.value);
     e.stopPropagation();
   };
 
   return (
-    <>
-      <div ref={ref} className="backdrop">
-        <div className="backdrop__popup">
-          <h2 className="backdrop__popup__name">
-            {name.charAt(0).toUpperCase() + name.slice(1)}
-          </h2>
-          <span>
+      <>
+        <BackgroundOverlayStyled onClick={handleClick}>
+          <PopupStyled data-action="popup">
+            <h2 className="backdrop__popup__name">
+              {name.charAt(0).toUpperCase() + name.slice(1)}
+            </h2>
+            <span>
             <input
-              type="radio"
-              id="batch"
-              onChange={() => toggleBatchViewMode(true)}
-              checked={batchViewMode}
+                type="radio"
+                id={INPUT_IDS.BATCH}
+                onChange={() => toggleBatchViewMode(true)}
+                checked={batchViewMode}
             />
-            <label htmlFor="batch">Total Batch</label>
+            <label htmlFor={INPUT_IDS.BATCH}>Total Batch</label>
 
             <input
-              type="radio"
-              id="unit"
-              onChange={() => toggleBatchViewMode(false)}
-              checked={!batchViewMode}
+                type="radio"
+                id={INPUT_IDS.UNIT}
+                onChange={() => toggleBatchViewMode(false)}
+                checked={!batchViewMode}
             />
-            <label htmlFor="unit">Per Unit</label>
+            <label htmlFor={INPUT_IDS.UNIT}>Per Unit</label>
           </span>
-          <span>
+            <span>
             <Symbol type={"scale"} />
             <input
-              type="number"
-              id="batch"
-              // aria-label="input"
-              onChange={handleChange}
-              value={weight}
+                type="number"
+                id={INPUT_IDS.BATCH}
+                onChange={handleChange}
+                value={weight}
             />
           </span>
-          {!batchViewMode && (
-            <span>
+            {!batchViewMode && (
+                <span>
               <Symbol type={"bread"} />
               <input
-                type="number"
-                id="unit"
-                // aria-label="input"
-                onChange={handleChange}
-                value={unitCount}
+                  type="number"
+                  id={INPUT_IDS.UNIT}
+                  onChange={handleChange}
+                  value={unitCount}
               />
             </span>
-          )}
-          <span>
+            )}
+            <span>
             <button
-              onClick={() =>
-                dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
-              }
+                onClick={() =>
+                    dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
+                }
             >
               Cancel
             </button>
             <button
-              onClick={() =>
-                dispatch({
-                  type: ACTIONS.HANDLE_SUBMIT,
-                  payload: { weight: weight * unitCount },
-                })
-              }
-              className="backdrop__popup__submit"
+                onClick={() =>
+                    dispatch({
+                      type: ACTIONS.HANDLE_SUBMIT,
+                      payload: { weight: weight * unitCount },
+                    })
+                }
             >
               Calculate
             </button>
           </span>
-        </div>
-      </div>
-    </>
+          </PopupStyled>
+        </BackgroundOverlayStyled>
+      </>
   );
 }
 

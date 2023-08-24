@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useReducer} from 'react'
+import React, { useEffect, useMemo, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
@@ -12,9 +12,9 @@ import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
-import {findRecipesMissingIngredients} from '../../helper/findRecipesMissingIngredients'
-import {ContentHeaderStyled, MainCardStyled} from '../recipeBookApp/Styles'
-import {RecipeListStyled} from './Styles'
+import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
+import { ContentHeaderStyled, MainCardStyled } from "../recipeBookApp/Styles";
+import { RecipeListStyled } from "./Styles";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -72,24 +72,30 @@ function Recipe() {
     if (!recipeName) navigate("/recipes", { replace: true });
   }, []);
 
-  const initialState = useMemo(() => ({
-    recipe: recipeName
+  const initialState = useMemo(
+    () => ({
+      recipe: recipeName
         ? flattenRecipe(
             getRecipeFromRecipeName(recipeName, recipeBook),
             recipeBook
-        )
+          )
         : null,
-    index: null,
-    stepsMode: false,
-    currentWeight: 0,
-    totalFlourWeight: 0,
-    totalLiquidWeight: 0,
-    viewMode: VIEWMODE.VIEW_RECIPE,
-  }), [recipeName, recipeBook]);
+      index: null,
+      stepsMode: false,
+      currentWeight: 0,
+      totalFlourWeight: 0,
+      totalLiquidWeight: 0,
+      viewMode: VIEWMODE.VIEW_RECIPE,
+    }),
+    [recipeName, recipeBook]
+  );
   const [recipeState, dispatch] = useReducer(reducer, initialState);
 
-const faultyRecipes = findRecipesMissingIngredients(getRecipeFromRecipeName(recipeName, recipeBook), recipeBook);
-console.log(faultyRecipes);
+  const faultyRecipes = findRecipesMissingIngredients(
+    getRecipeFromRecipeName(recipeName, recipeBook),
+    recipeBook
+  );
+  console.log(faultyRecipes);
   // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
   if (!recipeName) return null;
 
@@ -172,8 +178,8 @@ console.log(faultyRecipes);
 
       {/*StepsMode: ingredients minus predoughs*/}
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
-        <div className="recipe">
-          <ul className="recipe-list">
+        <MainCardStyled>
+          <RecipeListStyled>
             <RecipeItemCenter>Ingredients minus predoughs</RecipeItemCenter>
             {recipeState.recipe.slice(1).map((recipeItem, index) => {
               return (
@@ -187,13 +193,13 @@ console.log(faultyRecipes);
                 />
               );
             })}
-          </ul>
-        </div>
+          </RecipeListStyled>
+        </MainCardStyled>
       )}
       {/*costs*/}
       {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
-        <div className="recipe">
-          <ul className="recipe-list">
+        <MainCardStyled>
+          <RecipeListStyled>
             <RecipeItemCenter>Costs</RecipeItemCenter>
             {recipeState.recipe
               .slice(1)
@@ -212,8 +218,8 @@ console.log(faultyRecipes);
               recipeItem={recipeState.recipe[0]}
               totalRecipe={true}
             />
-          </ul>
-        </div>
+          </RecipeListStyled>
+        </MainCardStyled>
       )}
     </>
   );

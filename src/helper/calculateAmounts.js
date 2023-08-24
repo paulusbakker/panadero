@@ -1,8 +1,6 @@
 import { calculateTotalOveralLiquidPercentage } from "./calculateTotalOveralLiquidPercentage";
 
 export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
-  console.log(flattenedRecipe);
-
   // find parent recipe
   function findParentRecipe(currentIndex) {
     const currentDepth = flattenedRecipe[currentIndex].depth;
@@ -148,18 +146,3 @@ export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
   return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight];
 }
 
-// let calculateTotalOveralLiquidPercentage = 0
-// flattenedRecipe.forEach((recipeItem) => {
-//     if (recipeItem.isRecipe) {
-//         return
-//     }
-//     if (recipeItem.isLiquid) {
-//         calculateTotalOveralLiquidPercentage += recipeItem.percentage
-//     }
-// })
-// = calculateTotalOveralLiquidPercentage * totalFlourWeightHistory[0]
-// let totalPrice = 0
-// flattenedRecipe.slice(1).every(recipeItem=>{
-//     if (recipeItem.isRecipe) return false
-//     recipeItem.pricePerKilo=recipeBook.ingredients.get(recipeItem.id).pricePerKilo
-// })

@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  MainCardStyled,
   ContentHeaderStyled,
   ItemsCountStyled,
   LinkStyled,

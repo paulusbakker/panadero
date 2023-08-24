@@ -1,5 +1,5 @@
 import React from "react";
-import { BackgroundOverlayStyled, CategoryEditWindowStyled } from "./Styles";
+import {BackgroundOverlayStyled, PopupStyled} from '../../styles/SharedStyles'
 
 function CategoryEditWindow({
   categoryName,
@@ -9,7 +9,7 @@ function CategoryEditWindow({
 }) {
   return (
     <BackgroundOverlayStyled>
-      <CategoryEditWindowStyled data-action='CategoryEditWindowStyled' >
+      <PopupStyled data-action='popup' >
         <p>Edit category:</p>
         {categoryName}
         <input
@@ -22,7 +22,7 @@ function CategoryEditWindow({
         <button onClick={() => handleCategoryUpdate(categoryName)} >
           Submit
         </button>
-      </CategoryEditWindowStyled>
+      </PopupStyled>
     </BackgroundOverlayStyled>
   );
 }

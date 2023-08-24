@@ -1,22 +1,31 @@
 import React from "react";
 import Symbol from "../../../components/shared/Symbol";
-import RecipeListItemLeft from "./RecipeListItemLeft";
-import RecipeListItemRight from "./RecipeListItemRight";
+import {
+  RecipeListItemLeftStyled,
+  RecipeListItemRightStyled,
+  RecipeListItemStyled,
+  TabStyled,
+} from "../Styles";
+import { getSymbolType } from "../../../helper/getSymbolType";
 
 function RecipeItemCost({ recipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
+
+  const symbolType = getSymbolType({ isRecipe: false, isFlour, isLiquid });
+
   return (
-    <li className="recipe-list__item">
-      <RecipeListItemLeft>{!totalRecipe ? name : "total"}</RecipeListItemLeft>
-      <RecipeListItemRight>
-        <Symbol type={isFlour && "flour"} />
-        <Symbol type={isLiquid && "isLiquid"} />
-        <span className="tab">{pricePerKilo.toFixed(2)}</span>
+    <RecipeListItemStyled>
+      <RecipeListItemLeftStyled>
+        {!totalRecipe ? name : "total"}
+      </RecipeListItemLeftStyled>
+      <RecipeListItemRightStyled>
+        <Symbol type={symbolType} />
+        <TabStyled>{pricePerKilo.toFixed(2)}</TabStyled>
         <Symbol type={"coins"} />
-        <span className="tab">{price.toFixed(2)}</span>
+        <TabStyled>{price.toFixed(2)}</TabStyled>
         <Symbol type={"coins"} />
-      </RecipeListItemRight>
-    </li>
+      </RecipeListItemRightStyled>
+    </RecipeListItemStyled>
   );
 }
 

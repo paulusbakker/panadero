@@ -4,7 +4,7 @@ import { Outlet, useLocation } from "react-router-dom";
 import Symbol from "../../../components/shared/Symbol";
 import {
   MainNavStyled,
-  MainNavButtonStyled,
+  MainNavButtonContainerStyled,
   MainNavItemStyled,
   MainNavLinkStyled,
   MainNavListStyled,
@@ -35,11 +35,11 @@ function NavBar() {
         >
           PANADERO
         </MainNavLinkStyled>
-        <MainNavButtonStyled
+        <MainNavButtonContainerStyled
           onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}
         >
           <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
-        </MainNavButtonStyled>
+        </MainNavButtonContainerStyled>
         {hamburgerMenuOpen && (
           <MainNavListStyled>
             <MainNavItemStyled>ADD RECIPE</MainNavItemStyled>

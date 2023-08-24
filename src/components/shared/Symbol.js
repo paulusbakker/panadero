@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "styled-components";
 import { GiGrainBundle } from "react-icons/gi";
 import { BsBook, BsDroplet, BsCurrencyExchange, BsFillPencilFill, BsPlusLg } from "react-icons/bs";
@@ -16,27 +15,29 @@ const SymbolWrapperStyled = styled.span`
 
 // A styled component to shrink the pencil symbol
 const PencilStyled = styled(BsFillPencilFill)`
-  transform: scale(0.75);  // 0.9 will shrink it to 90% of its original size. Adjust this value as needed.
+  transform: scale(0.75);
 `;
 
 function Symbol({ type, ...props }) {
-  return (
-      <SymbolWrapperStyled data-action='symbol' {...props}>
-        {type === "flour" && <GiGrainBundle />}
-        {type === "isLiquid" && <BsDroplet />}
-        {type === "recipe" && <BsBook />}
-        {type === "coins" && <BsCurrencyExchange />}
-        {type === "calculator" && <ImCalculator />}
-        {type === "openMenu" && <BiDotsVertical />}
-        {type === "closeMenu" && <MdClose />}
-        {type === "pencil" && <PencilStyled />}
-        {type === "bread" && <GiBread />}
-        {type === "scale" && <FaBalanceScale />}
-        {type === "delete" && <MdDelete />}
-        {type === "add" && <BsPlusLg />}
-        {type === "menu" && <BiDotsVertical />}
-      </SymbolWrapperStyled>
-  );
+    return (
+        <SymbolWrapperStyled data-action='symbol' {...props}>
+            {type === "flour" && <GiGrainBundle />}
+            {type === "isLiquid" && <BsDroplet />}
+            {type === "recipe" && <BsBook />}
+            {type === "coins" && <BsCurrencyExchange />}
+            {type === "calculator" && <ImCalculator />}
+            {type === "openMenu" && <BiDotsVertical />}
+            {type === "closeMenu" && <MdClose />}
+            {type === "pencil" && <PencilStyled />}
+            {type === "bread" && <GiBread />}
+            {type === "scale" && <FaBalanceScale />}
+            {type === "delete" && <MdDelete />}
+            {type === "add" && <BsPlusLg />}
+            {type === "menu" && <BiDotsVertical />}
+            {type === "empty" && <div style={{ width: '20px' }} />} {/* Placeholder for an empty symbol */}
+        </SymbolWrapperStyled>
+    );
 }
+
 
 export default Symbol;

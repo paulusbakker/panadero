@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import Symbol from "../../../components/shared/Symbol";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {
-  MainNavButtonStyled, MainNavItemStyled,
+  MainNavButtonContainerStyled, MainNavItemStyled,
   MainNavLinkStyled, MainNavListStyled,
   MainNavStyled,
 } from '../../recipeBookApp/navbar/NavBar.styles'
@@ -24,7 +24,7 @@ function RecipeNavbar() {
         >
           PANADERO
         </MainNavLinkStyled>
-        <MainNavButtonStyled>
+        <MainNavButtonContainerStyled>
           {!hamburgerMenuOpen && (
             <div>
               <Link
@@ -35,19 +35,19 @@ function RecipeNavbar() {
               </Link>
             </div>
           )}
-          <MainNavButtonStyled
+          <MainNavButtonContainerStyled
             onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}
           >
             <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
-          </MainNavButtonStyled>
-          {/*<MainNavButtonStyled>*/}
+          </MainNavButtonContainerStyled>
+          {/*<MainNavButtonContainerStyled>*/}
           {/*  {hamburgerMenuOpen ? (*/}
           {/*    <MdClose className="main-nav__button--closed" />*/}
           {/*  ) : (*/}
           {/*    <Symbol type={"menu"} className="main-nav__button--open" />*/}
           {/*  )}*/}
-          {/*</MainNavButtonStyled>*/}
-        </MainNavButtonStyled>
+          {/*</MainNavButtonContainerStyled>*/}
+        </MainNavButtonContainerStyled>
         {hamburgerMenuOpen && (
             <MainNavListStyled>
               <MainNavItemStyled>SAVE AS</MainNavItemStyled>

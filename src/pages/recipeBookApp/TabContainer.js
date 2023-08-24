@@ -56,7 +56,7 @@ function TabContainer() {
         }
         break;
 
-      case "CategoryEditWindowStyled":
+      case "popup":
         break;
 
       default:

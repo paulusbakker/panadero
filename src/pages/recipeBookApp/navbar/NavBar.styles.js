@@ -17,7 +17,7 @@ export const MainNavLinkStyled = styled(Link)`
   font-size: 28px;
 `;
 
-export const MainNavButtonStyled = styled.button`
+export const MainNavButtonContainerStyled = styled.div`
   z-index: 10;
   cursor: pointer;
   background: transparent;
