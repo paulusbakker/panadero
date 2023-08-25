@@ -16,7 +16,11 @@ const SymbolWrapperStyled = styled.span`
 // A styled component to shrink the pencil symbol
 const PencilStyled = styled(BsFillPencilFill)`
   transform: scale(0.75);
+  
+`;const CalculatorStyled = styled(ImCalculator)`
+  margin-left: 10px;
 `;
+
 
 function Symbol({ type, ...props }) {
     return (
@@ -25,7 +29,7 @@ function Symbol({ type, ...props }) {
             {type === "isLiquid" && <BsDroplet />}
             {type === "recipe" && <BsBook />}
             {type === "coins" && <BsCurrencyExchange />}
-            {type === "calculator" && <ImCalculator />}
+            {type === "calculator" && <CalculatorStyled />}
             {type === "openMenu" && <BiDotsVertical />}
             {type === "closeMenu" && <MdClose />}
             {type === "pencil" && <PencilStyled />}

@@ -7,6 +7,7 @@ import {
   TabStyled,
 } from '../Styles' // Make sure the path is correct
 import { getSymbolType } from '../../../helper/getSymbolType';
+import {numberFormat} from '../../../helper/numberFormat'
 
 function RecipeItemTotal({
                            name,
@@ -31,12 +32,12 @@ function RecipeItemTotal({
       >
         <RecipeListItemLeftStyled>
           {name}
-          {isLiquid && `  (${(totalLiquidPercentage * 100).toFixed(2)}%)`}
+          {isLiquid && `  (${numberFormat(totalLiquidPercentage * 100)}%)`}
         </RecipeListItemLeftStyled>
         <RecipeListItemRightStyled>
           <Symbol type={symbolType} />
           {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
-              <TabStyled>{weight.toFixed(2)}g</TabStyled>
+              <TabStyled>{numberFormat(weight)}g</TabStyled>
           ) : (
               <TabStyled>
                 <Symbol type={"calculator"} />

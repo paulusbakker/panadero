@@ -8,13 +8,12 @@ import { calculateAmounts } from "../../helper/calculateAmounts";
 import RecipeItem from "./components/RecipeItem";
 import Symbol from "../../components/shared/Symbol";
 import EnterAmount from "./components/EnterAmount";
-import RecipeItemCenter from "./components/RecipeItemCenter";
 import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
-import { ContentHeaderStyled, MainCardStyled } from "../recipeBookApp/Styles";
-import { RecipeListStyled } from "./Styles";
+import { RecipeListStyled, CenteredListItem } from "./Styles";
+import {ContentHeaderStyled, MainCardStyled} from '../../styles/SharedStyles'
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -180,7 +179,7 @@ function Recipe() {
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
         <MainCardStyled>
           <RecipeListStyled>
-            <RecipeItemCenter>Ingredients minus predoughs</RecipeItemCenter>
+            <CenteredListItem>Ingredients minus predoughs</CenteredListItem>
             {recipeState.recipe.slice(1).map((recipeItem, index) => {
               return (
                 <RecipeItem
@@ -200,7 +199,7 @@ function Recipe() {
       {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
         <MainCardStyled>
           <RecipeListStyled>
-            <RecipeItemCenter>Costs</RecipeItemCenter>
+            <CenteredListItem>Costs</CenteredListItem>
             {recipeState.recipe
               .slice(1)
               .map(

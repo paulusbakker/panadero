@@ -10,6 +10,7 @@ import {
 } from '../Styles';
 import { getSymbolType } from '../../../helper/getSymbolType';
 import Indent from './Indent'
+import {numberFormat} from '../../../helper/numberFormat'
 
 function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const {
@@ -42,14 +43,14 @@ function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
           <Symbol type={symbolType} />
           <ContainerStyled>
             {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
-                <TabStyled>{`${(!stepsMode
+                <TabStyled>{`${numberFormat(!stepsMode
                         ? weight
                         : stepWeight
-                ).toFixed(2)}g`}</TabStyled>
+                )}g`}</TabStyled>
             ) : (
                 <>
                   {!stepsMode ? (
-                      <TabStyled>{(percentage * 100).toFixed(2)}%</TabStyled>
+                      <TabStyled>{numberFormat(percentage * 100)}%</TabStyled>
                   ) : (
                       <TabStyled />
                   )}

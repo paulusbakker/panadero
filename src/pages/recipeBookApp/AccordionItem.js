@@ -1,6 +1,5 @@
 import React from "react";
 import {
-  ContentHeaderStyled,
   ItemsCountStyled,
   LinkStyled,
 } from "./Styles";
@@ -8,6 +7,7 @@ import Symbol from "../../components/shared/Symbol";
 import EditCategoryButton from "./EditCategoryButton";
 import CategoryEditWindow from "./CategoryEditWindow";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
+import {ContentHeaderStyled} from '../../styles/SharedStyles'
 
 function AccordionItem({
   categoryName,

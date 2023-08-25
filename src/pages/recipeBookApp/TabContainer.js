@@ -3,9 +3,9 @@ import { useRecoilState } from "recoil";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
-import { MainCardStyled } from "./Styles";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./AccordionItem";
+import {MainCardStyled} from '../../styles/SharedStyles'
 
 function TabContainer() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);

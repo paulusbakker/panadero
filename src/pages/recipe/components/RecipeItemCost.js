@@ -7,6 +7,7 @@ import {
   TabStyled,
 } from "../Styles";
 import { getSymbolType } from "../../../helper/getSymbolType";
+import {numberFormat} from '../../../helper/numberFormat'
 
 function RecipeItemCost({ recipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
@@ -20,9 +21,9 @@ function RecipeItemCost({ recipeItem, totalRecipe }) {
       </RecipeListItemLeftStyled>
       <RecipeListItemRightStyled>
         <Symbol type={symbolType} />
-        <TabStyled>{pricePerKilo.toFixed(2)}</TabStyled>
+        <TabStyled>{numberFormat(pricePerKilo)}</TabStyled>
         <Symbol type={"coins"} />
-        <TabStyled>{price.toFixed(2)}</TabStyled>
+        <TabStyled>{numberFormat(price)}</TabStyled>
         <Symbol type={"coins"} />
       </RecipeListItemRightStyled>
     </RecipeListItemStyled>

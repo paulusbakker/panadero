@@ -35,3 +35,9 @@ export const ContainerStyled = styled.span`
   display: flex;
   // Other styling here
 `;
+
+export const CenteredListItem = styled.li`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
