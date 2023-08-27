@@ -35,7 +35,7 @@ export function makeRecipeBook() {
   ingredientCategories.set(8, "Fats & Oils");
   ingredientCategories.set(9, "Vinegars");
   ingredientCategories.set(10, "Baking Enhancers");
-  ingredientCategories.set(11, "Whole Grains & Seeds");
+  ingredientCategories.set(11, "Whole Grains & Rice & Seeds etc");
   ingredientCategories.set(12, "Flavoring Agents");
   ingredientCategories.set(13, "Fruits");
   ingredientCategories.set(14, "Nuts");
@@ -131,7 +131,6 @@ export function makeRecipeBook() {
   ingredients.set(73, new Ingredient("Cinnamon (Ground)", 15, 2.6, 0));
   ingredients.set(74, new Ingredient("Cinnamon (Stick)", 15, 2.6, 0));
 
-
   ingredients.set(75, new Ingredient("Bitter-Sweet (Bar)", 16, 0, 0));
   ingredients.set(76, new Ingredient("Bitter-Sweet (Chips)", 16, 0, 0));
   ingredients.set(77, new Ingredient("Caramel", 16, 0, 0));
@@ -207,7 +206,7 @@ export function makeRecipeBook() {
   ingredients.set(131, new Ingredient("Cream (Heavy, >36%)", 3, 3.45, 0));
   ingredients.set(132, new Ingredient("Egg Whites", 3, 3.82, 0));
   ingredients.set(133, new Ingredient("Egg Whites (Powder)", 3, 3.82, 0));
-  ingredients.set(134, new Ingredient("Eggs", 3, 1.47, 0));
+  ingredients.set(134, new Ingredient("Eggs (50g=1)", 3, 1.47, 0));
   ingredients.set(135, new Ingredient("Eggs (Powder)", 3, 5.94, 0));
   ingredients.set(136, new Ingredient("Evaporated Milk", 3, 1.34, 0));
   ingredients.set(137, new Ingredient("Goat Milk", 3, 0.69, 0));
@@ -295,9 +294,10 @@ export function makeRecipeBook() {
   ingredients.set(195, new Ingredient("Molasse (Dark)", 7, 0, 0));
   ingredients.set(196, new Ingredient("Coriander Seed", 15, 0, 0));
   ingredients.set(197, new Ingredient("Koekkruiden", 15, 0, 0));
+  ingredients.set(198, new Ingredient("Sucade", 13, 0, 0));
+  ingredients.set(199, new Ingredient("Zilvervliesrijst", 11, 0, 0));
 
-
-  let  recipeIngredients = [];
+  let recipeIngredients = [];
   let includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 174, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
@@ -427,6 +427,7 @@ export function makeRecipeBook() {
     12,
     new Recipe("Ander simpel voordeeg", 3, recipeIngredients, includedRecipes)
   );
+
   recipeIngredients = [];
   includedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, 187, 0.975));
@@ -465,7 +466,6 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(true, false, 174, 1));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.589));
   includedRecipes.push(new IncludedRecipe(1, 0.1071));
-
   recipes.set(16, new Recipe("Sponge", 3, recipeIngredients, includedRecipes));
 
   recipeIngredients = [];
@@ -478,33 +478,33 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   includedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, 174, .71));
-  recipeIngredients.push(new RecipeIngredient(true, false, 191, .29));
-  recipeIngredients.push(new RecipeIngredient(false, false, 192, .089));
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, 0.71));
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, 0.29));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, 0.089));
   recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.76));
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 1.13));
   recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.01));
-  includedRecipes.push(new IncludedRecipe(16, .71));
+  includedRecipes.push(new IncludedRecipe(16, 0.71));
   includedRecipes.push(new IncludedRecipe(17, 0.29));
   recipes.set(
-      18,
-      new Recipe("Scald-Sponge", 3, recipeIngredients, includedRecipes)
+    18,
+    new Recipe("Scald-Sponge", 3, recipeIngredients, includedRecipes)
   );
 
   recipeIngredients = [];
   includedRecipes = [];
   // Medium Rye Flour
-  recipeIngredients.push(new RecipeIngredient(true, false, 174, .66));
+  recipeIngredients.push(new RecipeIngredient(true, false, 174, 0.66));
   // Rye Meal (Course)
-  recipeIngredients.push(new RecipeIngredient(true, false, 191, .15));
+  recipeIngredients.push(new RecipeIngredient(true, false, 191, 0.15));
   // Bread Flour
-  recipeIngredients.push(new RecipeIngredient(true, false, 155, .19));
+  recipeIngredients.push(new RecipeIngredient(true, false, 155, 0.19));
   // Red Rye Malt
-  recipeIngredients.push(new RecipeIngredient(false, false, 192, .06));
+  recipeIngredients.push(new RecipeIngredient(false, false, 192, 0.06));
   // Water (Boiling)
-  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.40));
+  recipeIngredients.push(new RecipeIngredient(false, true, 193, 0.4));
   // Water
-  recipeIngredients.push(new RecipeIngredient(false, true, 109, .60));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.6));
   // Coriander (Ground)
   recipeIngredients.push(new RecipeIngredient(false, false, 194, 0.0054));
   //  Sea Salt
@@ -513,65 +513,105 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(false, false, 195, 0.054));
   // Coriander Seed
   recipeIngredients.push(new RecipeIngredient(false, false, 196, 0.0027));
-  includedRecipes.push(new IncludedRecipe(18, .53));
+  includedRecipes.push(new IncludedRecipe(18, 0.53));
   recipes.set(
-      19,
-      new Recipe("GOST Borondinsky", 2, recipeIngredients, includedRecipes)
+    19,
+    new Recipe("GOST Borondinsky", 2, recipeIngredients, includedRecipes)
   );
 
   recipeIngredients = [];
   includedRecipes = [];
   // Bread Flour
-  recipeIngredients.push(new RecipeIngredient(true, false, 155, .80));
-  // Roggemeel de Vriendschap
-  recipeIngredients.push(new RecipeIngredient(true, false, 182, .20));
+  recipeIngredients.push(new RecipeIngredient(true, false, 155, 1));
   // Water
-  recipeIngredients.push(new RecipeIngredient(false, true, 109, .20));
-  // Buttermilk
-  recipeIngredients.push(new RecipeIngredient(false, true, 125, .80));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 1));
   // Suiker
-  recipeIngredients.push(new RecipeIngredient(false, false, 86, .46));
+  recipeIngredients.push(new RecipeIngredient(false, false, 86, 0.46));
   // Raisins
-  recipeIngredients.push(new RecipeIngredient(false, false, 66, .30));
+  recipeIngredients.push(new RecipeIngredient(false, false, 66, 0.3));
   // Baking powder
-  recipeIngredients.push(new RecipeIngredient(false, false, 104, .015));
+  recipeIngredients.push(new RecipeIngredient(false, false, 104, 0.015));
   // Koekkruiden
-  recipeIngredients.push(new RecipeIngredient(false, false, 197, .075));
+  recipeIngredients.push(new RecipeIngredient(false, false, 197, 0.075));
   //  Sea Salt
   recipeIngredients.push(new RecipeIngredient(false, false, 102, 0.009));
-  // Voordeeg
-  includedRecipes.push(new IncludedRecipe(8, .20));
   recipes.set(
-      20,
-      new Recipe("Kruidkoek", 10, recipeIngredients, includedRecipes)
+    20,
+    new Recipe("Kruidkoek", 10, recipeIngredients, includedRecipes)
   );
 
   recipeIngredients = [];
   includedRecipes = [];
   // Bread Flour
-  recipeIngredients.push(new RecipeIngredient(true, false, 155, .80));
+  recipeIngredients.push(new RecipeIngredient(true, false, 155, 0.8));
   // Roggemeel de Vriendschap
-  recipeIngredients.push(new RecipeIngredient(true, false, 182, .20));
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 0.2));
   // Water
-  recipeIngredients.push(new RecipeIngredient(false, true, 109, .20));
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.2));
   // Buttermilk
-  recipeIngredients.push(new RecipeIngredient(false, true, 125, .80));
+  recipeIngredients.push(new RecipeIngredient(false, true, 125, 0.8));
   // Suiker
-  recipeIngredients.push(new RecipeIngredient(false, false, 86, .46));
+  recipeIngredients.push(new RecipeIngredient(false, false, 86, 0.35));
   // Raisins
-  recipeIngredients.push(new RecipeIngredient(false, false, 66, .30));
+  recipeIngredients.push(new RecipeIngredient(false, false, 66, 0.3));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, false, 109, 0.03));
+  // Egg
+  recipeIngredients.push(new RecipeIngredient(false, false, 134, 0.14));
+  // Sucade
+  recipeIngredients.push(new RecipeIngredient(false, false, 198, 0.14));
   // Baking powder
-  recipeIngredients.push(new RecipeIngredient(false, false, 104, .01));
+  recipeIngredients.push(new RecipeIngredient(false, false, 104, 0.01));
   // Koekkruiden
-  recipeIngredients.push(new RecipeIngredient(false, false, 197, .075));
+  recipeIngredients.push(new RecipeIngredient(false, false, 197, 0.075));
   //  Sea Salt
   recipeIngredients.push(new RecipeIngredient(false, false, 102, 0.009));
   // Voordeeg
-  includedRecipes.push(new IncludedRecipe(8, .20));
+  includedRecipes.push(new IncludedRecipe(8, 0.2));
   recipes.set(
-      21,
-      new Recipe("Kruidkoek zuurdesem", 10, recipeIngredients, includedRecipes)
+    21,
+    new Recipe("Kruidkoek zuurdesem", 10, recipeIngredients, includedRecipes)
   );
+
+  console.log("help");
+  recipeIngredients = [];
+  includedRecipes = [];
+  // Tarwemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, 181, 0.9688));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 0.0312));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.8));
+  // Zilvervliesrijst
+  recipeIngredients.push(new RecipeIngredient(false, false, 199, 0.625));
+  // Geabsorbeerd Water
+  recipeIngredients.push(new RecipeIngredient(false, false, 109, 0.94));
+  // Zonnebloemolie
+  recipeIngredients.push(new RecipeIngredient(false, true, 184, 0.075));
+  //  Sea Salt
+  recipeIngredients.push(new RecipeIngredient(false, false, 102, 0.016));
+  // Voordeeg
+  includedRecipes.push(new IncludedRecipe(11, 0.375));
+  recipes.set(
+    12,
+    new Recipe("Rijstebrood Anneé", 2, recipeIngredients, includedRecipes)
+  );
+
+  recipeIngredients = [];
+  includedRecipes = [];
+  // Tarwemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, 181, 0.9167));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, 182, 0.0833));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.6666));
+  // Voordeeg
+  includedRecipes.push(new IncludedRecipe(9, 0.0833));
+  recipes.set(
+    11,
+    new Recipe("Voordeeg Rijstebrood", 3, recipeIngredients, includedRecipes)
+  );
+
   return new RecipeBook(
     "Recipe book",
     recipeCategories,
