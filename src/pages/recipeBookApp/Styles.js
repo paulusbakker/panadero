@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 export const LinkStyled = styled(Link)`
   color: #003049;
+  display: block; /* Makes the link take up the full space */
+  width: 100%;
 `;
 
 

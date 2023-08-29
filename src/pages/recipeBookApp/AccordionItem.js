@@ -1,13 +1,10 @@
 import React from "react";
-import {
-  ItemsCountStyled,
-  LinkStyled,
-} from "./Styles";
+import { ItemsCountStyled, LinkStyled } from "./Styles";
 import Symbol from "../../components/shared/Symbol";
 import EditCategoryButton from "./EditCategoryButton";
 import CategoryEditWindow from "./CategoryEditWindow";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
-import {ContentHeaderStyled} from '../../styles/SharedStyles'
+import { ContentHeaderStyled } from "../../styles/SharedStyles";
 
 function AccordionItem({
   categoryName,
@@ -19,6 +16,7 @@ function AccordionItem({
   handleInputChange,
   currentEditValue,
   handleCategoryUpdate,
+  handleContainerClick,
 }) {
   const createItemLink = (itemName) => {
     const baseLink = isRecipeTab ? `/recipe/` : `/ingredient/`;
@@ -62,8 +60,20 @@ function AccordionItem({
           const linkProps = createItemLink(itemName);
           return (
             <ul key={itemName}>
-              <li>
-                <LinkStyled to={linkProps.to} state={linkProps.state}>
+              <li
+                onClick={handleContainerClick}
+                data-action="category-items"
+                data-category-name={categoryName}
+              >
+                <LinkStyled
+                  to={linkProps.to}
+                  state={linkProps.state}
+                  onClick={(e) => {
+                    if (activeCategory !== null) {
+                      e.preventDefault(); // Stops the link from being followed
+                    }
+                  }}
+                >
                   {itemName}
                 </LinkStyled>
               </li>

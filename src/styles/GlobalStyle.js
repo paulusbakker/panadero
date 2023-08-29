@@ -24,16 +24,5 @@ export const GlobalStyle = createGlobalStyle`
   body {
     background-color: lightgrey;
   }
-  
-  //div {
-  //  background-color: #EAE2B7;
-  //  
-  //}
-
-  hr {
-    border: 1px dashed #000;
-    width: 100%;
-    margin-top: 0.5%;
-    margin-bottom: 1.5%;
-  }
+ 
 `;

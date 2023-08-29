@@ -573,7 +573,6 @@ export function makeRecipeBook() {
     new Recipe("Kruidkoek zuurdesem", 10, recipeIngredients, includedRecipes)
   );
 
-  console.log("help");
   recipeIngredients = [];
   includedRecipes = [];
   // Tarwemeel de Vriendschap
@@ -583,9 +582,9 @@ export function makeRecipeBook() {
   // Water
   recipeIngredients.push(new RecipeIngredient(false, true, 109, 0.8));
   // Zilvervliesrijst
-  recipeIngredients.push(new RecipeIngredient(false, false, 199, 0.625));
+  recipeIngredients.push(new RecipeIngredient(false, false, 199, 0.20));
   // Geabsorbeerd Water
-  recipeIngredients.push(new RecipeIngredient(false, false, 109, 0.94));
+  recipeIngredients.push(new RecipeIngredient(false, false, 109, 0.30));
   // Zonnebloemolie
   recipeIngredients.push(new RecipeIngredient(false, true, 184, 0.075));
   //  Sea Salt

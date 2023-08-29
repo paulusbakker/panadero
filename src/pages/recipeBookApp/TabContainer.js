@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./AccordionItem";
-import {MainCardStyled} from '../../styles/SharedStyles'
+import { MainCardStyled } from "../../styles/SharedStyles";
 
 function TabContainer() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -17,7 +17,6 @@ function TabContainer() {
   const [isEditWindowOpen, setEditWindowOpen] = useState(false);
   const [currentEditValue, setCurrentEditValue] = useState("");
   const [openCategoryNames, setOpenCategoryNames] = useState([]);
-
   const toggleOpenCategoryName = (categoryName) => {
     setOpenCategoryNames((prevOpenCategories) =>
       prevOpenCategories.includes(categoryName)
@@ -29,7 +28,8 @@ function TabContainer() {
   function handleContainerClick(event) {
     const actionElement = event.target.closest("[data-action]");
     if (!actionElement) return;
-
+    console.log(actionElement);
+    console.log("klik");
     const targetAction = actionElement.getAttribute("data-action");
     const clickedCategoryName =
       actionElement.getAttribute("data-category-name");
@@ -53,6 +53,12 @@ function TabContainer() {
           setActiveCategory(null);
         } else {
           toggleOpenCategoryName(clickedCategoryName);
+        }
+        break;
+
+      case "category-items":
+        if (activeCategory !== null) {
+          setActiveCategory(null);
         }
         break;
 
@@ -88,7 +94,7 @@ function TabContainer() {
   };
 
   return (
-    <MainCardStyled onClick={handleContainerClick}>
+    <MainCardStyled id="MainCardStyledId" onClick={handleContainerClick}>
       {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
         <AccordionItem
           key={categoryName}
@@ -101,6 +107,7 @@ function TabContainer() {
           handleInputChange={handleInputChange}
           currentEditValue={currentEditValue}
           handleCategoryUpdate={handleCategoryUpdate}
+          handleContainerClick={handleContainerClick}
         />
       ))}
     </MainCardStyled>
