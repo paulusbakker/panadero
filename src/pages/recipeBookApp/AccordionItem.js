@@ -4,7 +4,7 @@ import Symbol from "../../components/shared/Symbol";
 import EditCategoryButton from "./EditCategoryButton";
 import CategoryEditWindow from "./CategoryEditWindow";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
-import {ContentHeaderStyled, li} from '../../styles/SharedStyles'
+import {ItemHeaderStyled, li} from '../../styles/SharedStyles'
 
 function AccordionItem({
   categoryName,
@@ -47,11 +47,11 @@ function AccordionItem({
   return (
     <li>
       <div data-action="category-name" data-category-name={categoryName}>
-        <ContentHeaderStyled>
+        <ItemHeaderStyled>
           <div>{categoryName}</div>
           <Symbol type="menu" data-category-name={categoryName} />
           {activeCategory === categoryName && renderCategoryContent()}
-        </ContentHeaderStyled>
+        </ItemHeaderStyled>
         <ItemsCountStyled>{itemCountLabel}</ItemsCountStyled>
       </div>
 

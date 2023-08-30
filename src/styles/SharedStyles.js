@@ -1,5 +1,24 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
+// Shared Styles
+const boxShadowStyle = css`
+  box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
+`;
+
+const fontFamilyStyle = css`
+  font-family: "Arial Rounded MT Bold", sans-serif;
+`;
+
+// Base Styled Ul
+const UlBaseStyled = styled.ul`
+  ${boxShadowStyle}
+  ${fontFamilyStyle}
+  margin-bottom: 10px;
+  margin-left: 8px;
+  margin-right: 8px;
+`;
+
+// Styled Components
 export const BackgroundOverlayStyled = styled.div`
   z-index: 10000;
   position: fixed;
@@ -18,7 +37,7 @@ export const PopupStyled = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1em 1em 1em 1em;
+  padding: 1em;
   background: rgba(255, 255, 255, 0.25);
   box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
   backdrop-filter: blur(7px);
@@ -27,7 +46,7 @@ export const PopupStyled = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
 `;
 
-export const ContentHeaderStyled = styled.div`
+export const ItemHeaderStyled = styled.li`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -36,33 +55,28 @@ export const ContentHeaderStyled = styled.div`
   font-size: 25px;
 `;
 
-export const FlexContainerStyled = styled.div`
+export const BelowNavbarSpaceStyled = styled.div`
   height: calc(100vh - 78px);
 `;
 
-// Base Card
-const CardStyled = styled.div`
-  box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
-  font-family: "Arial Rounded MT Bold", sans-serif;
-  margin-bottom: 10px;
-  margin-left: 8px;
-  margin-right: 8px;
+export const TabContainerUlStyled = styled(UlBaseStyled)`
   font-size: 25px;
-`;
+  background-color: lightgrey;
 
-// Extended card for lists
-export const ListCardStyled = styled(CardStyled)`
   > li {
     background-color: #eae2b7;
     margin-top: 8px;
     padding: 5px;
-    box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
+    ${boxShadowStyle}
   }
 `;
 
-// Extended card for non-list content
-export const PlainCardStyled = styled(CardStyled)`
+export const ContentUlStyled = styled(UlBaseStyled)`
+  font-size: 18px;
   background-color: #eae2b7;
 `;
 
-
+export const DottedLine = styled.div`
+  border-top: 1px dotted #000;
+  margin-bottom: 16px;
+`;

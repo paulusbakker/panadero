@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./AccordionItem";
-import {FlexContainerStyled, MainCardStyled, ListCardStyled} from '../../styles/SharedStyles'
+import {BelowNavbarSpaceStyled, TabContainerUlStyled} from '../../styles/SharedStyles'
 
 function TabContainer() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -95,8 +95,8 @@ function TabContainer() {
   };
 
   return (
-    <FlexContainerStyled onClick={handleContainerClick}>
-      <ListCardStyled>
+    <BelowNavbarSpaceStyled onClick={handleContainerClick}>
+      <TabContainerUlStyled>
         {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
           <AccordionItem
             key={categoryName}
@@ -112,8 +112,8 @@ function TabContainer() {
             handleContainerClick={handleContainerClick}
           />
         ))}
-      </ListCardStyled>
-    </FlexContainerStyled>
+      </TabContainerUlStyled>
+    </BelowNavbarSpaceStyled>
   );
 }
 

@@ -1,42 +1,43 @@
 import styled from "styled-components";
 
-const FlexContainer = styled.div`
+const FlexContainerStyled = styled.div`
   display: flex;
   align-items: center;
 `;
 
-const FlexItemRightAligned = styled.span`
+const FlexItemRightAlignedStyled = styled.span`
   width: 84px;
   display: flex;
   justify-content: flex-end;
 `;
 
-const FlexContainerSpaceBetween = styled(FlexContainer)`
-  justify-content: space-between;
-`;
-
-export const RecipeListStyled = styled.ul`
+export const UlStyled = styled.ul`
   font-size: large;
 `;
 
-export const RecipeListItemStyled = styled(FlexContainerSpaceBetween)``;
+export const RecipeListItemStyled = styled.li`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #eae2b7;
+`;
 
-export const RecipeListItemLeftStyled = styled(FlexContainer)``;
+export const RecipeListItemLeftStyled = styled(FlexContainerStyled)``;
 
-export const RecipeListItemRightStyled = styled(FlexContainer)`
+export const RecipeListItemRightStyled = styled(FlexContainerStyled)`
   justify-content: space-between;
   align-items: center;
   width: 150px;
 `;
 
-export const TabStyled = FlexItemRightAligned;
+export const TabStyled = FlexItemRightAlignedStyled;
 
 export const ContainerStyled = styled.span`
   display: flex;
   // Other styling here
 `;
 
-export const CenteredListItem = styled.li`
+export const CenteredListItemStyled = styled.li`
   display: flex;
   justify-content: center;
   align-items: center;

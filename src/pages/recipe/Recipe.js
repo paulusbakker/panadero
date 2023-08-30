@@ -12,8 +12,12 @@ import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
-import { RecipeListStyled, CenteredListItem } from "./Styles";
-import {ContentHeaderStyled, PlainCardStyled} from '../../styles/SharedStyles'
+import { UlStyled, CenteredListItemStyled } from "./Styles";
+import {
+  ItemHeaderStyled,
+  DottedLine,
+  ContentUlStyled,
+} from "../../styles/SharedStyles";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -64,7 +68,7 @@ function Recipe() {
   const navigate = useNavigate();
   const location = useLocation();
   const recipeBook = useRecoilValue(recipeBookAtom);
-  console.log(recipeBook)
+  console.log(recipeBook);
   const recipeName = location.state?.recipeName;
 
   // redirect non-existing url's
@@ -101,86 +105,82 @@ function Recipe() {
 
   return (
     <>
-      {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
-        <EnterAmount
-          name={
-            isNaN(recipeState.index) // index might be filled with for example 'Total flour'
-              ? recipeState.index
-              : recipeState.recipe[Math.abs(recipeState.index) + 1].name
-          }
-          dispatch={dispatch}
-        />
-      )}
-      <PlainCardStyled>
-        <ContentHeaderStyled>
+      <ContentUlStyled>
+        {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
+          <EnterAmount
+            name={
+              isNaN(recipeState.index) // index might be filled with for example 'Total flour'
+                ? recipeState.index
+                : recipeState.recipe[Math.abs(recipeState.index) + 1].name
+            }
+            dispatch={dispatch}
+          />
+        )}
+        <ItemHeaderStyled>
           {recipeState.recipe[0].name}
           <Symbol type={"menu"} />
-        </ContentHeaderStyled>
-        <RecipeListStyled>
-          {/*delete first element with slice because recipe title already printed*/}
-          {recipeState.recipe.slice(1).map((recipeItem, index) => (
-            <RecipeItem
-              key={`recipe-item-${index}`}
-              recipeItem={recipeItem}
-              index={index}
-              stepsMode={false}
-              viewMode={recipeState.viewMode}
-              dispatch={dispatch}
-            />
-          ))}
-          <hr />
-          {/*totals*/}
-          <ul>
-            <RecipeItemTotal
-              name={"total flour"}
-              isRecipe={false}
-              isFlour={true}
-              isLiquid={false}
-              totalLiquidPercentage={null}
-              viewMode={recipeState.viewMode}
-              dispatch={dispatch}
-              weight={recipeState.totalFlourWeight}
-            />
-            <RecipeItemTotal
-              name={"total liquid"}
-              isRecipe={false}
-              isFlour={false}
-              isLiquid={true}
-              totalLiquidPercentage={calculateTotalOveralLiquidPercentage(
-                recipeState.recipe
-              )}
-              viewMode={recipeState.viewMode}
-              dispatch={dispatch}
-              weight={recipeState.totalLiquidWeight}
-            />
-            <RecipeItemTotal
-              name={"total recipe"}
-              isRecipe={true}
-              isFlour={false}
-              isLiquid={false}
-              totalLiquidPercentage={null}
-              viewMode={recipeState.viewMode}
-              dispatch={dispatch}
-              weight={recipeState.recipe[0].weight}
-            />
-            {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
-              <button
-                onClick={() =>
-                  dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
-                }
-              >
-                C
-              </button>
-            )}
-          </ul>
-        </RecipeListStyled>
-      </PlainCardStyled>
+        </ItemHeaderStyled>
+        {recipeState.recipe.slice(1).map((recipeItem, index) => (
+          <RecipeItem
+            key={`recipe-item-${index}`}
+            recipeItem={recipeItem}
+            index={index}
+            stepsMode={false}
+            viewMode={recipeState.viewMode}
+            dispatch={dispatch}
+          />
+        ))}
+        <DottedLine />
+
+        {/*totals*/}
+        <RecipeItemTotal
+          name={"total flour"}
+          isRecipe={false}
+          isFlour={true}
+          isLiquid={false}
+          totalLiquidPercentage={null}
+          viewMode={recipeState.viewMode}
+          dispatch={dispatch}
+          weight={recipeState.totalFlourWeight}
+        />
+        <RecipeItemTotal
+          name={"total liquid"}
+          isRecipe={false}
+          isFlour={false}
+          isLiquid={true}
+          totalLiquidPercentage={calculateTotalOveralLiquidPercentage(
+            recipeState.recipe
+          )}
+          viewMode={recipeState.viewMode}
+          dispatch={dispatch}
+          weight={recipeState.totalLiquidWeight}
+        />
+        <RecipeItemTotal
+          name={"total recipe"}
+          isRecipe={true}
+          isFlour={false}
+          isLiquid={false}
+          totalLiquidPercentage={null}
+          viewMode={recipeState.viewMode}
+          dispatch={dispatch}
+          weight={recipeState.recipe[0].weight}
+        />
+        {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
+          <button
+            onClick={() => dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })}
+          >
+            C
+          </button>
+        )}
+      </ContentUlStyled>
 
       {/*StepsMode: ingredients minus predoughs*/}
-      {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
-        <PlainCardStyled>
-          <RecipeListStyled>
-            <CenteredListItem>Ingredients minus predoughs</CenteredListItem>
+      <ContentUlStyled>
+        {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
+          <>
+            <CenteredListItemStyled>
+              Ingredients minus predoughs
+            </CenteredListItemStyled>
             {recipeState.recipe.slice(1).map((recipeItem, index) => {
               return (
                 <RecipeItem
@@ -193,14 +193,15 @@ function Recipe() {
                 />
               );
             })}
-          </RecipeListStyled>
-        </PlainCardStyled>
-      )}
+          </>
+        )}
+      </ContentUlStyled>
+
       {/*costs*/}
-      {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
-        <PlainCardStyled>
-          <RecipeListStyled>
-            <CenteredListItem>Costs</CenteredListItem>
+      <ContentUlStyled>
+        {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
+          <>
+            <CenteredListItemStyled>Costs</CenteredListItemStyled>
             {recipeState.recipe
               .slice(1)
               .map(
@@ -218,9 +219,9 @@ function Recipe() {
               recipeItem={recipeState.recipe[0]}
               totalRecipe={true}
             />
-          </RecipeListStyled>
-        </PlainCardStyled>
-      )}
+          </>
+        )}
+      </ContentUlStyled>
     </>
   );
 }
