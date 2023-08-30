@@ -5,11 +5,13 @@ import { makeRecipeBook } from "./helper/makeRecipeBook";
 import React, { useEffect } from "react";
 import NavBar from "./pages/recipeBookApp/navbar/NavBar";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RecipeNavbar from "./pages/recipe/navbar/RecipeNavbar";
+import RecipeNavbar from "./pages/recipe/RecipeNavbar";
 import Recipe from "./pages/recipe/Recipe";
 import NoPage from "./pages/NoPage";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import TabContainer from "./pages/recipeBookApp/TabContainer";
+import IngredientNavbar from './pages/ingredient/IngredientNavbar'
+import Ingredient from './pages/ingredient/Ingredient'
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
@@ -34,11 +36,18 @@ const router = createBrowserRouter([
       },
     ],
   },
-  // Edit recipe: /recipe/{recipe_id}/edit
-  // {
-  //   path: "/recipe/:id/edit",
-  //   element: <EditRecipeNavBar />,
-  // },
+  // View ingredient: /ingredient/{ingredient_id}
+  {
+    path: "/ingredient/:id",
+    element: <IngredientNavbar />,
+    children: [
+      {
+        path: "/ingredient/:id",
+        element: <Ingredient />,
+      },
+    ],
+  },
+
 
   // Homepage #2, active tab=ingredients: /ingredients
   {
@@ -74,7 +83,7 @@ function App() {
   return (
     <>
       <GlobalStyle />
-      <RouterProvider router={router} />
+        <RouterProvider router={router} />
     </>
   );
 }

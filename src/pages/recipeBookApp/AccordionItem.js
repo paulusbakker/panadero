@@ -4,7 +4,7 @@ import Symbol from "../../components/shared/Symbol";
 import EditCategoryButton from "./EditCategoryButton";
 import CategoryEditWindow from "./CategoryEditWindow";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
-import { ContentHeaderStyled } from "../../styles/SharedStyles";
+import {ContentHeaderStyled, li} from '../../styles/SharedStyles'
 
 function AccordionItem({
   categoryName,

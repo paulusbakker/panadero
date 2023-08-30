@@ -77,7 +77,10 @@ export const TabItemStyled = styled(Link)`
     border-left: 1px solid grey;
   }
 `;
+// don't know what this is about!
+// TabItemStyled.defaultProps = {
+//   active: false,
+// };
 
-TabItemStyled.defaultProps = {
-  active: false,
-};
+
+

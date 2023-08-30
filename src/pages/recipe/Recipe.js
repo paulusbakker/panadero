@@ -13,7 +13,7 @@ import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
 import { RecipeListStyled, CenteredListItem } from "./Styles";
-import {ContentHeaderStyled, MainCardStyled} from '../../styles/SharedStyles'
+import {ContentHeaderStyled, PlainCardStyled} from '../../styles/SharedStyles'
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -64,6 +64,7 @@ function Recipe() {
   const navigate = useNavigate();
   const location = useLocation();
   const recipeBook = useRecoilValue(recipeBookAtom);
+  console.log(recipeBook)
   const recipeName = location.state?.recipeName;
 
   // redirect non-existing url's
@@ -110,7 +111,7 @@ function Recipe() {
           dispatch={dispatch}
         />
       )}
-      <MainCardStyled>
+      <PlainCardStyled>
         <ContentHeaderStyled>
           {recipeState.recipe[0].name}
           <Symbol type={"menu"} />
@@ -173,11 +174,11 @@ function Recipe() {
             )}
           </ul>
         </RecipeListStyled>
-      </MainCardStyled>
+      </PlainCardStyled>
 
       {/*StepsMode: ingredients minus predoughs*/}
       {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
-        <MainCardStyled>
+        <PlainCardStyled>
           <RecipeListStyled>
             <CenteredListItem>Ingredients minus predoughs</CenteredListItem>
             {recipeState.recipe.slice(1).map((recipeItem, index) => {
@@ -193,11 +194,11 @@ function Recipe() {
               );
             })}
           </RecipeListStyled>
-        </MainCardStyled>
+        </PlainCardStyled>
       )}
       {/*costs*/}
       {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
-        <MainCardStyled>
+        <PlainCardStyled>
           <RecipeListStyled>
             <CenteredListItem>Costs</CenteredListItem>
             {recipeState.recipe
@@ -218,7 +219,7 @@ function Recipe() {
               totalRecipe={true}
             />
           </RecipeListStyled>
-        </MainCardStyled>
+        </PlainCardStyled>
       )}
     </>
   );

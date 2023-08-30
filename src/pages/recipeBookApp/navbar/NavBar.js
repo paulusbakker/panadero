@@ -15,17 +15,7 @@ import {
 function NavBar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
   const { pathname } = useLocation();
-  const ref = useRef(null);
 
-  useEffect(() => {
-    document.addEventListener("click", handleClickOnContent, true);
-    return () =>
-      document.removeEventListener("click", handleClickOnContent, true);
-  }, []);
-
-  const handleClickOnContent = () => {
-    if (ref.current) toggleHamburgerMenuOpen(false);
-  };
   return (
     <>
       <MainNavStyled>
@@ -45,7 +35,9 @@ function NavBar() {
             <MainNavItemStyled>ADD RECIPE</MainNavItemStyled>
             <MainNavItemStyled>ADD INGREDIENT</MainNavItemStyled>
             <MainNavItemStyled>ADD RECIPE CATEGORY</MainNavItemStyled>
-            <MainNavItemStyled>ADD INGREDIENT</MainNavItemStyled>
+            <MainNavItemStyled>ADD INGREDIENT CATEGORY</MainNavItemStyled>
+            <MainNavItemStyled>BACKUP</MainNavItemStyled>
+            <MainNavItemStyled>PURGE</MainNavItemStyled>
           </MainNavListStyled>
         )}
       </MainNavStyled>
@@ -60,7 +52,7 @@ function NavBar() {
           INGREDIENTS
         </TabItemStyled>
       </TabsStyled>
-      <div ref={ref}>
+      <div onClick={()=>toggleHamburgerMenuOpen(false)}>
         <Outlet />
       </div>
     </>

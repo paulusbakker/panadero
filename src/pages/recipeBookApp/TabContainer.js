@@ -5,7 +5,7 @@ import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./AccordionItem";
-import { MainCardStyled } from "../../styles/SharedStyles";
+import {FlexContainerStyled, MainCardStyled, ListCardStyled} from '../../styles/SharedStyles'
 
 function TabContainer() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -26,10 +26,15 @@ function TabContainer() {
   };
 
   function handleContainerClick(event) {
-    const actionElement = event.target.closest("[data-action]");
-    if (!actionElement) return;
-    console.log(actionElement);
     console.log("klik");
+    const actionElement = event.target.closest("[data-action]");
+    console.log(actionElement);
+
+    if (!actionElement) {
+      setActiveCategory(null);
+      return;
+    }
+
     const targetAction = actionElement.getAttribute("data-action");
     const clickedCategoryName =
       actionElement.getAttribute("data-category-name");
@@ -57,15 +62,11 @@ function TabContainer() {
         break;
 
       case "category-items":
-        if (activeCategory !== null) {
-          setActiveCategory(null);
-        }
-        break;
-
-      case "popup":
+        setActiveCategory(null);
         break;
 
       default:
+        // Handle unknown actions
         break;
     }
   }
@@ -94,23 +95,25 @@ function TabContainer() {
   };
 
   return (
-    <MainCardStyled id="MainCardStyledId" onClick={handleContainerClick}>
-      {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
-        <AccordionItem
-          key={categoryName}
-          categoryName={categoryName}
-          itemsInThisCategory={itemsInThisCategory}
-          isRecipeTab={isRecipeTab}
-          activeCategory={activeCategory}
-          isEditWindowOpen={isEditWindowOpen}
-          isOpen={openCategoryNames.includes(categoryName)}
-          handleInputChange={handleInputChange}
-          currentEditValue={currentEditValue}
-          handleCategoryUpdate={handleCategoryUpdate}
-          handleContainerClick={handleContainerClick}
-        />
-      ))}
-    </MainCardStyled>
+    <FlexContainerStyled onClick={handleContainerClick}>
+      <ListCardStyled>
+        {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
+          <AccordionItem
+            key={categoryName}
+            categoryName={categoryName}
+            itemsInThisCategory={itemsInThisCategory}
+            isRecipeTab={isRecipeTab}
+            activeCategory={activeCategory}
+            isEditWindowOpen={isEditWindowOpen}
+            isOpen={openCategoryNames.includes(categoryName)}
+            handleInputChange={handleInputChange}
+            currentEditValue={currentEditValue}
+            handleCategoryUpdate={handleCategoryUpdate}
+            handleContainerClick={handleContainerClick}
+          />
+        ))}
+      </ListCardStyled>
+    </FlexContainerStyled>
   );
 }
 

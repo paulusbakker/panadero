@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled from "styled-components";
 
 export const BackgroundOverlayStyled = styled.div`
   z-index: 10000;
@@ -36,20 +36,33 @@ export const ContentHeaderStyled = styled.div`
   font-size: 25px;
 `;
 
-export const MainCardStyled = styled.div`
-  background-color: #eae2b7;
+export const FlexContainerStyled = styled.div`
+  height: calc(100vh - 78px);
+`;
+
+// Base Card
+const CardStyled = styled.div`
   box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
   font-family: "Arial Rounded MT Bold", sans-serif;
   margin-bottom: 10px;
   margin-left: 8px;
   margin-right: 8px;
   font-size: 25px;
+`;
 
+// Extended card for lists
+export const ListCardStyled = styled(CardStyled)`
   > li {
     background-color: #eae2b7;
     margin-top: 8px;
     padding: 5px;
     box-shadow: 10px 10px 34px -11px rgba(0, 0, 0, 0.75);
-    color: #003049;
   }
 `;
+
+// Extended card for non-list content
+export const PlainCardStyled = styled(CardStyled)`
+  background-color: #eae2b7;
+`;
+
+
