@@ -18,11 +18,13 @@ export const GlobalStyle = createGlobalStyle`
     box-sizing: border-box;
     list-style-type: none;
     line-height: 1.5;
-    text-decoration: none;
+    text-decoration: none;  
+    -webkit-tap-highlight-color: rgba(0,0,0,0); // prevents recipes of ingredients from highlighting when pressed on mobile browsers
   }
 
   body {
     background-color: lightgrey;
+ 
   }
  
 `;
