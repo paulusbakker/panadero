@@ -140,7 +140,6 @@ export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
     }
   });
   flattenedRecipe[0].price = totalPrice;
-  console.log(flattenedRecipe);
   flattenedRecipe[0].pricePerKilo =
     (totalPrice / flattenedRecipe[0].weight) * 1000;
   return [flattenedRecipe, totalFlourWeightHistory[0], totalLiquidWeight];

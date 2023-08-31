@@ -26,7 +26,6 @@ function TabContainer() {
   };
 
   function handleContainerClick(event) {
-    console.log("klik");
     const actionElement = event.target.closest("[data-action]");
     console.log(actionElement);
 

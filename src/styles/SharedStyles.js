@@ -46,7 +46,7 @@ export const PopupStyled = styled.div`
   border: 1px solid rgba(255, 255, 255, 0.18);
 `;
 
-export const ItemHeaderStyled = styled.li`
+export const ItemHeaderStyled = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;

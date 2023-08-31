@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS } from "../Recipe";
-import {
-} from "../../recipeBookApp/Styles";
 import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
 
 const INPUT_IDS = {

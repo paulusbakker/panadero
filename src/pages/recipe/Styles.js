@@ -5,14 +5,17 @@ const FlexContainerStyled = styled.div`
   align-items: center;
 `;
 
-const FlexItemRightAlignedStyled = styled.span`
+export const RecipeListItemLeftStyled = styled(FlexContainerStyled)``;
+
+export const RecipeListItemRightStyled = styled(FlexContainerStyled)`
+  justify-content: space-between;
+  width: 150px;
+`;
+
+export const TabStyled = styled.span`
   width: 84px;
   display: flex;
   justify-content: flex-end;
-`;
-
-export const UlStyled = styled.ul`
-  font-size: large;
 `;
 
 export const RecipeListItemStyled = styled.li`
@@ -21,20 +24,8 @@ export const RecipeListItemStyled = styled.li`
   align-items: center;
   background-color: #eae2b7;
 `;
-
-export const RecipeListItemLeftStyled = styled(FlexContainerStyled)``;
-
-export const RecipeListItemRightStyled = styled(FlexContainerStyled)`
-  justify-content: space-between;
-  align-items: center;
-  width: 150px;
-`;
-
-export const TabStyled = FlexItemRightAlignedStyled;
-
-export const ContainerStyled = styled.span`
+export const ContainerStyled = styled.span` // needed for alignment
   display: flex;
-  // Other styling here
 `;
 
 export const CenteredListItemStyled = styled.li`

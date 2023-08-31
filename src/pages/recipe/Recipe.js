@@ -12,7 +12,7 @@ import RecipeItemTotal from "./components/RecipeItemTotal";
 import RecipeItemCost from "./components/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
-import { UlStyled, CenteredListItemStyled } from "./Styles";
+import { CenteredListItemStyled } from "./Styles";
 import {
   ItemHeaderStyled,
   DottedLine,

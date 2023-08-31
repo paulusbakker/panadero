@@ -1,14 +1,9 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
-import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
-import { flattenRecipe } from "../../helper/flattenRecipe";
-import { calculateAmounts } from "../../helper/calculateAmounts";
-import Symbol from "../../components/shared/Symbol";
 import {ItemHeaderStyled, ContentUlStyled} from '../../styles/SharedStyles'
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
-import {UlStyled} from '../recipe/Styles'
 
 function Ingredient() {
   const navigate = useNavigate();
