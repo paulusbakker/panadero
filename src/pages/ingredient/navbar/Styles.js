@@ -51,36 +51,6 @@ export const MainNavItemStyled = styled.li`
   font-size: 19px;
 `;
 
-export const TabsStyled = styled.div`
-  font-family: "Fredoka One", sans-serif;
-  display: flex;
-  justify-content: space-around;
-  background-color: #f77f00;
-  height: 30px;
-`;
-
-export const TabItemStyled = styled(Link)`
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  border-top: 3px solid #f77f00;
-  border-bottom: 3px solid ${(props) => (props.active ? "#003049" : "#F77F00")};
-  font-size: 20px;
-  color: black;
-
-  &:first-child {
-    border-right: 1px solid grey;
-  }
-
-  &:last-child {
-    border-left: 1px solid grey;
-  }
-`;
-// don't know what this is about!
-// TabItemStyled.defaultProps = {
-//   active: false,
-// };
 
 
 

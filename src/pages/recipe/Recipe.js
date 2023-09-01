@@ -5,19 +5,17 @@ import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
 import { flattenRecipe } from "../../helper/flattenRecipe";
 import { calculateAmounts } from "../../helper/calculateAmounts";
-import RecipeItem from "./components/RecipeItem";
+import RecipeItem from "./recipeItem/RecipeItem";
 import Symbol from "../../components/shared/Symbol";
-import EnterAmount from "./components/EnterAmount";
-import RecipeItemTotal from "./components/RecipeItemTotal";
-import RecipeItemCost from "./components/RecipeItemCost";
+import EnterAmount from "./enterAmounts/EnterAmount";
+import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
+import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
-import { CenteredListItemStyled } from "./Styles";
 import {
-  ItemHeaderStyled,
   DottedLine,
-  ContentUlStyled,
-} from "../../styles/SharedStyles";
+} from './Styles';
+import {CenteredListItemStyled, ContentUlStyled, ItemHeaderStyled} from '../../styles/SharedStyles'
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",

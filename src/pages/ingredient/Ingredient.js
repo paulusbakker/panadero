@@ -2,8 +2,8 @@ import React, { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useRecoilValue } from "recoil";
-import {ItemHeaderStyled, ContentUlStyled} from '../../styles/SharedStyles'
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
+import {ContentUlStyled, ItemHeaderStyled} from '../../styles/SharedStyles'
 
 function Ingredient() {
   const navigate = useNavigate();

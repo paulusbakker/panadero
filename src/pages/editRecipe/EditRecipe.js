@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 import Symbol from "../../components/shared/Symbol";
-import RecipeItem from '../recipe/components/RecipeItem'
+import RecipeItem from '../recipe/recipeItem/RecipeItem'
 
 function EditRecipe() {
   const location = useLocation();

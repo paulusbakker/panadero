@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import Symbol from "../../components/shared/Symbol";
-import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
+import Symbol from "../../../components/shared/Symbol";
+import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {
-  MainNavButtonContainerStyled, MainNavItemStyled,
-  MainNavLinkStyled, MainNavListStyled,
-  MainNavStyled,
-} from '../recipeBookApp/navbar/NavBar.styles'
+  MainNavButtonContainerStyled,
+  MainNavItemStyled,
+  MainNavLinkStyled,
+  MainNavListStyled,
+  MainNavStyled
+} from './Styles'
 
 function IngredientNavbar() {
   const { state } = useLocation();

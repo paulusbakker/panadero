@@ -1,5 +1,5 @@
 import React from 'react';
-import { EditCategoryButtonStyled } from './Styles';
+import {EditCategoryButtonStyled} from './Styles'
 
 function EditCategoryButton({categoryName}) {
     return (

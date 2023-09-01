@@ -1,34 +1,35 @@
-import "./styles.css";
+import React, { useEffect } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {ThemeProvider} from 'styled-components'
+import { GlobalStyle } from "./styles/GlobalStyle";
+import theme from './styles/Theme'
+import Navbar from "./pages/recipe/navbar/Navbar";
+import Recipe from "./pages/recipe/Recipe";
+import NoPage from "./pages/NoPage";
+import RecipeBookApp from "./pages/recipeBookApp/recipeBookApp/RecipeBookApp";
+import IngredientNavbar from "./pages/ingredient/navbar/IngredientNavbar";
+import Ingredient from "./pages/ingredient/Ingredient";
 import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
-import React, { useEffect } from "react";
-import NavBar from "./pages/recipeBookApp/navbar/NavBar";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import RecipeNavbar from "./pages/recipe/RecipeNavbar";
-import Recipe from "./pages/recipe/Recipe";
-import NoPage from "./pages/NoPage";
-import { GlobalStyle } from "./styles/GlobalStyle";
-import TabContainer from "./pages/recipeBookApp/TabContainer";
-import IngredientNavbar from './pages/ingredient/IngredientNavbar'
-import Ingredient from './pages/ingredient/Ingredient'
+import MainNavbar from "./pages/recipeBookApp/navbar/Navbar"; {/* renaming Navbar into MainNavbar */}
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
   {
     path: "/recipes",
-    element: <NavBar />,
+    element: <MainNavbar />,
     children: [
       {
         path: "/recipes",
-        element: <TabContainer />,
+        element: <RecipeBookApp />,
       },
     ],
   },
   // View recipe: /recipe/{recipe_id}
   {
     path: "/recipe/:id",
-    element: <RecipeNavbar />,
+    element: <Navbar />,
     children: [
       {
         path: "/recipe/:id",
@@ -48,15 +49,14 @@ const router = createBrowserRouter([
     ],
   },
 
-
   // Homepage #2, active tab=ingredients: /ingredients
   {
     path: "/ingredients",
-    element: <NavBar />,
+    element: <MainNavbar />,
     children: [
       {
         path: "/ingredients",
-        element: <TabContainer />,
+        element: <RecipeBookApp />,
       },
     ],
   },
@@ -81,10 +81,10 @@ function App() {
     setRecipeBook(makeRecipeBook());
   }, [setRecipeBook]);
   return (
-    <>
+    <ThemeProvider theme={theme}>
       <GlobalStyle />
-        <RouterProvider router={router} />
-    </>
+      <RouterProvider router={router} />
+    </ThemeProvider>
   );
 }
 

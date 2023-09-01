@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { recipeBookAtom } from "../../atom/recipeBookAtom";
+import { recipeBookAtom } from "../../../atom/recipeBookAtom";
 import { useLocation } from "react-router-dom";
-import { getItemsByCategory } from "../../helper/getItemsByCategory";
-import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
-import AccordionItem from "./AccordionItem";
-import {BelowNavbarSpaceStyled, TabContainerUlStyled} from '../../styles/SharedStyles'
+import { getItemsByCategory } from "../../../helper/getItemsByCategory";
+import { getMapKeyByValue } from "../../../helper/getMapKeyByValue";
+import AccordionItem from "../accordionItem/AccordionItem";
+import {BelowNavbarSpaceStyled, TabContainerUlStyled} from './Styles'
 
-function TabContainer() {
+function RecipeBookApp() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
   const { pathname } = useLocation();
   const isRecipeTab = pathname === "/recipes";
@@ -116,4 +116,4 @@ function TabContainer() {
   );
 }
 
-export default TabContainer;
+export default RecipeBookApp;

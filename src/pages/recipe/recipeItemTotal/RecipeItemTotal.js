@@ -1,13 +1,9 @@
 import React from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS, VIEWMODE } from "../Recipe";
-import {
-  RecipeListItemLeftStyled,
-  RecipeListItemRightStyled, RecipeListItemStyled,
-  TabStyled,
-} from '../Styles' // Make sure the path is correct
 import { getSymbolType } from '../../../helper/getSymbolType';
 import {numberFormat} from '../../../helper/numberFormat'
+import {RecipeListItemLeftStyled, RecipeListItemRightStyled, RecipeListItemStyled, TabStyled} from './Styles'
 
 function RecipeItemTotal({
                            name,

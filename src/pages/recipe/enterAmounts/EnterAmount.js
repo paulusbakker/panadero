@@ -3,6 +3,7 @@ import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS } from "../Recipe";
 import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
 
+
 const INPUT_IDS = {
   BATCH: "batch",
   UNIT: "unit",

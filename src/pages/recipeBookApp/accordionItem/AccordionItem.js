@@ -1,10 +1,10 @@
 import React from "react";
-import { ItemsCountStyled, LinkStyled } from "./Styles";
-import Symbol from "../../components/shared/Symbol";
-import EditCategoryButton from "./EditCategoryButton";
-import CategoryEditWindow from "./CategoryEditWindow";
-import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
-import {ItemHeaderStyled} from '../../styles/SharedStyles'
+import Symbol from "../../../components/shared/Symbol";
+import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
+import EditCategory from "../editCategory/EditCategory";
+import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
+import { ItemsCountStyled, LinkStyled} from './Styles'
+import {ItemHeaderStyled} from '../../../styles/SharedStyles'
 
 function AccordionItem({
   categoryName,
@@ -34,7 +34,7 @@ function AccordionItem({
 
   const renderCategoryContent = () =>
     isEditWindowOpen ? (
-      <CategoryEditWindow
+      <EditCategory
         categoryName={categoryName}
         handleInputChange={handleInputChange}
         currentEditValue={currentEditValue}

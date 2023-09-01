@@ -1,7 +1,7 @@
 import React from "react";
-import {BackgroundOverlayStyled, PopupStyled} from '../../styles/SharedStyles'
+import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
 
-function CategoryEditWindow({
+function EditCategory({
   categoryName,
   handleInputChange,
   currentEditValue,
@@ -27,4 +27,4 @@ function CategoryEditWindow({
   );
 }
 
-export default CategoryEditWindow;
+export default EditCategory;

@@ -1,16 +1,18 @@
 import React from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS, VIEWMODE } from "../Recipe";
+
+import { getSymbolType } from '../../../helper/getSymbolType';
+import Indent from '../indent/Indent'
+import {numberFormat} from '../../../helper/numberFormat'
 import {
   RecipeListItemLeftStyled,
   RecipeListItemRightStyled,
   RecipeListItemStyled,
-  TabStyled,
-  ContainerStyled
-} from '../Styles';
-import { getSymbolType } from '../../../helper/getSymbolType';
-import Indent from './Indent'
-import {numberFormat} from '../../../helper/numberFormat'
+  TabStyled
+} from '../../../styles/SharedStyles'
+import {ContainerStyled} from './Styles'
+
 
 function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const {

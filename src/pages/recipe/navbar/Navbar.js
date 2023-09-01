@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { Outlet, Link, useLocation } from "react-router-dom";
-import Symbol from "../../components/shared/Symbol";
-import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
+import Symbol from "../../../components/shared/Symbol";
+import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {
-  MainNavButtonContainerStyled, MainNavItemStyled,
-  MainNavLinkStyled, MainNavListStyled,
-  MainNavStyled,
-} from '../recipeBookApp/navbar/NavBar.styles'
+  MainNavButtonContainerStyled, MainNavHamburgerMenuItemStyled,
+  MainNavLinkStyled,
+  MainNavHamburgerMenuStyled,
+  MainNavStyled
+} from '../../../styles/SharedStyles'
 
-function RecipeNavbar() {
+
+function Navbar() {
   const { state } = useLocation();
 
   const recipeName = state ? state.recipeName || "" : "";
@@ -43,11 +45,11 @@ function RecipeNavbar() {
 
         </MainNavButtonContainerStyled>
         {hamburgerMenuOpen && (
-            <MainNavListStyled>
-              <MainNavItemStyled>EXPORT</MainNavItemStyled>
-              <MainNavItemStyled>EXPENSE REPORT</MainNavItemStyled>
-              <MainNavItemStyled>CALORIE REPORT</MainNavItemStyled>
-            </MainNavListStyled>
+            <MainNavHamburgerMenuStyled>
+              <MainNavHamburgerMenuItemStyled>EXPORT</MainNavHamburgerMenuItemStyled>
+              <MainNavHamburgerMenuItemStyled>EXPENSE REPORT</MainNavHamburgerMenuItemStyled>
+              <MainNavHamburgerMenuItemStyled>CALORIE REPORT</MainNavHamburgerMenuItemStyled>
+            </MainNavHamburgerMenuStyled>
         )}
       </MainNavStyled>
       <div onClick={()=>toggleHamburgerMenuOpen(false)}>
@@ -57,4 +59,4 @@ function RecipeNavbar() {
   );
 }
 
-export default RecipeNavbar;
+export default Navbar;

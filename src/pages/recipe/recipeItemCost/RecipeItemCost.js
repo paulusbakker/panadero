@@ -1,13 +1,9 @@
 import React from "react";
 import Symbol from "../../../components/shared/Symbol";
-import {
-  RecipeListItemLeftStyled,
-  RecipeListItemRightStyled,
-  RecipeListItemStyled,
-  TabStyled,
-} from "../Styles";
 import { getSymbolType } from "../../../helper/getSymbolType";
 import {numberFormat} from '../../../helper/numberFormat'
+import {RecipeListItemStyled, TabStyled} from '../recipeItemTotal/Styles'
+import {RecipeListItemLeftStyled, RecipeListItemRightStyled} from '../../../styles/SharedStyles'
 
 function RecipeItemCost({ recipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
