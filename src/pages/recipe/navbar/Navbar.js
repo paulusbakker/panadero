@@ -3,12 +3,13 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import Symbol from "../../../components/shared/Symbol";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {
-  MainNavButtonContainerStyled, MainNavHamburgerMenuItemStyled,
+  SpaceBelowNavbarStyled,
+  ButtonContainerStyled,
+  HamburgerMenuItemStyled,
+  HamburgerMenuStyled,
   MainNavLinkStyled,
-  MainNavHamburgerMenuStyled,
   MainNavStyled
-} from '../../../styles/SharedStyles'
-
+} from './Styles'
 
 function Navbar() {
   const { state } = useLocation();
@@ -26,7 +27,7 @@ function Navbar() {
         >
           PANADERO
         </MainNavLinkStyled>
-        <MainNavButtonContainerStyled>
+        <ButtonContainerStyled>
           {!hamburgerMenuOpen && (
             <div>
               <Link
@@ -37,24 +38,24 @@ function Navbar() {
               </Link>
             </div>
           )}
-          <MainNavButtonContainerStyled
+          <ButtonContainerStyled
             onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}
           >
             <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
-          </MainNavButtonContainerStyled>
+          </ButtonContainerStyled>
 
-        </MainNavButtonContainerStyled>
+        </ButtonContainerStyled>
         {hamburgerMenuOpen && (
-            <MainNavHamburgerMenuStyled>
-              <MainNavHamburgerMenuItemStyled>EXPORT</MainNavHamburgerMenuItemStyled>
-              <MainNavHamburgerMenuItemStyled>EXPENSE REPORT</MainNavHamburgerMenuItemStyled>
-              <MainNavHamburgerMenuItemStyled>CALORIE REPORT</MainNavHamburgerMenuItemStyled>
-            </MainNavHamburgerMenuStyled>
+            <HamburgerMenuStyled>
+              <HamburgerMenuItemStyled>EXPORT</HamburgerMenuItemStyled>
+              <HamburgerMenuItemStyled>EXPENSE REPORT</HamburgerMenuItemStyled>
+              <HamburgerMenuItemStyled>CALORIE REPORT</HamburgerMenuItemStyled>
+            </HamburgerMenuStyled>
         )}
       </MainNavStyled>
-      <div onClick={()=>toggleHamburgerMenuOpen(false)}>
+      <SpaceBelowNavbarStyled onClick={()=>toggleHamburgerMenuOpen(false)}>
         <Outlet />
-      </div>
+      </SpaceBelowNavbarStyled>
     </>
   );
 }

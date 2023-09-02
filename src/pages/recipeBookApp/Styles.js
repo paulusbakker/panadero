@@ -1,20 +1,21 @@
 import styled from 'styled-components'
+import { Link } from "react-router-dom";
 
-export const BelowNavbarSpaceStyled = styled.div`
+export const SpaceBelowNavbarStyled = styled.div`
   height: calc(100vh - 78px);
 `;
 
 export const TabContainerUlStyled = styled.ul`
-  font-family: ${({ theme }) => theme.fonts.secondary};
+  font-family: ${(props) => props.theme.fonts.secondary};
   font-size: 25px;
-  background-color: lightgrey;
   margin-bottom: 10px;
   margin-left: 8px;
   margin-right: 8px;
+  margin-top: 7px;
 
   > li {
     background-color: ${({ theme }) => theme.colors.contentBackgroundColor};
-    margin-top: 8px;
+    margin-bottom: ${(props) => props.theme.margins.spaceBetweenLi};
     padding: 5px;
-    box-shadow: ${({ theme }) => theme.boxShadow.default}  }
+    box-shadow: ${(props) => props.theme.boxShadow.default}  }
 `;

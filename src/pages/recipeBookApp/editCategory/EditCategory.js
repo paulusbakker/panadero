@@ -1,5 +1,5 @@
 import React from "react";
-import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
+import {BackgroundOverlayStyled, PopupStyled} from './Styles'
 
 function EditCategory({
   categoryName,

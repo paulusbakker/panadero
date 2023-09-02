@@ -1,17 +1,10 @@
 import React from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS, VIEWMODE } from "../Recipe";
-
 import { getSymbolType } from '../../../helper/getSymbolType';
 import Indent from '../indent/Indent'
 import {numberFormat} from '../../../helper/numberFormat'
-import {
-  RecipeListItemLeftStyled,
-  RecipeListItemRightStyled,
-  RecipeListItemStyled,
-  TabStyled
-} from '../../../styles/SharedStyles'
-import {ContainerStyled} from './Styles'
+import {ContainerStyled, LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
 
 
 function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
@@ -28,7 +21,7 @@ function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const symbolType = getSymbolType({ isRecipe, isFlour, isLiquid });
 
   return (
-      <RecipeListItemStyled
+      <ListItemStyled
           onClick={() => {
             dispatch({
               type: ACTIONS.HANDLE_RECIPE_INDEX,
@@ -36,32 +29,32 @@ function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
             });
           }}
       >
-        <RecipeListItemLeftStyled>
+        <LeftAlignedFlexContainer>
           {isRecipe ? <Indent depth={depth - 1} /> : <Indent depth={depth} />}
           {!isRecipe && depth !== 0 && "- "}
           {name}
-        </RecipeListItemLeftStyled>
-        <RecipeListItemRightStyled>
+        </LeftAlignedFlexContainer>
+        <RightSpacedFlexContainer>
           <Symbol type={symbolType} />
           <ContainerStyled>
             {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
-                <TabStyled>{`${numberFormat(!stepsMode
+                <SpanStyled>{`${numberFormat(!stepsMode
                         ? weight
                         : stepWeight
-                )}g`}</TabStyled>
+                )}g`}</SpanStyled>
             ) : (
                 <>
                   {!stepsMode ? (
-                      <TabStyled>{numberFormat(percentage * 100)}%</TabStyled>
+                      <SpanStyled>{numberFormat(percentage * 100)}%</SpanStyled>
                   ) : (
-                      <TabStyled />
+                      <SpanStyled />
                   )}
                   <Symbol type={"calculator"} />
                 </>
             )}
           </ContainerStyled>
-        </RecipeListItemRightStyled>
-      </RecipeListItemStyled>
+        </RightSpacedFlexContainer>
+      </ListItemStyled>
   );
 }
 

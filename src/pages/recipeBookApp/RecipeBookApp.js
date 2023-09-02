@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useRecoilState } from "recoil";
-import { recipeBookAtom } from "../../../atom/recipeBookAtom";
+import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useLocation } from "react-router-dom";
-import { getItemsByCategory } from "../../../helper/getItemsByCategory";
-import { getMapKeyByValue } from "../../../helper/getMapKeyByValue";
-import AccordionItem from "../accordionItem/AccordionItem";
-import {BelowNavbarSpaceStyled, TabContainerUlStyled} from './Styles'
+import { getItemsByCategory } from "../../helper/getItemsByCategory";
+import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
+import AccordionItem from "./accordionItem/AccordionItem";
+import {SpaceBelowNavbarStyled, TabContainerUlStyled} from './Styles'
 
 function RecipeBookApp() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -94,7 +94,7 @@ function RecipeBookApp() {
   };
 
   return (
-    <BelowNavbarSpaceStyled onClick={handleContainerClick}>
+    <SpaceBelowNavbarStyled onClick={handleContainerClick}>
       <TabContainerUlStyled>
         {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
           <AccordionItem
@@ -112,7 +112,7 @@ function RecipeBookApp() {
           />
         ))}
       </TabContainerUlStyled>
-    </BelowNavbarSpaceStyled>
+    </SpaceBelowNavbarStyled>
   );
 }
 

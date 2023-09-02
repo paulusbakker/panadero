@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import "../../../styles.css";
 import Symbol from "../../../components/shared/Symbol";
-import { TabItemStyled, TabsStyled } from "./Styles";
 import {
-  MainNavButtonContainerStyled,
-  MainNavHamburgerMenuItemStyled,
+  ButtonContainerStyled, HamburgerMenuItemStyled,
+  HamburgerMenuStyled,
   MainNavLinkStyled,
-  MainNavHamburgerMenuStyled,
   MainNavStyled,
-} from "../../../styles/SharedStyles";
+  TabsStyled,
+  TabStyled
+} from './Styles'
 
 function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
@@ -24,44 +24,44 @@ function Navbar() {
         >
           PANADERO
         </MainNavLinkStyled>
-        <MainNavButtonContainerStyled
+        <ButtonContainerStyled
           onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}
         >
           <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
-        </MainNavButtonContainerStyled>
+        </ButtonContainerStyled>
         {hamburgerMenuOpen && (
-          <MainNavHamburgerMenuStyled>
-            <MainNavHamburgerMenuItemStyled>
+          <HamburgerMenuStyled>
+            <HamburgerMenuItemStyled>
               ADD RECIPE
-            </MainNavHamburgerMenuItemStyled>
-            <MainNavHamburgerMenuItemStyled>
+            </HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled>
               ADD INGREDIENT
-            </MainNavHamburgerMenuItemStyled>
-            <MainNavHamburgerMenuItemStyled>
+            </HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled>
               ADD RECIPE CATEGORY
-            </MainNavHamburgerMenuItemStyled>
-            <MainNavHamburgerMenuItemStyled>
+            </HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled>
               ADD INGREDIENT CATEGORY
-            </MainNavHamburgerMenuItemStyled>
-            <MainNavHamburgerMenuItemStyled>
+            </HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled>
               BACKUP
-            </MainNavHamburgerMenuItemStyled>
-            <MainNavHamburgerMenuItemStyled>
+            </HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled>
               PURGE
-            </MainNavHamburgerMenuItemStyled>
-          </MainNavHamburgerMenuStyled>
+            </HamburgerMenuItemStyled>
+          </HamburgerMenuStyled>
         )}
       </MainNavStyled>
       <TabsStyled>
-        <TabItemStyled to="/recipes" active={pathname === "/recipes" ? 1 : 0}>
+        <TabStyled to="/recipes" active={pathname === "/recipes" ? 1 : 0}>
           RECIPES
-        </TabItemStyled>
-        <TabItemStyled
+        </TabStyled>
+        <TabStyled
           to="/ingredients"
           active={pathname === "/ingredients" ? 1 : 0}
         >
           INGREDIENTS
-        </TabItemStyled>
+        </TabStyled>
       </TabsStyled>
       <div onClick={() => toggleHamburgerMenuOpen(false)}>
         <Outlet />

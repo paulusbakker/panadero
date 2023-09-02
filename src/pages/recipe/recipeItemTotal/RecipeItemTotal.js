@@ -3,7 +3,7 @@ import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS, VIEWMODE } from "../Recipe";
 import { getSymbolType } from '../../../helper/getSymbolType';
 import {numberFormat} from '../../../helper/numberFormat'
-import {RecipeListItemLeftStyled, RecipeListItemRightStyled, RecipeListItemStyled, TabStyled} from './Styles'
+import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
 
 function RecipeItemTotal({
                            name,
@@ -18,7 +18,7 @@ function RecipeItemTotal({
   const symbolType = getSymbolType({ isRecipe, isFlour, isLiquid });
 
   return (
-      <RecipeListItemStyled
+      <ListItemStyled
           onClick={() => {
             dispatch({
               type: ACTIONS.HANDLE_RECIPE_INDEX,
@@ -26,21 +26,21 @@ function RecipeItemTotal({
             });
           }}
       >
-        <RecipeListItemLeftStyled>
+        <LeftAlignedFlexContainer>
           {name}
           {isLiquid && `  (${numberFormat(totalLiquidPercentage * 100)}%)`}
-        </RecipeListItemLeftStyled>
-        <RecipeListItemRightStyled>
+        </LeftAlignedFlexContainer>
+        <RightSpacedFlexContainer>
           <Symbol type={symbolType} />
           {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
-              <TabStyled>{numberFormat(weight)}g</TabStyled>
+              <SpanStyled>{numberFormat(weight)}g</SpanStyled>
           ) : (
-              <TabStyled>
+              <SpanStyled>
                 <Symbol type={"calculator"} />
-              </TabStyled>
+              </SpanStyled>
           )}
-        </RecipeListItemRightStyled>
-      </RecipeListItemStyled>
+        </RightSpacedFlexContainer>
+      </ListItemStyled>
   );
 }
 

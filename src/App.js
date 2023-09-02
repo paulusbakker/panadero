@@ -3,11 +3,11 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import {ThemeProvider} from 'styled-components'
 import { GlobalStyle } from "./styles/GlobalStyle";
 import theme from './styles/Theme'
-import Navbar from "./pages/recipe/navbar/Navbar";
+import RecipeNavbar from "./pages/recipe/navbar/Navbar";
 import Recipe from "./pages/recipe/Recipe";
-import NoPage from "./pages/NoPage";
-import RecipeBookApp from "./pages/recipeBookApp/recipeBookApp/RecipeBookApp";
-import IngredientNavbar from "./pages/ingredient/navbar/IngredientNavbar";
+import NoPage from "./pages/recipeBookApp/noPage/NoPage";
+import RecipeBookApp from "./pages/recipeBookApp/RecipeBookApp";
+import Navbar from "./pages/ingredient/navbar/Navbar";
 import Ingredient from "./pages/ingredient/Ingredient";
 import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
@@ -26,10 +26,21 @@ const router = createBrowserRouter([
       },
     ],
   },
+  // Homepage #2, active tab=ingredients: /ingredients
+  {
+    path: "/ingredients",
+    element: <MainNavbar />,
+    children: [
+      {
+        path: "/ingredients",
+        element: <RecipeBookApp />,
+      },
+    ],
+  },
   // View recipe: /recipe/{recipe_id}
   {
     path: "/recipe/:id",
-    element: <Navbar />,
+    element: <RecipeNavbar />,
     children: [
       {
         path: "/recipe/:id",
@@ -40,23 +51,11 @@ const router = createBrowserRouter([
   // View ingredient: /ingredient/{ingredient_id}
   {
     path: "/ingredient/:id",
-    element: <IngredientNavbar />,
+    element: <Navbar />,
     children: [
       {
         path: "/ingredient/:id",
         element: <Ingredient />,
-      },
-    ],
-  },
-
-  // Homepage #2, active tab=ingredients: /ingredients
-  {
-    path: "/ingredients",
-    element: <MainNavbar />,
-    children: [
-      {
-        path: "/ingredients",
-        element: <RecipeBookApp />,
       },
     ],
   },

@@ -8,3 +8,4 @@ export const EditCategoryButtonStyled = styled.div`
   padding: 5px;
   box-shadow: ${(props) => props.theme.boxShadow.default};
 `;
+

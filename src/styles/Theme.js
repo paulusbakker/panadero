@@ -1,4 +1,3 @@
-
 const theme = {
   colors: {
     navbarBackgroundColor: "#d62828",
@@ -16,14 +15,9 @@ const theme = {
     primary: "'Fredoka One', sans-serif",
     secondary: "'Arial Rounded MT Bold', sans-serif",
   },
-  ulBase: {
-    marginBottom: "10px",
-    marginLeft: "8px",
-    marginRight: "8px",
-  },
-  contentUl: {
-    fontSize: "25px",
-    backgroundColor: "lightgrey",
+  margins: {
+    marginTop: "7px",
+    spaceBetweenLi: "7px",
   },
 };
 

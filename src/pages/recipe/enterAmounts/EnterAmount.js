@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { ACTIONS } from "../Recipe";
-import {BackgroundOverlayStyled, PopupStyled} from '../../../styles/SharedStyles'
-
+import {BackgroundOverlayStyled, PopupStyled} from './Styles'
 
 const INPUT_IDS = {
   BATCH: "batch",

@@ -2,8 +2,7 @@ import React from "react";
 import Symbol from "../../../components/shared/Symbol";
 import { getSymbolType } from "../../../helper/getSymbolType";
 import {numberFormat} from '../../../helper/numberFormat'
-import {RecipeListItemStyled, TabStyled} from '../recipeItemTotal/Styles'
-import {RecipeListItemLeftStyled, RecipeListItemRightStyled} from '../../../styles/SharedStyles'
+import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
 
 function RecipeItemCost({ recipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
@@ -11,18 +10,18 @@ function RecipeItemCost({ recipeItem, totalRecipe }) {
   const symbolType = getSymbolType({ isRecipe: false, isFlour, isLiquid });
 
   return (
-    <RecipeListItemStyled>
-      <RecipeListItemLeftStyled>
+    <ListItemStyled>
+      <LeftAlignedFlexContainer>
         {!totalRecipe ? name : "total"}
-      </RecipeListItemLeftStyled>
-      <RecipeListItemRightStyled>
+      </LeftAlignedFlexContainer>
+      <RightSpacedFlexContainer>
         <Symbol type={symbolType} />
-        <TabStyled>{numberFormat(pricePerKilo)}</TabStyled>
+        <SpanStyled>{numberFormat(pricePerKilo)}</SpanStyled>
         <Symbol type={"coins"} />
-        <TabStyled>{numberFormat(price)}</TabStyled>
+        <SpanStyled>{numberFormat(price)}</SpanStyled>
         <Symbol type={"coins"} />
-      </RecipeListItemRightStyled>
-    </RecipeListItemStyled>
+      </RightSpacedFlexContainer>
+    </ListItemStyled>
   );
 }
 

@@ -13,9 +13,12 @@ import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
 import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
 import {
+  CenteredListItemStyled,
+  ContentUlStyled,
   DottedLine,
-} from './Styles';
-import {CenteredListItemStyled, ContentUlStyled, ItemHeaderStyled} from '../../styles/SharedStyles'
+  ItemHeaderStyled,
+} from "./Styles";
+import Navbar from "../recipe/navbar/Navbar";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",

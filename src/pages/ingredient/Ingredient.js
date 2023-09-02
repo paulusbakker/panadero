@@ -3,7 +3,10 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useRecoilValue } from "recoil";
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
-import {ContentUlStyled, ItemHeaderStyled} from '../../styles/SharedStyles'
+import {
+  ContentUlStyled,
+  ItemHeaderStyled,
+} from "./Styles";
 
 function Ingredient() {
   const navigate = useNavigate();
@@ -25,11 +28,21 @@ function Ingredient() {
   );
 
   return (
-    <ContentUlStyled>
-      <ItemHeaderStyled>
-        {ingredientName}
-      </ItemHeaderStyled>
-    </ContentUlStyled>
+      <ContentUlStyled>
+        <ItemHeaderStyled>{ingredientName}</ItemHeaderStyled>
+        <ItemHeaderStyled>
+          <span>Category:</span>
+          <span>{recipeBook.ingredientCategories.get(ingredient.category)}</span>
+        </ItemHeaderStyled>
+        <ItemHeaderStyled>
+          <span>Price per kilo:</span>
+          <span>{ingredient.pricePerKilo}</span>
+        </ItemHeaderStyled>
+        <ItemHeaderStyled>
+          <span>Calories per gram:</span>
+          <span>{ingredient.caloriesPerGram}</span>
+        </ItemHeaderStyled>
+      </ContentUlStyled>
   );
 }
 

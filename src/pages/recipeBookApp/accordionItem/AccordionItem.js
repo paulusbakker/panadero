@@ -3,8 +3,7 @@ import Symbol from "../../../components/shared/Symbol";
 import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
 import EditCategory from "../editCategory/EditCategory";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
-import { ItemsCountStyled, LinkStyled} from './Styles'
-import {ItemHeaderStyled} from '../../../styles/SharedStyles'
+import {ItemHeaderStyled, ItemsCountStyled, LinkStyled} from './Styles'
 
 function AccordionItem({
   categoryName,
