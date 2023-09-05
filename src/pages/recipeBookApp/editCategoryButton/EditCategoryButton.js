@@ -9,5 +9,4 @@ function EditCategoryButton({categoryName}) {
     );
 }
 
-
 export default EditCategoryButton;

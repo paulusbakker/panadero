@@ -1,11 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState } from "recoil";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./accordionItem/AccordionItem";
-import {SpaceBelowNavbarStyled, TabContainerUlStyled} from './Styles'
+import { TabContainerUlStyled } from "./Styles";
 
 function RecipeBookApp() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
@@ -24,10 +24,30 @@ function RecipeBookApp() {
         : [...prevOpenCategories, categoryName]
     );
   };
+  const containerRef = useRef(null);
+
+  useEffect(() => {
+    function handleOutsideClick(event) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(event.target)
+      ) {
+        setActiveCategory(null);
+      }
+    }
+
+    document.addEventListener("click", handleOutsideClick);
+
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []);
 
   function handleContainerClick(event) {
+    console.log("handleContainerClick called");
+
+    if (window.noExecute) return;
     const actionElement = event.target.closest("[data-action]");
-    console.log(actionElement);
 
     if (!actionElement) {
       setActiveCategory(null);
@@ -94,8 +114,7 @@ function RecipeBookApp() {
   };
 
   return (
-    <SpaceBelowNavbarStyled onClick={handleContainerClick}>
-      <TabContainerUlStyled>
+      <TabContainerUlStyled onClick={handleContainerClick} ref={containerRef}>
         {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
           <AccordionItem
             key={categoryName}
@@ -112,7 +131,6 @@ function RecipeBookApp() {
           />
         ))}
       </TabContainerUlStyled>
-    </SpaceBelowNavbarStyled>
   );
 }
 

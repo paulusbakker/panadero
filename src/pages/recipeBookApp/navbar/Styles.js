@@ -31,7 +31,6 @@ export const MainNavStyled = styled.nav`
   justify-content: space-between;
   align-items: center;
   font-family: ${(props) => props.theme.fonts.primary};
-  position: relative;
   height: 40px;
   background-color: ${(props) => props.theme.colors.navbarBackgroundColor};;
   padding: 0 5px;
@@ -42,7 +41,7 @@ export const MainNavLinkStyled = styled(Link)`
   font-size: 28px;
 `;
 
-export const ButtonContainerStyled = styled.div`
+export const ButtonContainerStyled = styled.button`
   z-index: 10;
   display: flex;
   justify-content: center;

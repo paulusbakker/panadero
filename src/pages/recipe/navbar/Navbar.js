@@ -1,22 +1,22 @@
-import React, { useState } from "react";
-import { Outlet, Link, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 import Symbol from "../../../components/shared/Symbol";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {
-  SpaceBelowNavbarStyled,
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
   HamburgerMenuStyled,
   MainNavLinkStyled,
-  MainNavStyled
-} from './Styles'
+  MainNavStyled,
+  UnderlayWindow,
+} from "./Styles";
 
-function Navbar() {
-  const { state } = useLocation();
-
-  const recipeName = state ? state.recipeName || "" : "";
-
+function Navbar({ recipeName }) {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
+
+  const closeHamburgerMenu = () => {
+    toggleHamburgerMenuOpen(false);
+  };
 
   return (
     <>
@@ -43,19 +43,18 @@ function Navbar() {
           >
             <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
           </ButtonContainerStyled>
-
         </ButtonContainerStyled>
         {hamburgerMenuOpen && (
+          <>
             <HamburgerMenuStyled>
               <HamburgerMenuItemStyled>EXPORT</HamburgerMenuItemStyled>
               <HamburgerMenuItemStyled>EXPENSE REPORT</HamburgerMenuItemStyled>
               <HamburgerMenuItemStyled>CALORIE REPORT</HamburgerMenuItemStyled>
             </HamburgerMenuStyled>
+            <UnderlayWindow onClick={closeHamburgerMenu}></UnderlayWindow>
+          </>
         )}
       </MainNavStyled>
-      <SpaceBelowNavbarStyled onClick={()=>toggleHamburgerMenuOpen(false)}>
-        <Outlet />
-      </SpaceBelowNavbarStyled>
     </>
   );
 }

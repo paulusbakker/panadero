@@ -10,7 +10,7 @@ export function getItemsByCategory(recipeBook, sortByRecipes) {
 
   for (let [categoryId, categoryName] of sortedCategories) {
     const itemsInThisCategory = [...items.values()]
-      .filter((item) => item.category === categoryId)
+      .filter((item) => item.category === categoryId && !item.isArchived)
       .map((item) => item.name)
       .sort();
 

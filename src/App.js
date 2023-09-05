@@ -1,24 +1,22 @@
 import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import {ThemeProvider} from 'styled-components'
+import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/GlobalStyle";
-import theme from './styles/Theme'
-import RecipeNavbar from "./pages/recipe/navbar/Navbar";
+import theme from "./styles/Theme";
 import Recipe from "./pages/recipe/Recipe";
 import NoPage from "./pages/recipeBookApp/noPage/NoPage";
 import RecipeBookApp from "./pages/recipeBookApp/RecipeBookApp";
-import Navbar from "./pages/ingredient/navbar/Navbar";
 import Ingredient from "./pages/ingredient/Ingredient";
 import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
-import MainNavbar from "./pages/recipeBookApp/navbar/Navbar"; {/* renaming Navbar into MainNavbar */}
+import Navbar from "./pages/recipeBookApp/navbar/Navbar";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
   {
     path: "/recipes",
-    element: <MainNavbar />,
+    element: <Navbar />,
     children: [
       {
         path: "/recipes",
@@ -29,7 +27,7 @@ const router = createBrowserRouter([
   // Homepage #2, active tab=ingredients: /ingredients
   {
     path: "/ingredients",
-    element: <MainNavbar />,
+    element: <Navbar />,
     children: [
       {
         path: "/ingredients",
@@ -40,38 +38,29 @@ const router = createBrowserRouter([
   // View recipe: /recipe/{recipe_id}
   {
     path: "/recipe/:id",
-    element: <RecipeNavbar />,
-    children: [
-      {
-        path: "/recipe/:id",
-        element: <Recipe />,
-      },
-    ],
+    element: <Recipe />,
+    // children: [
+    //   {
+    //     path: "/recipe/:id",
+    //     element: <Recipe />,
+    //   },
+    // ],
   },
   // View ingredient: /ingredient/{ingredient_id}
   {
     path: "/ingredient/:id",
-    element: <Navbar />,
-    children: [
-      {
-        path: "/ingredient/:id",
-        element: <Ingredient />,
-      },
-    ],
+    element: <Ingredient />,
+    // children: [
+    //   {
+    //     path: "/ingredient/:id",
+    //     element: <Ingredient />,
+    //   },
+    // ],
   },
   {
     path: "*",
     element: <NoPage />,
   },
-  // View ingredient: /ingredient/{ingredient_id}
-  // {
-  //   path: "/ingredient/:id",
-  //   element: <RecipeIngredientNavBar />,
-  // },
-  // {
-  //   path: "/ingredient/:id/edit",
-  //   element: <EditIngredientNavBar />,
-  // },
 ]);
 
 function App() {

@@ -68,7 +68,7 @@ function AccordionItem({
                   to={linkProps.to}
                   state={linkProps.state}
                   onClick={(e) => {
-                    if (activeCategory !== null) {
+                    if (activeCategory !== null || window.noExecute) {
                       e.preventDefault(); // Stops the link from being followed
                     }
                   }}

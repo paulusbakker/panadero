@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
@@ -14,11 +14,11 @@ import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTota
 import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
 import {
   CenteredListItemStyled,
-  ContentUlStyled,
+  UnorderedListStyled,
   DottedLine,
   ItemHeaderStyled,
 } from "./Styles";
-import Navbar from "../recipe/navbar/Navbar";
+import Navbar from "./navbar/Navbar";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -67,33 +67,30 @@ const reducer = (recipeState, action) => {
 
 function Recipe() {
   const navigate = useNavigate();
-  const location = useLocation();
+  const { state } = useLocation();
   const recipeBook = useRecoilValue(recipeBookAtom);
   console.log(recipeBook);
-  const recipeName = location.state?.recipeName;
+  const recipeName = state?.recipeName;
 
   // redirect non-existing url's
   useEffect(() => {
     if (!recipeName) navigate("/recipes", { replace: true });
   }, []);
 
-  const initialState = useMemo(
-    () => ({
-      recipe: recipeName
+  const initialState = {
+    recipe: recipeName
         ? flattenRecipe(
             getRecipeFromRecipeName(recipeName, recipeBook),
             recipeBook
-          )
+        )
         : null,
-      index: null,
-      stepsMode: false,
-      currentWeight: 0,
-      totalFlourWeight: 0,
-      totalLiquidWeight: 0,
-      viewMode: VIEWMODE.VIEW_RECIPE,
-    }),
-    [recipeName, recipeBook]
-  );
+    index: null,
+    stepsMode: false,
+    currentWeight: 0,
+    totalFlourWeight: 0,
+    totalLiquidWeight: 0,
+    viewMode: VIEWMODE.VIEW_RECIPE,
+  };
   const [recipeState, dispatch] = useReducer(reducer, initialState);
 
   const faultyRecipes = findRecipesMissingIngredients(
@@ -106,7 +103,8 @@ function Recipe() {
 
   return (
     <>
-      <ContentUlStyled>
+      <Navbar recipeName={recipeState} />
+      <UnorderedListStyled>
         {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
             name={
@@ -173,10 +171,10 @@ function Recipe() {
             C
           </button>
         )}
-      </ContentUlStyled>
+      </UnorderedListStyled>
 
       {/*StepsMode: ingredients minus predoughs*/}
-      <ContentUlStyled>
+      <UnorderedListStyled>
         {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
           <>
             <CenteredListItemStyled>
@@ -196,10 +194,10 @@ function Recipe() {
             })}
           </>
         )}
-      </ContentUlStyled>
+      </UnorderedListStyled>
 
       {/*costs*/}
-      <ContentUlStyled>
+      <UnorderedListStyled>
         {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
           <>
             <CenteredListItemStyled>Costs</CenteredListItemStyled>
@@ -222,7 +220,7 @@ function Recipe() {
             />
           </>
         )}
-      </ContentUlStyled>
+      </UnorderedListStyled>
     </>
   );
 }

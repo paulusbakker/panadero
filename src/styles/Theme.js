@@ -4,6 +4,7 @@ const theme = {
     navbarTextAndHamburgerMenuBackgroundColor: "#fcbf49",
     navbarTabColor: "#f77f00",
     textColor: "#003049",
+    backgroundColor: "lightgray",
     contentBackgroundColor: "#eae2b7",
     overlayBackgroundColor: "#f7f1f185",
     popupBackground: "rgba(255, 255, 255, 0.25)",
@@ -22,4 +23,3 @@ const theme = {
 };
 
 export default theme;
-// default: "0 8px 32px 0 rgba(31, 38, 135, 0.37)",

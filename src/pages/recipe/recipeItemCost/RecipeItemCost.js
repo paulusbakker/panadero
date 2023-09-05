@@ -6,7 +6,6 @@ import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, Span
 
 function RecipeItemCost({ recipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
-
   const symbolType = getSymbolType({ isRecipe: false, isFlour, isLiquid });
 
   return (

@@ -20,7 +20,7 @@ export const ItemHeaderStyled = styled.div`
   font-size: 25px;
 `;
 
-export const ContentUlStyled = styled.ul`
+export const UnorderedListStyled = styled.ul`
   box-shadow: ${(props) => props.theme.boxShadow.default};
   font-family: ${(props) => props.theme.fonts.secondary};
   margin: ${(props) => props.theme.margins.marginTop} 10px 8px 8px;
