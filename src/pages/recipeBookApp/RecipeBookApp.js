@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
 import { recipeBookAtom  } from "../../atom/recipeBookAtom";
-import {hamburgerMenuInNavbarPreviouslyOpenAtom} from '../../atom/hamburgerMenuInNavbarPreviouslyOpenAtom'
+import {skipActionIfNavbarHamburgerMenuIsOpenAtom} from '../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
 import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
@@ -10,7 +10,7 @@ import { TabContainerUlStyled } from "./Styles";
 
 function RecipeBookApp() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
-  const hamburgerMenuInNavbarPreviouslyOpen = useRecoilValue(hamburgerMenuInNavbarPreviouslyOpenAtom);
+  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(skipActionIfNavbarHamburgerMenuIsOpenAtom);
   const { pathname } = useLocation();
   const isRecipeTab = pathname === "/recipes";
   const categorizedItems = getItemsByCategory(recipeBook, isRecipeTab);
@@ -46,9 +46,7 @@ function RecipeBookApp() {
   }, []);
 
   function handleContainerClick(event) {
-    console.log("handleContainerClick called");
-
-    if (hamburgerMenuInNavbarPreviouslyOpen) return;
+    if (skipActionIfNavbarHamburgerMenuIsOpen) return;
     const actionElement = event.target.closest("[data-action]");
 
     if (!actionElement) {

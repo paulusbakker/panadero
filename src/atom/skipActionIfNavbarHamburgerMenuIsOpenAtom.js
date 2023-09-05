@@ -1,6 +1,6 @@
 import { atom } from 'recoil';
 
-export const hamburgerMenuInNavbarPreviouslyOpenAtom = atom({
+export const skipActionIfNavbarHamburgerMenuIsOpenAtom = atom({
     key: 'hamburgerMenuInNavbarPreviouslyOpen',
     default: false,
 });

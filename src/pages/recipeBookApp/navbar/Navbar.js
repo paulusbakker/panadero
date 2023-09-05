@@ -3,7 +3,7 @@ import { Outlet, useLocation } from "react-router-dom";
 // import "../../../styles.css";
 import Symbol from "../../../components/shared/Symbol";
 import { useRecoilState } from 'recoil';
-import {hamburgerMenuInNavbarPreviouslyOpenAtom } from '../../../atom/hamburgerMenuInNavbarPreviouslyOpenAtom'
+import {skipActionIfNavbarHamburgerMenuIsOpenAtom } from '../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -16,7 +16,7 @@ import {
 
 function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
-  const [, hamburgerMenuInNavbarPreviouslyOpen] = useRecoilState(hamburgerMenuInNavbarPreviouslyOpenAtom); // Using Recoil state
+  const [, toggleSkipActionIfNavbarHamburgerMenuIsOpen] = useRecoilState(skipActionIfNavbarHamburgerMenuIsOpenAtom); // Using Recoil state
   const { pathname } = useLocation();
   const menuRef = useRef(null);
   // window.noExecute = false;
@@ -25,11 +25,11 @@ function Navbar() {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         if (hamburgerMenuOpen) {
           toggleHamburgerMenuOpen(false);
-          hamburgerMenuInNavbarPreviouslyOpen(true);  // Set the flag which will be used in RecipeBookApp
+          toggleSkipActionIfNavbarHamburgerMenuIsOpen(true);  // Set the flag which will be used in RecipeBookApp
           return;
         }
       }
-      hamburgerMenuInNavbarPreviouslyOpen(false);  // Reset the flag which will be used in RecipeBookApp
+      toggleSkipActionIfNavbarHamburgerMenuIsOpen(false);  // Reset the flag which will be used in RecipeBookApp
     }
 
     // Attach the click event handler

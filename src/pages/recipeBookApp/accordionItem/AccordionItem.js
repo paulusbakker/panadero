@@ -4,7 +4,7 @@ import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
 import EditCategory from "../editCategory/EditCategory";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {ItemHeaderStyled, ItemsCountStyled, LinkStyled} from './Styles'
-import {hamburgerMenuInNavbarPreviouslyOpenAtom} from '../../../atom/hamburgerMenuInNavbarPreviouslyOpenAtom'
+import {skipActionIfNavbarHamburgerMenuIsOpenAtom} from '../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
 import {useRecoilValue} from 'recoil'
 
 
@@ -20,7 +20,7 @@ function AccordionItem({
   handleCategoryUpdate,
   handleContainerClick,
 }) {
-  const hamburgerMenuInNavbarPreviouslyOpen = useRecoilValue(hamburgerMenuInNavbarPreviouslyOpenAtom);
+  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(skipActionIfNavbarHamburgerMenuIsOpenAtom);
 
   const createItemLink = (itemName) => {
     const baseLink = isRecipeTab ? `/recipe/` : `/ingredient/`;
@@ -73,7 +73,7 @@ function AccordionItem({
                   to={linkProps.to}
                   state={linkProps.state}
                   onClick={(e) => {
-                    if (activeCategory !== null || hamburgerMenuInNavbarPreviouslyOpen) {
+                    if (activeCategory !== null || skipActionIfNavbarHamburgerMenuIsOpen) {
                       e.preventDefault(); // Stops the link from being followed
                     }
                   }}
