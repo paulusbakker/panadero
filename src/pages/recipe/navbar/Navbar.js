@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { Outlet, Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import Symbol from "../../../components/shared/Symbol";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import {

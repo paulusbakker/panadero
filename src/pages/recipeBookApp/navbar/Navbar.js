@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import "../../../styles.css";
+// import "../../../styles.css";
 import Symbol from "../../../components/shared/Symbol";
+import { useRecoilState } from 'recoil';
+import {hamburgerMenuInNavbarPreviouslyOpenAtom } from '../../../atom/hamburgerMenuInNavbarPreviouslyOpenAtom'
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -14,6 +16,7 @@ import {
 
 function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
+  const [, hamburgerMenuInNavbarPreviouslyOpen] = useRecoilState(hamburgerMenuInNavbarPreviouslyOpenAtom); // Using Recoil state
   const { pathname } = useLocation();
   const menuRef = useRef(null);
   // window.noExecute = false;
@@ -22,15 +25,12 @@ function Navbar() {
       if (menuRef.current && !menuRef.current.contains(event.target)) {
         if (hamburgerMenuOpen) {
           toggleHamburgerMenuOpen(false);
-          window.noExecute = true;
-          return; // Early return to prevent executing the code below
+          hamburgerMenuInNavbarPreviouslyOpen(true);  // Set the flag which will be used in RecipeBookApp
+          return;
         }
       }
-      if (!hamburgerMenuOpen) {
-        window.noExecute = false;
-      }
+      hamburgerMenuInNavbarPreviouslyOpen(false);  // Reset the flag which will be used in RecipeBookApp
     }
-
 
     // Attach the click event handler
     document.addEventListener("mousedown", handleClickOutside);
