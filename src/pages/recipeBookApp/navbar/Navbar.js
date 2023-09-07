@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-// import "../../../styles.css";
 import Symbol from "../../../components/shared/Symbol";
 import { useRecoilState } from 'recoil';
 import {skipActionIfNavbarHamburgerMenuIsOpenAtom } from '../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
@@ -38,7 +37,7 @@ function Navbar() {
       // Remove the click event handler
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [hamburgerMenuOpen]);
+  }, [hamburgerMenuOpen, toggleSkipActionIfNavbarHamburgerMenuIsOpen]);
 
   return (
     <>

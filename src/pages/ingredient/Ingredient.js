@@ -1,52 +1,80 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
-import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
-import { IngredientDetailsContainer, ItemHeaderStyled } from "./Styles";
 import Navbar from "./navbar/Navbar";
+import { Ingredient as IngredientClass } from "../../classes/Ingredient";
+import { recipeBookAtom } from "../../atom/recipeBookAtom";
+import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
+import {
+  BackgroundOverlayStyled,
+  IngredientDetailsContainer,
+  ItemHeaderStyled,
+} from "./Styles";
+import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
+import DeleteWindow from "./deleteWindow/DeleteWindow";
+import EditWindow from "./editWindow/EditWindow";
 
-function Ingredient() {
+const Ingredient = () => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
+  const [deleteWindow, setDeleteWindow] = useState(false);
+  const [editWindow, setEditWindow] = useState(false);
   const ingredientName = state ? state.ingredientName || "" : "";
 
-  // redirect non-existing url's
   useEffect(() => {
     if (!ingredientName) navigate("/recipes", { replace: true });
   }, [ingredientName, navigate]);
 
-  // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
-  if (!ingredientName) return null;
+  const ingredient = getIngredientFromIngredientName(ingredientName, recipeBook);
+  const [editableName, setEditableName] = useState(ingredientName);
+  const [selectedCategory, setSelectedCategory] = useState(ingredient.category);
+  const [editablePrice, setEditablePrice] = useState(ingredient.pricePerKilo);
+  const [editableCalories, setEditableCalories] = useState(ingredient.caloriesPerGram);
 
-  const ingredient = getIngredientFromIngredientName(
-    ingredientName,
-    recipeBook
-  );
+  const toggleWindow = (windowSetter) => () => windowSetter(prev => !prev);
+  const handleOverlayClick = (e) => {
+    if (e.target === e.currentTarget) toggleWindow(deleteWindow ? setDeleteWindow : setEditWindow)();
+  };
+  console.log(recipeBook)
 
-  const editIngredient = () => {};
+  // higher-order function:
+  const updateRecipeBook = (action) => {
+    setRecipeBook(prev => {
+      const updatedIngredients = new Map(prev.ingredients);
+      updatedIngredients.forEach((ingredient, key) => {
+        if (ingredient.name === ingredientName) {
+          action(ingredient, key, updatedIngredients);
+        }
+      });
+      return { ...prev, ingredients: updatedIngredients };
+    });
+  };
 
   const deleteIngredient = () => {
-    setRecipeBook((prevRecipeBook) => {
-      const updatedIngredients = new Map(prevRecipeBook.ingredients);
-      for (const ingredient of updatedIngredients.values()) {
-        if (ingredient.name === ingredientName) {
-          ingredient.isArchived = true;
-          break;
-        }
-      }
-      return { ...prevRecipeBook, ingredients: updatedIngredients };
-    });
+    updateRecipeBook((ingredient) => { ingredient.isArchived = true });
     navigate("/ingredients");
+  };
+  const submitChanges = () => {
+    updateRecipeBook((_, key, updatedIngredients) => {
+      const updatedIngredient = new IngredientClass(
+          editableName,
+          Number(selectedCategory),
+          editableCalories,
+          editablePrice
+
+      );
+      updatedIngredients.set(key, updatedIngredient);
+    });
+    toggleWindow(setEditWindow)();
+    navigate(`/ingredient/${convertToUrlFormat(editableName)}`, { state: { ingredientName: editableName } });
   };
 
   return (
     <>
       <Navbar
-        ingredientName={ingredientName}
-        deleteIngredient={deleteIngredient}
-        editIngredient={editIngredient}
+        toggleEditIngredientWindow={toggleWindow(setEditWindow)}
+        toggleDeleteIngredientWindow={toggleWindow(setDeleteWindow)}
       />
       <IngredientDetailsContainer>
         <ItemHeaderStyled>{ingredientName}</ItemHeaderStyled>
@@ -65,8 +93,34 @@ function Ingredient() {
           <span>{ingredient.caloriesPerGram}</span>
         </ItemHeaderStyled>
       </IngredientDetailsContainer>
+      {deleteWindow && (
+          <BackgroundOverlayStyled onClick={handleOverlayClick}>
+            <DeleteWindow
+                ingredientName={ingredientName}
+                closeWindow={toggleWindow(setDeleteWindow)}
+                deleteIngredient={deleteIngredient}
+            />
+          </BackgroundOverlayStyled>
+      )}
+      {editWindow && (
+        <BackgroundOverlayStyled onClick={handleOverlayClick}>
+          <EditWindow
+            editableName={editableName}
+            setEditableName={setEditableName}
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+            editablePrice={editablePrice}
+            setEditablePrice={setEditablePrice}
+            editableCalories={editableCalories}
+            setEditableCalories={setEditableCalories}
+            submitChanges={submitChanges}
+            recipeBook={recipeBook}
+            closeWindow={() => setEditWindow(false)}
+          />
+        </BackgroundOverlayStyled>
+      )}
     </>
   );
-}
+};
 
 export default Ingredient;

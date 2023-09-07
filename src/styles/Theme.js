@@ -3,7 +3,7 @@ const theme = {
     navbarBackgroundColor: "#d62828",
     navbarTextAndHamburgerMenuBackgroundColor: "#fcbf49",
     navbarTabColor: "#f77f00",
-    textColor: "#003049",
+    textColor: "black",
     backgroundColor: "lightgray",
     contentBackgroundColor: "#eae2b7",
     overlayBackgroundColor: "#f7f1f185",

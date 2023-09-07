@@ -10,7 +10,6 @@ export const SymbolWrapperStyled = styled.span`
 // A styled component to shrink the pencil symbol
 export const PencilStyled = styled(BsFillPencilFill)`
   transform: scale(0.75);
-  color: ${(props) => props.theme.colors.textColor};
 `;
 
 export const CalculatorStyled = styled(ImCalculator)`

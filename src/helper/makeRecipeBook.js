@@ -612,7 +612,7 @@ export function makeRecipeBook() {
   );
 
   return new RecipeBook(
-    "Ingredient book",
+    "EditIngredient book",
     recipeCategories,
     ingredientCategories,
     ingredients,

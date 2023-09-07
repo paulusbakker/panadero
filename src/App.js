@@ -50,13 +50,9 @@ const router = createBrowserRouter([
   {
     path: "/ingredient/:id",
     element: <Ingredient />,
-    // children: [
-    //   {
-    //     path: "/ingredient/:id",
-    //     element: <Ingredient />,
-    //   },
-    // ],
+
   },
+
   {
     path: "*",
     element: <NoPage />,
