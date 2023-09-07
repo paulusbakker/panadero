@@ -36,7 +36,6 @@ const Ingredient = () => {
   const handleOverlayClick = (e) => {
     if (e.target === e.currentTarget) toggleWindow(deleteWindow ? setDeleteWindow : setEditWindow)();
   };
-  console.log(recipeBook)
 
   // higher-order function:
   const updateRecipeBook = (action) => {

@@ -30,6 +30,7 @@ function RecipeBookApp() {
 
   useEffect(() => {
     function handleOutsideClick(event) {
+      console.log('klik')
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
@@ -46,6 +47,7 @@ function RecipeBookApp() {
   }, []);
 
   function handleContainerClick(event) {
+    event.stopPropagation() // stop running handleOutsideClick
     if (skipActionIfNavbarHamburgerMenuIsOpen) return;
     const actionElement = event.target.closest("[data-action]");
 
