@@ -21,15 +21,10 @@ const Ingredient = () => {
   const [isNew, setIsNew] = useState(state?.isNew || false);
   const [deleteWindow, setDeleteWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(state?.isNew);
-  const createNewIngredient = (
-    name = "",
-    category = 0,
-    caloriesPerGram = 0,
-    pricePerKilo = 0
-  ) => new IngredientClass(name, category, caloriesPerGram, pricePerKilo);
+
   const ingredientName = state ? state.ingredientName || "" : "";
   const ingredient = isNew
-    ? createNewIngredient()
+      ? IngredientClass.createNew()
     : getIngredientFromIngredientName(ingredientName, recipeBook);
 
   const sortedCategories = useMemo(
@@ -101,7 +96,7 @@ const Ingredient = () => {
   };
 
   const submitChanges = () => {
-    const updatedIngredient = createNewIngredient(
+    const updatedIngredient = new IngredientClass(
       editableName,
       Number(selectedCategory),
       Number(editableCalories),

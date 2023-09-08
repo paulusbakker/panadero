@@ -6,4 +6,8 @@ export class Ingredient {
     this.caloriesPerGram = caloriesPerGram;
     this.pricePerKilo = pricePerKilo;
   }
+
+  static createNew() {
+    return new Ingredient('', 0, 0, 0);
+  }
 }
