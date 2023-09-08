@@ -30,7 +30,6 @@ function RecipeBookApp() {
 
   useEffect(() => {
     function handleOutsideClick(event) {
-      console.log('klik')
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)

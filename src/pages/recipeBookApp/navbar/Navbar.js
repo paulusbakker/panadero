@@ -17,6 +17,7 @@ function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
   const [, toggleSkipActionIfNavbarHamburgerMenuIsOpen] = useRecoilState(skipActionIfNavbarHamburgerMenuIsOpenAtom); // Using Recoil state
   const { pathname } = useLocation();
+
   const menuRef = useRef(null);
   // window.noExecute = false;
   useEffect(() => {
@@ -55,16 +56,16 @@ function Navbar() {
         </ButtonContainerStyled>
         {hamburgerMenuOpen && (
           <HamburgerMenuStyled ref={menuRef}>
-            <HamburgerMenuItemStyled>ADD RECIPE</HamburgerMenuItemStyled>
-            <HamburgerMenuItemStyled>ADD INGREDIENT</HamburgerMenuItemStyled>
-            <HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled to="/ingredients">ADD RECIPE</HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled to={"/ingredient/new"} state={{isNew:true}}>ADD INGREDIENT</HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled  to="/ingredients">
               ADD RECIPE CATEGORY
             </HamburgerMenuItemStyled>
-            <HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled to="/ingredients">
               ADD INGREDIENT CATEGORY
             </HamburgerMenuItemStyled>
-            <HamburgerMenuItemStyled>BACKUP</HamburgerMenuItemStyled>
-            <HamburgerMenuItemStyled>PURGE</HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled to="/ingredients">BACKUP</HamburgerMenuItemStyled>
+            <HamburgerMenuItemStyled to="/ingredients">PURGE</HamburgerMenuItemStyled>
           </HamburgerMenuStyled>
         )}
       </MainNavStyled>

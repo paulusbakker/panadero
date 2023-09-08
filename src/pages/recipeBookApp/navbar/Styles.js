@@ -54,12 +54,12 @@ export const ButtonContainerStyled = styled.button`
   font-size: 35px;
 `;
 
-export const HamburgerMenuStyled = styled.ul`
+// Inside your Styles.js
+export const HamburgerMenuStyled = styled.div`
   z-index: 9;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  list-style: none;
   position: fixed;
   background: ${(props) => props.theme.colors.navbarTextAndHamburgerMenuBackgroundColor};
   height: auto;
@@ -69,7 +69,8 @@ export const HamburgerMenuStyled = styled.ul`
   overflow: hidden;
 `;
 
-export const HamburgerMenuItemStyled = styled.li`
+
+export const HamburgerMenuItemStyled = styled(Link)`
   margin: 5px 4px;
   width: fit-content;
   font-size: 19px;
