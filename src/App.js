@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import theme from "./styles/Theme";
-import Recipe from "./pages/recipe/Recipe";
+import ViewRecipe from "./pages/recipe/view/ViewRecipe";
 import NoPage from "./pages/recipeBookApp/noPage/NoPage";
 import RecipeBookApp from "./pages/recipeBookApp/RecipeBookApp";
 import Ingredient from "./pages/ingredient/Ingredient";
@@ -11,6 +11,7 @@ import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
 import Navbar from "./pages/recipeBookApp/navbar/Navbar";
+import EditRecipe from "./pages/recipe/edit/EditRecipe";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
@@ -38,21 +39,16 @@ const router = createBrowserRouter([
   // View recipe: /recipe/{recipe_id}
   {
     path: "/recipe/:id",
-    element: <Recipe />,
-    // children: [
-    //   {
-    //     path: "/recipe/:id",
-    //     element: <Recipe />,
-    //   },
-    // ],
+    element: <ViewRecipe />,
   },
-  // View ingredient: /ingredient/{ingredient_id}
+  {
+    path: "/recipe/:id/edit",
+    element: <EditRecipe />,
+  },
   {
     path: "/ingredient/:id",
     element: <Ingredient />,
-
   },
-
   {
     path: "*",
     element: <NoPage />,

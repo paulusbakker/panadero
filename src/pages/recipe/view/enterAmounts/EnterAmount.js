@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Symbol from "../../../components/shared/Symbol";
-import { ACTIONS } from "../Recipe";
+import Symbol from "../../../../components/shared/Symbol";
+import { ACTIONS } from "../ViewRecipe";
 import {BackgroundOverlayStyled, PopupStyled} from './Styles'
 
 const INPUT_IDS = {

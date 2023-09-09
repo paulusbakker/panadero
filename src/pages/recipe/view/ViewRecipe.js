@@ -1,17 +1,17 @@
 import React, { useEffect, useReducer } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { recipeBookAtom } from "../../atom/recipeBookAtom";
-import { getRecipeFromRecipeName } from "../../helper/getRecipeFromRecipeName";
+import { recipeBookAtom } from "../../../atom/recipeBookAtom";
+import { getRecipeFromRecipeName } from "../../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
-import { flattenRecipe } from "../../helper/flattenRecipe";
-import { calculateAmounts } from "../../helper/calculateAmounts";
+import { flattenRecipe } from "../../../helper/flattenRecipe";
+import { calculateAmounts } from "../../../helper/calculateAmounts";
 import RecipeItem from "./recipeItem/RecipeItem";
-import Symbol from "../../components/shared/Symbol";
+import Symbol from "../../../components/shared/Symbol";
 import EnterAmount from "./enterAmounts/EnterAmount";
 import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
 import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
-import { calculateTotalOveralLiquidPercentage } from "../../helper/calculateTotalOveralLiquidPercentage";
-import { findRecipesMissingIngredients } from "../../helper/findRecipesMissingIngredients";
+import { calculateTotalOveralLiquidPercentage } from "../../../helper/calculateTotalOveralLiquidPercentage";
+import { findRecipesMissingIngredients } from "../../../helper/findRecipesMissingIngredients";
 import {
   CenteredListItemStyled,
   UnorderedListStyled,
@@ -65,7 +65,7 @@ const reducer = (recipeState, action) => {
   }
 };
 
-function Recipe() {
+function ViewRecipe() {
   const navigate = useNavigate();
   const { state } = useLocation();
   const recipeBook = useRecoilValue(recipeBookAtom);
@@ -75,7 +75,7 @@ function Recipe() {
   // redirect non-existing url's
   useEffect(() => {
     if (!recipeName) navigate("/recipes", { replace: true });
-  }, []);
+  }, [recipeName, navigate]);
 
   const initialState = {
     recipe: recipeName
@@ -103,7 +103,7 @@ function Recipe() {
 
   return (
     <>
-      <Navbar recipeName={recipeState} />
+      <Navbar recipeName={recipeName} />
       <UnorderedListStyled>
         {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
@@ -225,4 +225,4 @@ function Recipe() {
   );
 }
 
-export default Recipe;
+export default ViewRecipe;

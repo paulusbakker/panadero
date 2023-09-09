@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Symbol from "../../../components/shared/Symbol";
-import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
+import Symbol from "../../../../components/shared/Symbol";
+import { convertToUrlFormat } from "../../../../helper/convertToUrlFormat";
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -31,7 +31,7 @@ function Navbar({ recipeName }) {
           {!hamburgerMenuOpen && (
             <div>
               <Link
-                to={`/edit-recipe/${convertToUrlFormat(recipeName)}`}
+                to={`/recipe/${convertToUrlFormat(recipeName)}/edit`}
                 state={{ recipeName: recipeName }}
               >
                 <Symbol type={"pencil"} />

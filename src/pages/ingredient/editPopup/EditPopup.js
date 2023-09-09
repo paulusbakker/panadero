@@ -1,6 +1,6 @@
 import {ItemHeaderStyled, PopupStyled} from './Styles'
 
-const EditWindow = ({
+const EditPopup = ({
                         editableName, setEditableName,
                         selectedCategory, setSelectedCategory,
                         editablePrice, setEditablePrice,
@@ -57,4 +57,4 @@ const EditWindow = ({
     </PopupStyled>
 );
 
-export default EditWindow
+export default EditPopup

@@ -1,11 +1,11 @@
 import React from "react";
-import Symbol from "../../../components/shared/Symbol";
-import { ACTIONS, VIEWMODE } from "../Recipe";
-import { getSymbolType } from '../../../helper/getSymbolType';
+import Symbol from "../../../../components/shared/Symbol";
+// import { ACTIONS, VIEWMODE } from "../ViewRecipe";
+import { getSymbolType } from '../../../../helper/getSymbolType';
 import Indent from '../indent/Indent'
-import {numberFormat} from '../../../helper/numberFormat'
+import {numberFormat} from '../../../../helper/numberFormat'
 import {ContainerStyled, LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
-
+import {ACTIONS, VIEWMODE} from '../ViewRecipe'
 
 function RecipeItem({ recipeItem, index, stepsMode, viewMode, dispatch }) {
   const {

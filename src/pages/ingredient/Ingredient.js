@@ -2,8 +2,8 @@ import React, { useEffect, useMemo, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import Navbar from "./navbar/Navbar";
-import DeleteWindow from "./deleteWindow/DeleteWindow";
-import EditWindow from "./editWindow/EditWindow";
+import DeletePopup from "./deletePopup/DeletePopup";
+import EditPopup from "./editPopup/EditPopup";
 import {
   BackgroundOverlayStyled,
   IngredientDetailsContainer,
@@ -14,13 +14,13 @@ import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
 
-const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
+const Ingredient = ({ isNew: propIsNew, toggleAddIngredientMode }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
   const isNew=propIsNew !== undefined ? propIsNew : state?.isNew || false
-  const [deleteWindow, setDeleteWindow] = useState(false);
-  const [editWindow, setEditWindow] = useState(isNew);
+  const [deletePopup, setDeletePopup] = useState(false);
+  const [editPopup, setEditPopup] = useState(isNew);
 
   const ingredientName = state ? state.ingredientName || "" : "";
   const ingredient = isNew
@@ -54,18 +54,18 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
     }
   }, [ingredientName, navigate, isNew]);
 
-  const toggleWindow = (windowSetter) => () => windowSetter((prev) => !prev);
+  const togglePopup = (PopupSetter) => () => PopupSetter((prev) => !prev);
 
   const handleEditOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      toggleWindow(setEditWindow)();
-      if (isNew) toggleAddIngredientModeMode(false);
+      togglePopup(setEditPopup)();
+      if (isNew) toggleAddIngredientMode(false);
     }
   };
 
   const handleDeleteOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      toggleWindow(setDeleteWindow)();
+      togglePopup(setDeletePopup)();
     }
   };
 
@@ -109,14 +109,14 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
     updateRecipeBook(updatedIngredient);
 
     if (!isNew) {
-      toggleWindow(setEditWindow)();
+      togglePopup(setEditPopup)();
       navigate(`/ingredient/${convertToUrlFormat(editableName)}`, {
         state: { ingredientName: editableName },
       });
       return;
     }
 
-    toggleAddIngredientModeMode(false);
+    toggleAddIngredientMode(false);
   };
 
 
@@ -125,8 +125,8 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
       {!isNew && (
         <>
           <Navbar
-            toggleEditIngredientWindow={toggleWindow(setEditWindow)}
-            toggleDeleteIngredientWindow={toggleWindow(setDeleteWindow)}
+            toggleEditIngredientWindow={togglePopup(setEditPopup)}
+            toggleDeleteIngredientWindow={togglePopup(setDeletePopup)}
           />
           <IngredientDetailsContainer>
             <ItemHeaderStyled>{ingredientName}</ItemHeaderStyled>
@@ -147,18 +147,18 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
           </IngredientDetailsContainer>
         </>
       )}
-      {deleteWindow && (
+      {deletePopup && (
         <BackgroundOverlayStyled onClick={handleDeleteOverlayClick}>
-          <DeleteWindow
+          <DeletePopup
             ingredientName={ingredientName}
-            closeWindow={toggleWindow(setDeleteWindow)}
+            closeWindow={togglePopup(setDeletePopup)}
             deleteIngredient={deleteIngredient}
           />
         </BackgroundOverlayStyled>
       )}
-      {editWindow && (
+      {editPopup && (
         <BackgroundOverlayStyled onClick={handleEditOverlayClick}>
-          <EditWindow
+          <EditPopup
             editableName={editableName}
             setEditableName={setEditableName}
             selectedCategory={selectedCategory}
@@ -169,7 +169,7 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
             setEditableCalories={setEditableCalories}
             submitChanges={submitChanges}
             sortedCategories={sortedCategories}
-            closeWindow={() => (isNew ? toggleAddIngredientModeMode(false) : setEditWindow(false))}
+            closeWindow={() => (isNew ? toggleAddIngredientMode(false) : setEditPopup(false))}
           />
         </BackgroundOverlayStyled>
       )}

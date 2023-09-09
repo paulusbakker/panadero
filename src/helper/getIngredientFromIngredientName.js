@@ -7,10 +7,10 @@
  * @returns {Object|undefined} The recipe object if found, otherwise undefined.
  */
 export function getIngredientFromIngredientName(ingredientName, recipeBook) {
-    for (const [key, ingredient] of recipeBook.ingredients.entries()) {
-        if (ingredient.name === ingredientName) {
-            return ingredient;
-        }
+  for (const ingredient of recipeBook.ingredients.values()) {
+    if (ingredient.name === ingredientName) {
+      return ingredient;
     }
-    return undefined;  // Explicitly return undefined if the ingredient is not found.
+  }
+  return undefined; // Explicitly return undefined if the ingredient is not found.
 }

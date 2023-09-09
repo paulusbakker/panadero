@@ -1,6 +1,6 @@
 import {PopupStyled} from './Styles'
 
-const DeleteWindow = ({ingredientName, closeWindow, deleteIngredient}) => (
+const DeletePopup = ({ingredientName, closeWindow, deleteIngredient}) => (
     <PopupStyled>
         <p>Delete ingredient:</p>
         <hr />
@@ -13,4 +13,4 @@ const DeleteWindow = ({ingredientName, closeWindow, deleteIngredient}) => (
         </div>
     </PopupStyled>
 );
-export default DeleteWindow
+export default DeletePopup
