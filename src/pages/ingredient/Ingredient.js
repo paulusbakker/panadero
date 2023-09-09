@@ -169,7 +169,7 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
             setEditableCalories={setEditableCalories}
             submitChanges={submitChanges}
             sortedCategories={sortedCategories}
-            closeWindow={() => (isNew ? navigate(-1) : setEditWindow(false))}
+            closeWindow={() => (isNew ? toggleAddIngredientModeMode(false) : setEditWindow(false))}
           />
         </BackgroundOverlayStyled>
       )}
