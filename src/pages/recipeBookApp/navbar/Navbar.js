@@ -16,7 +16,7 @@ import Ingredient from '../../ingredient/Ingredient'
 
 function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
-  const [addIngredient, toggleAddIngredient]=useState(false)
+  const [addIngredientMode, toggleAddIngredientModeMode]=useState(false)
   const [, toggleSkipActionIfNavbarHamburgerMenuIsOpen] = useRecoilState(skipActionIfNavbarHamburgerMenuIsOpenAtom); // Using Recoil state
   const { pathname } = useLocation();
 
@@ -63,7 +63,7 @@ function Navbar() {
             </HamburgerMenuItemStyled>
             <HamburgerMenuItemStyled
               onClick={() => {
-                toggleAddIngredient(true);
+                toggleAddIngredientModeMode(true);
                 toggleHamburgerMenuOpen(false)
               }}
             >
@@ -96,8 +96,8 @@ function Navbar() {
         </TabStyled>
       </TabsStyled>
       <Outlet />
-      {addIngredient && (
-        <Ingredient isNew={true} setAddIngredient={toggleAddIngredient} />
+      {addIngredientMode && (
+        <Ingredient isNew={true} toggleAddIngredientModeMode={toggleAddIngredientModeMode} />
       )}
     </>
   );

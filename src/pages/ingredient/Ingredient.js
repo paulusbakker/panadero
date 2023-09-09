@@ -14,13 +14,11 @@ import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
 
-const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
+const Ingredient = ({ isNew: propIsNew, toggleAddIngredientModeMode }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
-  const [isNew, setIsNew] = useState(
-    propIsNew !== undefined ? propIsNew : state?.isNew || false
-  );
+  const isNew=propIsNew !== undefined ? propIsNew : state?.isNew || false
   const [deleteWindow, setDeleteWindow] = useState(false);
   const [editWindow, setEditWindow] = useState(isNew);
 
@@ -61,6 +59,7 @@ const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
   const handleEditOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
       toggleWindow(setEditWindow)();
+      if (isNew) toggleAddIngredientModeMode(false);
     }
   };
 
@@ -69,7 +68,6 @@ const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
       toggleWindow(setDeleteWindow)();
     }
   };
-
 
   const updateRecipeBook = (updatedIngredient) => {
     setRecipeBook((prev) => {
@@ -103,20 +101,24 @@ const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
 
   const submitChanges = () => {
     const updatedIngredient = new IngredientClass(
-      editableName,
-      Number(selectedCategory),
-      Number(editableCalories),
-      Number(editablePrice)
+        editableName,
+        Number(selectedCategory),
+        Number(editableCalories),
+        Number(editablePrice)
     );
     updateRecipeBook(updatedIngredient);
-    toggleWindow(setEditWindow)();
+
     if (!isNew) {
+      toggleWindow(setEditWindow)();
       navigate(`/ingredient/${convertToUrlFormat(editableName)}`, {
         state: { ingredientName: editableName },
       });
-      setIsNew(false);
+      return;
     }
+
+    toggleAddIngredientModeMode(false);
   };
+
 
   return (
     <>
@@ -131,8 +133,8 @@ const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
             <ItemHeaderStyled>
               <span>Category:</span>
               <span>
-              {recipeBook.ingredientCategories.get(ingredient.category)}
-            </span>
+                {recipeBook.ingredientCategories.get(ingredient.category)}
+              </span>
             </ItemHeaderStyled>
             <ItemHeaderStyled>
               <span>Price per kilo:</span>
