@@ -55,7 +55,7 @@ export const ButtonContainerStyled = styled.button`
 `;
 
 // Inside your Styles.js
-export const HamburgerMenuStyled = styled.div`
+export const HamburgerMenuStyled = styled.nav`
   z-index: 9;
   display: flex;
   flex-direction: column;
@@ -70,10 +70,16 @@ export const HamburgerMenuStyled = styled.div`
 `;
 
 
-export const HamburgerMenuItemStyled = styled(Link)`
+export const HamburgerMenuItemStyled = styled.button`
   margin: 5px 4px;
   width: fit-content;
   font-size: 19px;
+  font-family: ${(props) => props.theme.fonts.primary};
+  background: transparent; // Removes the default background
+  border: none;            // Removes the default border
+  cursor: pointer;         // Adds a pointer cursor on hover
+  padding: 0;              // Removes the default padding
+  outline: none;           // Optional: Removes the focus outline
 `;
 
 

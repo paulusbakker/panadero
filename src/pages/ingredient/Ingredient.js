@@ -14,17 +14,19 @@ import { recipeBookAtom } from "../../atom/recipeBookAtom";
 import { getIngredientFromIngredientName } from "../../helper/getIngredientFromIngredientName";
 import { convertToUrlFormat } from "../../helper/convertToUrlFormat";
 
-const Ingredient = () => {
+const Ingredient = ({ isNew: propIsNew, setAddIngredient }) => {
   const navigate = useNavigate();
   const { state } = useLocation();
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
-  const [isNew, setIsNew] = useState(state?.isNew || false);
+  const [isNew, setIsNew] = useState(
+    propIsNew !== undefined ? propIsNew : state?.isNew || false
+  );
   const [deleteWindow, setDeleteWindow] = useState(false);
-  const [editWindow, setEditWindow] = useState(state?.isNew);
+  const [editWindow, setEditWindow] = useState(isNew);
 
   const ingredientName = state ? state.ingredientName || "" : "";
   const ingredient = isNew
-      ? IngredientClass.createNew()
+    ? IngredientClass.createNew()
     : getIngredientFromIngredientName(ingredientName, recipeBook);
 
   const sortedCategories = useMemo(
@@ -55,15 +57,19 @@ const Ingredient = () => {
   }, [ingredientName, navigate, isNew]);
 
   const toggleWindow = (windowSetter) => () => windowSetter((prev) => !prev);
-  const handleOverlayClick = (e) => {
+
+  const handleEditOverlayClick = (e) => {
     if (e.target === e.currentTarget) {
-      if (isNew) {
-        navigate(-1);
-        return;
-      }
-      toggleWindow(deleteWindow ? setDeleteWindow : setEditWindow)();
+      toggleWindow(setEditWindow)();
     }
   };
+
+  const handleDeleteOverlayClick = (e) => {
+    if (e.target === e.currentTarget) {
+      toggleWindow(setDeleteWindow)();
+    }
+  };
+
 
   const updateRecipeBook = (updatedIngredient) => {
     setRecipeBook((prev) => {
@@ -104,39 +110,43 @@ const Ingredient = () => {
     );
     updateRecipeBook(updatedIngredient);
     toggleWindow(setEditWindow)();
-    navigate(`/ingredient/${convertToUrlFormat(editableName)}`, {
-      state: { ingredientName: editableName },
-    });
-    setIsNew(false);
+    if (!isNew) {
+      navigate(`/ingredient/${convertToUrlFormat(editableName)}`, {
+        state: { ingredientName: editableName },
+      });
+      setIsNew(false);
+    }
   };
 
   return (
     <>
-      <Navbar
-        toggleEditIngredientWindow={toggleWindow(setEditWindow)}
-        toggleDeleteIngredientWindow={toggleWindow(setDeleteWindow)}
-      />
       {!isNew && (
-        <IngredientDetailsContainer>
-          <ItemHeaderStyled>{ingredientName}</ItemHeaderStyled>
-          <ItemHeaderStyled>
-            <span>Category:</span>
-            <span>
+        <>
+          <Navbar
+            toggleEditIngredientWindow={toggleWindow(setEditWindow)}
+            toggleDeleteIngredientWindow={toggleWindow(setDeleteWindow)}
+          />
+          <IngredientDetailsContainer>
+            <ItemHeaderStyled>{ingredientName}</ItemHeaderStyled>
+            <ItemHeaderStyled>
+              <span>Category:</span>
+              <span>
               {recipeBook.ingredientCategories.get(ingredient.category)}
             </span>
-          </ItemHeaderStyled>
-          <ItemHeaderStyled>
-            <span>Price per kilo:</span>
-            <span>{ingredient.pricePerKilo}</span>
-          </ItemHeaderStyled>
-          <ItemHeaderStyled>
-            <span>Calories per gram:</span>
-            <span>{ingredient.caloriesPerGram}</span>
-          </ItemHeaderStyled>
-        </IngredientDetailsContainer>
+            </ItemHeaderStyled>
+            <ItemHeaderStyled>
+              <span>Price per kilo:</span>
+              <span>{ingredient.pricePerKilo}</span>
+            </ItemHeaderStyled>
+            <ItemHeaderStyled>
+              <span>Calories per gram:</span>
+              <span>{ingredient.caloriesPerGram}</span>
+            </ItemHeaderStyled>
+          </IngredientDetailsContainer>
+        </>
       )}
       {deleteWindow && (
-        <BackgroundOverlayStyled onClick={handleOverlayClick}>
+        <BackgroundOverlayStyled onClick={handleDeleteOverlayClick}>
           <DeleteWindow
             ingredientName={ingredientName}
             closeWindow={toggleWindow(setDeleteWindow)}
@@ -145,7 +155,7 @@ const Ingredient = () => {
         </BackgroundOverlayStyled>
       )}
       {editWindow && (
-        <BackgroundOverlayStyled onClick={handleOverlayClick}>
+        <BackgroundOverlayStyled onClick={handleEditOverlayClick}>
           <EditWindow
             editableName={editableName}
             setEditableName={setEditableName}
