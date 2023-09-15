@@ -1,7 +1,8 @@
 import React from "react";
-import {BackgroundOverlayStyled, PopupStyled} from './Styles'
+import { BackgroundOverlayStyled, PopupStyled } from "./Styles";
 
 function EditCategory({
+  categoryId,
   categoryName,
   handleInputChange,
   currentEditValue,
@@ -9,7 +10,7 @@ function EditCategory({
 }) {
   return (
     <BackgroundOverlayStyled>
-      <PopupStyled data-action='popup' >
+      <PopupStyled data-action="popup">
         <p>Edit category:</p>
         {categoryName}
         <input
@@ -19,9 +20,7 @@ function EditCategory({
           onChange={handleInputChange}
           value={currentEditValue}
         />
-        <button onClick={() => handleCategoryUpdate(categoryName)} >
-          Submit
-        </button>
+        <button onClick={() => handleCategoryUpdate(categoryId)}>Submit</button>
       </PopupStyled>
     </BackgroundOverlayStyled>
   );

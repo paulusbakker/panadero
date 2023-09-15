@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
-import Symbol from "../../../components/shared/Symbol";
+import { useLocation } from "react-router-dom";
 import Navbar from "./navbar/Navbar";
 
 function EditRecipe() {
@@ -8,13 +7,13 @@ function EditRecipe() {
   const [deleteRecipePopup, toggleDeleteRecipePopup] = useState(false);
   const [addRecipeMode, toggleAddRecipeMode] = useState(false);
 
-  const togglePopup = (PopupSetter) => () => PopupSetter((prev) => !prev);
+  const togglePopupOrMode = (PopupSetter) => () => PopupSetter((prev) => !prev);
 
   return (
     <>
       <Navbar
-        toggleDeleteRecipePopup={togglePopup(toggleDeleteRecipePopup)}
-        toggleAddRecipeMode={togglePopup(toggleAddRecipeMode)}
+        toggleDeleteRecipePopup={togglePopupOrMode(toggleDeleteRecipePopup)}
+        toggleAddRecipeMode={togglePopupOrMode(toggleAddRecipeMode)}
       />
 
       {state.recipeName}

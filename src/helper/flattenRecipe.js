@@ -1,17 +1,11 @@
 import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
 
-export function flattenRecipe(recipe, recipeBook) {
+export function flattenRecipe(id, recipeBook) {
   // This will hold the final flattened recipe
   const flattenedRecipe = [];
 
-  /**
-   * Recursively processes a given recipe (and its nested recipes) to build the flattened version.
-   * @param {Object} recipe - The recipe object to process.
-   * @param {number} currentDepth - Represents the nesting level of the recipe.
-   * @param {number} recipePercentage - The percentage of the recipe to consider.
-   */
-  function buildFlattenedRecipe(recipe, currentDepth = 0, recipePercentage = 1) {
-    const { name, ingredients, nestedRecipes } = recipe;
+  function buildFlattenedRecipe(id, currentDepth = 0, recipePercentage = 1) {
+    const { name, ingredients, nestedRecipes } = recipeBook.recipes.get(id);
 
     // Add the main recipe item to the flattened list
     flattenedRecipe.push(new FlattenedRecipeItem(true, name, currentDepth, false, false, recipePercentage, 0));
@@ -30,7 +24,7 @@ export function flattenRecipe(recipe, recipeBook) {
 
     // Process nested recipes recursively
     nestedRecipes.forEach(nestedRecipe => {
-      buildFlattenedRecipe(recipeBook.recipes.get(nestedRecipe.id), currentDepth + 1, nestedRecipe.percentage);
+      buildFlattenedRecipe(nestedRecipe.id, currentDepth + 1, nestedRecipe.percentage);
     });
   }
 
@@ -67,7 +61,7 @@ export function flattenRecipe(recipe, recipeBook) {
   }
 
   // Start the flattening process with the main recipe
-  buildFlattenedRecipe(recipe);
+  buildFlattenedRecipe(id);
   return flattenedRecipe;
 }
 

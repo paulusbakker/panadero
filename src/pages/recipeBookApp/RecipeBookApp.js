@@ -1,29 +1,30 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { recipeBookAtom  } from "../../atom/recipeBookAtom";
-import {skipActionIfNavbarHamburgerMenuIsOpenAtom} from '../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
+import { recipeBookAtom } from "../../atom/recipeBookAtom";
+import { skipActionIfNavbarHamburgerMenuIsOpenAtom } from "../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom";
 import { useLocation } from "react-router-dom";
 import { getItemsByCategory } from "../../helper/getItemsByCategory";
-import { getMapKeyByValue } from "../../helper/getMapKeyByValue";
 import AccordionItem from "./accordionItem/AccordionItem";
 import { TabContainerUlStyled } from "./Styles";
 
 function RecipeBookApp() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
-  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(skipActionIfNavbarHamburgerMenuIsOpenAtom);
+  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(
+    skipActionIfNavbarHamburgerMenuIsOpenAtom
+  );
   const { pathname } = useLocation();
   const isRecipeTab = pathname === "/recipes";
   const categorizedItems = getItemsByCategory(recipeBook, isRecipeTab);
 
-  const [activeCategory, setActiveCategory] = useState(null);
+  const [activeCategoryId, setActiveCategoryId] = useState(null);
   const [isEditWindowOpen, setEditWindowOpen] = useState(false);
   const [currentEditValue, setCurrentEditValue] = useState("");
-  const [openCategoryNames, setOpenCategoryNames] = useState([]);
-  const toggleOpenCategoryName = (categoryName) => {
-    setOpenCategoryNames((prevOpenCategories) =>
-      prevOpenCategories.includes(categoryName)
-        ? prevOpenCategories.filter((category) => category !== categoryName)
-        : [...prevOpenCategories, categoryName]
+  const [openCategoryIds, setOpenCategoryIds] = useState([]);
+  const toggleOpenCategoryId = (categoryId) => {
+    setOpenCategoryIds((prevOpenCategories) =>
+      prevOpenCategories.includes(categoryId)
+        ? prevOpenCategories.filter((category) => category !== categoryId)
+        : [...prevOpenCategories, categoryId]
     );
   };
   const containerRef = useRef(null);
@@ -34,7 +35,7 @@ function RecipeBookApp() {
         containerRef.current &&
         !containerRef.current.contains(event.target)
       ) {
-        setActiveCategory(null);
+        setActiveCategoryId(null);
       }
     }
 
@@ -46,43 +47,41 @@ function RecipeBookApp() {
   }, []);
 
   function handleContainerClick(event) {
-    event.stopPropagation() // stop running handleOutsideClick
+    event.stopPropagation(); // stop running handleOutsideClick
     if (skipActionIfNavbarHamburgerMenuIsOpen) return;
     const actionElement = event.target.closest("[data-action]");
-
     if (!actionElement) {
-      setActiveCategory(null);
+      setActiveCategoryId(null);
       return;
     }
 
     const targetAction = actionElement.getAttribute("data-action");
-    const clickedCategoryName =
-      actionElement.getAttribute("data-category-name");
+    const clickedCategoryId = actionElement.getAttribute("data-category-id");
 
     switch (targetAction) {
       case "EditCategoryButton":
-        setActiveCategory(clickedCategoryName);
+        setActiveCategoryId(clickedCategoryId);
         setEditWindowOpen(true);
-        setCurrentEditValue(clickedCategoryName);
+        setCurrentEditValue(recipeBook.recipeCategories.get(clickedCategoryId));
         break;
 
       case "symbol":
-        if (clickedCategoryName) {
-          setActiveCategory(clickedCategoryName);
+        if (clickedCategoryId) {
+          setActiveCategoryId(clickedCategoryId);
           setEditWindowOpen(false);
         }
         break;
 
-      case "category-name":
-        if (activeCategory) {
-          setActiveCategory(null);
+      case "category-header":
+        if (activeCategoryId) {
+          setActiveCategoryId(null);
         } else {
-          toggleOpenCategoryName(clickedCategoryName);
+          toggleOpenCategoryId(clickedCategoryId);
         }
         break;
 
       case "category-items":
-        setActiveCategory(null);
+        setActiveCategoryId(null);
         break;
 
       default:
@@ -93,45 +92,41 @@ function RecipeBookApp() {
 
   const handleInputChange = (e) => setCurrentEditValue(e.target.value);
 
-  const handleCategoryUpdate = (originalCategoryName) => {
-    const keyToUpdate = getMapKeyByValue(
-      isRecipeTab
-        ? recipeBook.recipeCategories
-        : recipeBook.ingredientCategories,
-      originalCategoryName
-    );
-
+  const handleCategoryUpdate = () => {
     setRecipeBook((prevRecipeBook) => {
       const updatedCategories = new Map(prevRecipeBook.recipeCategories);
-      updatedCategories.set(keyToUpdate, currentEditValue);
+      updatedCategories.set(activeCategoryId, currentEditValue);
 
       return isRecipeTab
         ? { ...prevRecipeBook, recipeCategories: updatedCategories }
         : { ...prevRecipeBook, ingredientCategories: updatedCategories };
     });
 
-    setActiveCategory(null);
+    setActiveCategoryId(null);
     setEditWindowOpen(false);
   };
 
   return (
-      <TabContainerUlStyled onClick={handleContainerClick} ref={containerRef}>
-        {categorizedItems.map(({ categoryName, itemsInThisCategory }) => (
+    <TabContainerUlStyled onClick={handleContainerClick} ref={containerRef}>
+      {categorizedItems.map(
+        ({ categoryId, categoryName, itemsInThisCategory }) => (
           <AccordionItem
-            key={categoryName}
+            key={categoryId}
+            categoryId={categoryId}
             categoryName={categoryName}
             itemsInThisCategory={itemsInThisCategory}
             isRecipeTab={isRecipeTab}
-            activeCategory={activeCategory}
+            activeCategory={activeCategoryId}
             isEditWindowOpen={isEditWindowOpen}
-            isOpen={openCategoryNames.includes(categoryName)}
+            isOpen={openCategoryIds.includes(categoryId)}
             handleInputChange={handleInputChange}
             currentEditValue={currentEditValue}
             handleCategoryUpdate={handleCategoryUpdate}
             handleContainerClick={handleContainerClick}
           />
-        ))}
-      </TabContainerUlStyled>
+        )
+      )}
+    </TabContainerUlStyled>
   );
 }
 

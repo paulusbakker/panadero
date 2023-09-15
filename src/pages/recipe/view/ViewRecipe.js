@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { recipeBookAtom } from "../../../atom/recipeBookAtom";
 import { getRecipeFromRecipeName } from "../../../helper/getRecipeFromRecipeName";
 import { useRecoilValue } from "recoil";
@@ -67,23 +67,17 @@ const reducer = (recipeState, action) => {
 
 function ViewRecipe() {
   const navigate = useNavigate();
-  const { state } = useLocation();
   const recipeBook = useRecoilValue(recipeBookAtom);
   console.log(recipeBook);
-  const recipeName = state?.recipeName;
 
+  const { id } = useParams();
   // redirect non-existing url's
   useEffect(() => {
-    if (!recipeName) navigate("/recipes", { replace: true });
-  }, [recipeName, navigate]);
+    if (!id) navigate("/recipes", { replace: true });
+  }, [id, navigate]);
 
   const initialState = {
-    recipe: recipeName
-        ? flattenRecipe(
-            getRecipeFromRecipeName(recipeName, recipeBook),
-            recipeBook
-        )
-        : null,
+    recipe: id ? flattenRecipe(id, recipeBook) : null,
     index: null,
     stepsMode: false,
     currentWeight: 0,
@@ -94,16 +88,16 @@ function ViewRecipe() {
   const [recipeState, dispatch] = useReducer(reducer, initialState);
 
   const faultyRecipes = findRecipesMissingIngredients(
-    getRecipeFromRecipeName(recipeName, recipeBook),
+    id,
     recipeBook
   );
   console.log(faultyRecipes);
-  // if no recipeName, no output! This can happen when a URL like /recipe/{recipeName} does not exist
-  if (!recipeName) return null;
+  // if no id, no output! This can happen when a URL like /recipe/{id} does not exist
+  if (!id) return null;
 
   return (
     <>
-      <Navbar recipeName={recipeName} />
+      <Navbar recipeName={id} />
       <UnorderedListStyled>
         {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount

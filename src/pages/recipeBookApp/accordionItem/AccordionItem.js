@@ -3,12 +3,12 @@ import Symbol from "../../../components/shared/Symbol";
 import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
 import EditCategory from "../editCategory/EditCategory";
 import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
-import {ItemHeaderStyled, ItemsCountStyled, LinkStyled} from './Styles'
-import {skipActionIfNavbarHamburgerMenuIsOpenAtom} from '../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
-import {useRecoilValue} from 'recoil'
-
+import { ItemHeaderStyled, ItemsCountStyled, LinkStyled } from "./Styles";
+import { skipActionIfNavbarHamburgerMenuIsOpenAtom } from "../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom";
+import { useRecoilValue } from "recoil";
 
 function AccordionItem({
+  categoryId,
   categoryName,
   itemsInThisCategory,
   isRecipeTab,
@@ -20,17 +20,9 @@ function AccordionItem({
   handleCategoryUpdate,
   handleContainerClick,
 }) {
-  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(skipActionIfNavbarHamburgerMenuIsOpenAtom);
-
-  const createItemLink = (itemName) => {
-    const baseLink = isRecipeTab ? `/recipe/` : `/ingredient/`;
-    return {
-      to: baseLink + convertToUrlFormat(itemName),
-      state: isRecipeTab
-        ? { recipeName: itemName }
-        : { ingredientName: itemName },
-    };
-  };
+  const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(
+    skipActionIfNavbarHamburgerMenuIsOpenAtom
+  );
 
   const itemCountLabel = `${itemsInThisCategory.length} ${
     isRecipeTab ? "recipe" : "ingredient"
@@ -39,46 +31,49 @@ function AccordionItem({
   const renderCategoryContent = () =>
     isEditWindowOpen ? (
       <EditCategory
+        categoryId={categoryId}
         categoryName={categoryName}
         handleInputChange={handleInputChange}
         currentEditValue={currentEditValue}
         handleCategoryUpdate={handleCategoryUpdate}
       />
     ) : (
-      <EditCategoryButton categoryName={categoryName} />
+      <EditCategoryButton categoryId={categoryId} />
     );
 
   return (
     <li>
-      <div data-action="category-name" data-category-name={categoryName}>
+      <div data-action="category-header" data-category-id={categoryId}>
         <ItemHeaderStyled>
           <div>{categoryName}</div>
-          <Symbol type="menu" data-category-name={categoryName} />
-          {activeCategory === categoryName && renderCategoryContent()}
+          <Symbol type="menu" data-category-id={categoryId} />
+          {activeCategory === categoryId && renderCategoryContent()}
         </ItemHeaderStyled>
         <ItemsCountStyled>{itemCountLabel}</ItemsCountStyled>
       </div>
 
       {isOpen &&
-        itemsInThisCategory.map((itemName) => {
-          const linkProps = createItemLink(itemName);
+        itemsInThisCategory.map(({ name, id }) => {
+          const baseLink = isRecipeTab ? "/recipe/" : "/ingredient/";
           return (
-            <ul key={itemName}>
+            <ul key={id}>
               <li
                 onClick={handleContainerClick}
                 data-action="category-items"
                 data-category-name={categoryName}
               >
                 <LinkStyled
-                  to={linkProps.to}
-                  state={linkProps.state}
+                  to={baseLink + id}
                   onClick={(e) => {
-                    if (activeCategory !== null || skipActionIfNavbarHamburgerMenuIsOpen) {
+                    if (
+                      activeCategory !== null ||
+                      skipActionIfNavbarHamburgerMenuIsOpen
+                    ) {
                       e.preventDefault(); // Stops the link from being followed
                     }
                   }}
                 >
-                  {itemName}
+                  {name}
                 </LinkStyled>
               </li>
             </ul>
