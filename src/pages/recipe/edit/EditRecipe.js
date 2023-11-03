@@ -16,7 +16,7 @@ function EditRecipe() {
         toggleAddRecipeMode={togglePopupOrMode(toggleAddRecipeMode)}
       />
 
-      {state.recipeName}
+      {state.id}
     </>
   );
 }

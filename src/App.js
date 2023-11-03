@@ -4,13 +4,13 @@ import { ThemeProvider } from "styled-components";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import theme from "./styles/Theme";
 import ViewRecipe from "./pages/recipe/view/ViewRecipe";
-import NoPage from "./pages/recipeBookApp/noPage/NoPage";
-import RecipeBookApp from "./pages/recipeBookApp/RecipeBookApp";
+import NoPage from "./pages/noPage/NoPage";
+import Main from "./pages/main/Main";
 import Ingredient from "./pages/ingredient/Ingredient";
 import { recipeBookAtom } from "./atom/recipeBookAtom";
 import { useRecoilState } from "recoil";
 import { makeRecipeBook } from "./helper/makeRecipeBook";
-import Navbar from "./pages/recipeBookApp/navbar/Navbar";
+import Navbar from "./pages/main/navbar/Navbar";
 import EditRecipe from "./pages/recipe/edit/EditRecipe";
 
 const router = createBrowserRouter([
@@ -21,7 +21,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/recipes",
-        element: <RecipeBookApp />,
+        element: <Main />,
       },
     ],
   },
@@ -32,21 +32,20 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/ingredients",
-        element: <RecipeBookApp />,
+        element: <Main />,
       },
     ],
   },
-  // View recipe: /recipe/{recipe_id}
-  {
-    path: "/recipe/:id",
-    element: <ViewRecipe />,
-  },
-  {
-    path: "/recipe/:id/edit",
+   {
+    path: "/recipe/edit/:id",
     element: <EditRecipe />,
   },
   {
-    path: "/ingredient/:id",
+    path: "/recipe/view/:id",
+    element: <ViewRecipe />,
+  },
+  {
+    path: "/ingredient/view/:id",
     element: <Ingredient />,
   },
   {

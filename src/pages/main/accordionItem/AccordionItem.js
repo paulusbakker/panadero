@@ -63,7 +63,7 @@ function AccordionItem({
                 data-category-name={categoryName}
               >
                 <LinkStyled
-                  to={baseLink + id}
+                  to={baseLink + "view/" + id}
                   onClick={(e) => {
                     if (
                       activeCategory !== null ||

@@ -10,7 +10,7 @@ import Symbol from "../../../components/shared/Symbol";
 import EnterAmount from "./enterAmounts/EnterAmount";
 import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
 import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
-import { calculateTotalOveralLiquidPercentage } from "../../../helper/calculateTotalOveralLiquidPercentage";
+import { calculateTotalOverallLiquidPercentage } from "../../../helper/calculateTotalOverallLiquidPercentage";
 import { findRecipesMissingIngredients } from "../../../helper/findRecipesMissingIngredients";
 import {
   CenteredListItemStyled,
@@ -70,8 +70,9 @@ function ViewRecipe() {
   const recipeBook = useRecoilValue(recipeBookAtom);
   console.log(recipeBook);
 
-  const { id } = useParams();
+  const { id } = useParams(); // probably using id and not for example recipeId because it can be an ingredientId as well
   // redirect non-existing url's
+  console.log(id)
   useEffect(() => {
     if (!id) navigate("/recipes", { replace: true });
   }, [id, navigate]);
@@ -97,7 +98,7 @@ function ViewRecipe() {
 
   return (
     <>
-      <Navbar recipeName={id} />
+      <Navbar id={id} />
       <UnorderedListStyled>
         {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
@@ -141,7 +142,7 @@ function ViewRecipe() {
           isRecipe={false}
           isFlour={false}
           isLiquid={true}
-          totalLiquidPercentage={calculateTotalOveralLiquidPercentage(
+          totalLiquidPercentage={calculateTotalOverallLiquidPercentage(
             recipeState.recipe
           )}
           viewMode={recipeState.viewMode}

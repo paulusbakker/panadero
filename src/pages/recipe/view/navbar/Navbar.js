@@ -11,7 +11,7 @@ import {
   UnderlayWindow,
 } from "./Styles";
 
-function Navbar({ recipeName }) {
+function Navbar({ id }) {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
 
   const closeHamburgerMenu = () => {
@@ -31,8 +31,8 @@ function Navbar({ recipeName }) {
           {!hamburgerMenuOpen && (
             <div>
               <Link
-                to={`/recipe/${convertToUrlFormat(recipeName)}/edit`}
-                state={{ recipeName: recipeName }}
+                to={`/recipe/${id}/edit`}
+                state={{ id }}
               >
                 <Symbol type={"pencil"} />
               </Link>

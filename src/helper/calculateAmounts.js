@@ -1,4 +1,4 @@
-import { calculateTotalOveralLiquidPercentage } from "./calculateTotalOveralLiquidPercentage";
+import { calculateTotalOverallLiquidPercentage } from "./calculateTotalOverallLiquidPercentage";
 
 export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
   // find parent recipe
@@ -35,7 +35,7 @@ export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
 
   // calculate total percentage of liquids
   const overalTotalLiquidPercentage =
-    calculateTotalOveralLiquidPercentage(flattenedRecipe);
+    calculateTotalOverallLiquidPercentage(flattenedRecipe);
   // for (let currentIndex = 1; currentIndex < flattenedRecipe.length; currentIndex++) {
   //     const ingredient = flattenedRecipe[currentIndex]
   //     if (ingredient.isRecipe) {
