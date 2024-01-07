@@ -2,7 +2,6 @@ import React from "react";
 import Symbol from "../../../components/shared/Symbol";
 import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
 import EditCategory from "../editCategory/EditCategory";
-import { convertToUrlFormat } from "../../../helper/convertToUrlFormat";
 import { ItemHeaderStyled, ItemsCountStyled, LinkStyled } from "./Styles";
 import { skipActionIfNavbarHamburgerMenuIsOpenAtom } from "../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom";
 import { useRecoilValue } from "recoil";

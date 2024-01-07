@@ -1,28 +1,29 @@
 import React from "react";
-import Symbol from '../../../../components/shared/Symbol'
+import Symbol from "../../../../components/shared/Symbol";
+import { ACTIONS } from "../EditRecipe";
+
 import {
   NavButtonContainerStyled,
   NavButtonStyled,
   NavLinkStyled,
   NavStyled,
-} from './Styles'
+} from "./Styles";
 
-
-function Navbar({ toggleDeleteRecipePopup, toggleAddRecipeMode}) {
-
-
+function Navbar({ dispatch }) {
   return (
-      <NavStyled>
-        <NavLinkStyled to="/recipes">PANADERO</NavLinkStyled>
-        <NavButtonContainerStyled>
-          <NavButtonStyled  onClick={toggleDeleteRecipePopup}>
-            <Symbol type={"delete"} />
-          </NavButtonStyled >
-          <NavButtonStyled  onClick={toggleAddRecipeMode}>
-            <Symbol type={"add"} />
-          </NavButtonStyled >
-        </NavButtonContainerStyled>
-      </NavStyled>
+    <NavStyled>
+      <NavLinkStyled to="/recipes">PANADERO</NavLinkStyled>
+      <NavButtonContainerStyled>
+        <NavButtonStyled
+          onClick={() => dispatch({ type: ACTIONS.DELETE_RECIPE })}
+        >
+          <Symbol type={"delete"} />
+        </NavButtonStyled>
+        <NavButtonStyled onClick={() => dispatch({ type: ACTIONS.ADD_ITEM })}>
+          <Symbol type={"add"} />
+        </NavButtonStyled>
+      </NavButtonContainerStyled>
+    </NavStyled>
   );
 }
 

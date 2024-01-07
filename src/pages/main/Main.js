@@ -7,7 +7,7 @@ import { getItemsByCategory } from "../../helper/getItemsByCategory";
 import AccordionItem from "./accordionItem/AccordionItem";
 import { TabContainerUlStyled } from "./Styles";
 
-function RecipeBookApp() {
+function Main() {
   const [recipeBook, setRecipeBook] = useRecoilState(recipeBookAtom);
   const skipActionIfNavbarHamburgerMenuIsOpen = useRecoilValue(
     skipActionIfNavbarHamburgerMenuIsOpenAtom
@@ -30,7 +30,7 @@ function RecipeBookApp() {
   const containerRef = useRef(null);
 
   useEffect(() => {
-    function handleOutsideClick(event) {
+    function handleOutsideIdClick(event) {
       if (
         containerRef.current &&
         !containerRef.current.contains(event.target)
@@ -39,15 +39,15 @@ function RecipeBookApp() {
       }
     }
 
-    document.addEventListener("click", handleOutsideClick);
+    document.addEventListener("click", handleOutsideIdClick);
 
     return () => {
-      document.removeEventListener("click", handleOutsideClick);
+      document.removeEventListener("click", handleOutsideIdClick);
     };
   }, []);
 
   function handleContainerClick(event) {
-    event.stopPropagation(); // stop running handleOutsideClick
+    event.stopPropagation(); // stop running handleOutsideIdClick
     if (skipActionIfNavbarHamburgerMenuIsOpen) return;
     const actionElement = event.target.closest("[data-action]");
     if (!actionElement) {
@@ -130,4 +130,4 @@ function RecipeBookApp() {
   );
 }
 
-export default RecipeBookApp;
+export default Main;

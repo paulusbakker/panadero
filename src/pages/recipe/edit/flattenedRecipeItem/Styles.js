@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
-export const ContainerStyled = styled.span` // needed for alignment
+export const ContainerStyled = styled.span`
+  // needed for alignment
   display: flex;
 `;
 
@@ -8,7 +9,8 @@ export const ListItemStyled = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background-color: #eae2b7;
+  background-color: ${(props) =>
+    props.$isMissing ? "red" : props.$stepPercentage < 0 ? "orange" : "#eae2b7"};
 `;
 
 const FlexContainerStyled = styled.div`

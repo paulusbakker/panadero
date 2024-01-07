@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Symbol from "../../../../components/shared/Symbol";
-import { convertToUrlFormat } from "../../../../helper/convertToUrlFormat";
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -31,7 +30,7 @@ function Navbar({ id }) {
           {!hamburgerMenuOpen && (
             <div>
               <Link
-                to={`/recipe/${id}/edit`}
+                to={`/recipe/edit/${id }`}
                 state={{ id }}
               >
                 <Symbol type={"pencil"} />

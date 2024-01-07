@@ -21,8 +21,8 @@ function RecipeItemTotal({
       <ListItemStyled
           onClick={() => {
             dispatch({
-              type: ACTIONS.HANDLE_RECIPE_INDEX,
-              payload: { index: name },
+              type: ACTIONS.HANDLE_ITEM_ID_OR_TOTAL,
+              payload: { itemIdOrTotal: name },
             });
           }}
       >

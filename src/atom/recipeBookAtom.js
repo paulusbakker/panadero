@@ -2,6 +2,6 @@ import { atom } from "recoil";
 import { makeRecipeBook } from "../helper/makeRecipeBook";
 
 export const recipeBookAtom = atom({
-  key: "recipeBook",
+  key : "recipeBook",
   default: makeRecipeBook(),
 });

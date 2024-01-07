@@ -1,29 +1,27 @@
 import React, { useEffect, useReducer } from "react";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { recipeBookAtom } from "../../../atom/recipeBookAtom";
-import { getRecipeFromRecipeName } from "../../../helper/getRecipeFromRecipeName";
+import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
-import { flattenRecipe } from "../../../helper/flattenRecipe";
-import { calculateAmounts } from "../../../helper/calculateAmounts";
-import RecipeItem from "./recipeItem/RecipeItem";
+import { recipeBookAtom } from "../../../atom/recipeBookAtom";
 import Symbol from "../../../components/shared/Symbol";
-import EnterAmount from "./enterAmounts/EnterAmount";
-import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
-import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
+import { calculateAmounts } from "../../../helper/calculateAmounts";
 import { calculateTotalOverallLiquidPercentage } from "../../../helper/calculateTotalOverallLiquidPercentage";
-import { findRecipesMissingIngredients } from "../../../helper/findRecipesMissingIngredients";
+import { flattenRecipe } from "../../../helper/flattenRecipe";
 import {
   CenteredListItemStyled,
-  UnorderedListStyled,
   DottedLine,
   ItemHeaderStyled,
+  UnorderedListStyled,
 } from "./Styles";
+import EnterAmount from "./enterAmounts/EnterAmount";
 import Navbar from "./navbar/Navbar";
+import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
+import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
+import FlattenedRecipeItem from "./flattenedRecipeItem/FlattenedRecipeItem";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
   HANDLE_SUBMIT: "handle_submit",
-  HANDLE_RECIPE_INDEX: "handle_recipe_item_index",
+  HANDLE_ITEM_ID_OR_TOTAL: "handle_item_id_or_total",
   CANCEL_CALCULATE_AMOUNT: "cancel_calculate_amount",
 };
 export const VIEWMODE = {
@@ -31,99 +29,98 @@ export const VIEWMODE = {
   VIEW_AMOUNTS: "view_amounts",
   ENTER_AMOUNTS: "enter_amounts",
 };
-const reducer = (recipeState, action) => {
+const reducer = (flattenedRecipeState, action) => {
   switch (action.type) {
     case ACTIONS.HANDLE_SUBMIT:
-      // do nothing when 0 is entered by the user
-      if (action.payload.weight === 0) return recipeState;
+      if (action.payload.weight === 0) return flattenedRecipeState;
 
-      const [calculatedRecipe, totalFLourWeight, totalLiquidWeight] =
+      const [calculatedRecipe, totalFlourWeight, totalLiquidWeight] =
         calculateAmounts(
-          recipeState.recipe,
+          flattenedRecipeState.flattenedRecipe,
           action.payload.weight,
-          recipeState.index,
-          recipeState.stepsMode
+          flattenedRecipeState.itemIdOrTotal,
+          flattenedRecipeState.stepsMode
         );
       return {
-        ...recipeState,
-        recipe: calculatedRecipe,
-        totalFlourWeight: totalFLourWeight,
+        ...flattenedRecipeState,
+        flattenedRecipe: calculatedRecipe,
+        totalFlourWeight: totalFlourWeight,
         totalLiquidWeight: totalLiquidWeight,
         viewMode: VIEWMODE.VIEW_AMOUNTS,
       };
-    case ACTIONS.HANDLE_RECIPE_INDEX:
+    case ACTIONS.HANDLE_ITEM_ID_OR_TOTAL:
       return {
-        ...recipeState,
+        ...flattenedRecipeState,
         viewMode: VIEWMODE.ENTER_AMOUNTS,
-        index: action.payload.index,
+        itemIdOrTotal: action.payload.itemIdOrTotal,
         stepsMode: action.payload.stepsMode,
       };
     case ACTIONS.CANCEL_CALCULATE_AMOUNT:
-      return { ...recipeState, viewMode: VIEWMODE.VIEW_RECIPE };
+      return { ...flattenedRecipeState, viewMode: VIEWMODE.VIEW_RECIPE };
     default:
-      return recipeState;
+      return flattenedRecipeState;
   }
 };
 
 function ViewRecipe() {
   const navigate = useNavigate();
   const recipeBook = useRecoilValue(recipeBookAtom);
-  console.log(recipeBook);
 
-  const { id } = useParams(); // probably using id and not for example recipeId because it can be an ingredientId as well
-  // redirect non-existing url's
-  console.log(id)
+  const { id } = useParams();
   useEffect(() => {
     if (!id) navigate("/recipes", { replace: true });
   }, [id, navigate]);
 
   const initialState = {
-    recipe: id ? flattenRecipe(id, recipeBook) : null,
-    index: null,
+    flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
+    itemIdOrTotal: null,
     stepsMode: false,
     currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
     viewMode: VIEWMODE.VIEW_RECIPE,
   };
-  const [recipeState, dispatch] = useReducer(reducer, initialState);
+  const [flattenedRecipeState, dispatch] = useReducer(reducer, initialState);
 
-  const faultyRecipes = findRecipesMissingIngredients(
-    id,
-    recipeBook
-  );
-  console.log(faultyRecipes);
-  // if no id, no output! This can happen when a URL like /recipe/{id} does not exist
   if (!id) return null;
+  console.log(recipeBook.recipes.get(id));
+  console.log(flattenedRecipeState.flattenedRecipe);
 
   return (
     <>
       <Navbar id={id} />
       <UnorderedListStyled>
-        {recipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
+        {flattenedRecipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
             name={
-              isNaN(recipeState.index) // index might be filled with for example 'Total flour'
-                ? recipeState.index
-                : recipeState.recipe[Math.abs(recipeState.index) + 1].name
+              ["total flour", "total liquid", "total recipe"].includes(
+                flattenedRecipeState.itemIdOrTotal
+              )
+                ? flattenedRecipeState.itemIdOrTotal
+                : flattenedRecipeState.flattenedRecipe[
+                    flattenedRecipeState.itemIdOrTotal
+                  ].name
             }
             dispatch={dispatch}
           />
         )}
+
         <ItemHeaderStyled>
-          {recipeState.recipe[0].name}
+          {flattenedRecipeState.flattenedRecipe[0].name}
           <Symbol type={"menu"} />
         </ItemHeaderStyled>
-        {recipeState.recipe.slice(1).map((recipeItem, index) => (
-          <RecipeItem
-            key={`recipe-item-${index}`}
-            recipeItem={recipeItem}
-            index={index}
-            stepsMode={false}
-            viewMode={recipeState.viewMode}
-            dispatch={dispatch}
-          />
-        ))}
+        {flattenedRecipeState.flattenedRecipe
+          .slice(1)
+          .map((flattenedRecipeItem) => (
+            <FlattenedRecipeItem
+              key={`${flattenedRecipeItem.sequenceNumber}`}
+              flattenedRecipeItem={flattenedRecipeItem}
+              stepsMode={false}
+              viewMode={flattenedRecipeState.viewMode}
+              dispatch={dispatch}
+            />
+          ))}
+
         <DottedLine />
 
         {/*totals*/}
@@ -133,9 +130,9 @@ function ViewRecipe() {
           isFlour={true}
           isLiquid={false}
           totalLiquidPercentage={null}
-          viewMode={recipeState.viewMode}
+          viewMode={flattenedRecipeState.viewMode}
           dispatch={dispatch}
-          weight={recipeState.totalFlourWeight}
+          weight={flattenedRecipeState.totalFlourWeight}
         />
         <RecipeItemTotal
           name={"total liquid"}
@@ -143,11 +140,11 @@ function ViewRecipe() {
           isFlour={false}
           isLiquid={true}
           totalLiquidPercentage={calculateTotalOverallLiquidPercentage(
-            recipeState.recipe
+            flattenedRecipeState.flattenedRecipe
           )}
-          viewMode={recipeState.viewMode}
+          viewMode={flattenedRecipeState.viewMode}
           dispatch={dispatch}
-          weight={recipeState.totalLiquidWeight}
+          weight={flattenedRecipeState.totalLiquidWeight}
         />
         <RecipeItemTotal
           name={"total recipe"}
@@ -155,11 +152,11 @@ function ViewRecipe() {
           isFlour={false}
           isLiquid={false}
           totalLiquidPercentage={null}
-          viewMode={recipeState.viewMode}
+          viewMode={flattenedRecipeState.viewMode}
           dispatch={dispatch}
-          weight={recipeState.recipe[0].weight}
+          weight={flattenedRecipeState.flattenedRecipe[0].weight}
         />
-        {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
+        {flattenedRecipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
           <button
             onClick={() => dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })}
           >
@@ -168,49 +165,51 @@ function ViewRecipe() {
         )}
       </UnorderedListStyled>
 
-      {/*StepsMode: ingredients minus predoughs*/}
+      {/* StepsMode: ingredients minus predoughs */}
       <UnorderedListStyled>
-        {recipeState.recipe.some((recipeItem) => recipeItem.depth !== 0) && (
+        {flattenedRecipeState.flattenedRecipe.some(
+          (flattenedRecipeItem) => flattenedRecipeItem.depth !== 0
+        ) && (
           <>
             <CenteredListItemStyled>
               Ingredients minus predoughs
             </CenteredListItemStyled>
-            {recipeState.recipe.slice(1).map((recipeItem, index) => {
-              return (
-                <RecipeItem
-                  key={`recipe-item-${index}`}
-                  recipeItem={recipeItem}
-                  index={index}
+            {flattenedRecipeState.flattenedRecipe
+              .slice(1)
+              .map((flattenedRecipeItem) => (
+                <FlattenedRecipeItem
+                  key={`${flattenedRecipeItem.sequenceNumber}`}
+                  flattenedRecipeItem={flattenedRecipeItem}
                   stepsMode={true}
-                  viewMode={recipeState.viewMode}
+                  viewMode={flattenedRecipeState.viewMode}
                   dispatch={dispatch}
                 />
-              );
-            })}
+              ))}
           </>
         )}
       </UnorderedListStyled>
 
-      {/*costs*/}
+      {/* Costs */}
       <UnorderedListStyled>
-        {recipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
+        {flattenedRecipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
           <>
             <CenteredListItemStyled>Costs</CenteredListItemStyled>
-            {recipeState.recipe
+            {flattenedRecipeState.flattenedRecipe
               .slice(1)
               .map(
-                (recipeItem, index) =>
-                  recipeItem.depth === 0 && (
+                (flattenedRecipeItem) =>
+                  flattenedRecipeItem.depth === 0 && (
                     <RecipeItemCost
-                      key={`recipe-item-${index}`}
-                      recipeItem={recipeItem}
+                      key={`${flattenedRecipeItem.sequenceNumber}-${flattenedRecipeItem.id}`}
+                      flattenedRecipeItem={flattenedRecipeItem}
                       totalRecipe={false}
                     />
                   )
               )}
+
             <hr />
             <RecipeItemCost
-              recipeItem={recipeState.recipe[0]}
+              flattenedRecipeItem={flattenedRecipeState.flattenedRecipe[0]}
               totalRecipe={true}
             />
           </>

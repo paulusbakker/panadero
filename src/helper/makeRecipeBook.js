@@ -1,7 +1,7 @@
 import { Ingredient } from "../classes/Ingredient";
 import { Recipe } from "../classes/Recipe";
-import { RecipeIngredient } from "../classes/RecipeIngredient";
 import { RecipeBook } from "../classes/RecipeBook";
+import { RecipeIngredient } from "../classes/RecipeIngredient";
 import { IncludedRecipe } from "../classes/IncludedRecipe";
 
 export function makeRecipeBook() {
@@ -84,7 +84,7 @@ export function makeRecipeBook() {
   ingredients.set("33", new Ingredient("Almond Extract", "12", 0, 0));
   ingredients.set("34", new Ingredient("Anise Oil", "12", 0, 0));
   ingredients.set("35", new Ingredient("Barley Malt Syrup", "12", 0, 0));
-  ingredients.set("36", new Ingredient("Bananna Flavoring", "12", 0, 0));
+  ingredients.set("36", new Ingredient("Banana Flavoring", "12", 0, 0));
   ingredients.set("37", new Ingredient("Butter-Rum Flavoring", "12", 0, 0));
   ingredients.set("38", new Ingredient("Butterscotch Flavoring", "12", 0, 0));
   ingredients.set("39", new Ingredient("Cheese Powder", "12", 0, 0));
@@ -304,215 +304,216 @@ export function makeRecipeBook() {
   ingredients.set("199", new Ingredient("Zilvervliesrijst", "11", 0, 0));
 
   let recipeIngredients = [];
-  let includedRecipes = [];
+  let IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
   recipes.set(
     "1",
-    new Recipe("Rye Sour Culture", "3", recipeIngredients, includedRecipes)
+    new Recipe("Rye Sour Culture", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
   recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0025));
   recipes.set(
     "2",
-    new Recipe("100% Poolish", "3", recipeIngredients, includedRecipes)
+    new Recipe("100% Poolish", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6));
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
   recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.001));
-  includedRecipes.push(new IncludedRecipe("2", 0.3));
+  IncludedRecipes.push(new IncludedRecipe("2", 0.3));
   recipes.set(
     "3",
-    new Recipe("Rustic boule", "1", recipeIngredients, includedRecipes)
+    new Recipe("Rustic boule", "1", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
-  includedRecipes.push(new IncludedRecipe("1", 0.1));
+  IncludedRecipes.push(new IncludedRecipe("1", 0.1));
   recipes.set(
     "4",
-    new Recipe("Sourdough predough", "3", recipeIngredients, includedRecipes)
+    new Recipe("Sourdough predough", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "156", 0.6));
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 0.4));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.65));
   recipeIngredients.push(new RecipeIngredient(false, true, "15", 0.04));
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
-  includedRecipes.push(new IncludedRecipe("4", 0.1));
+  IncludedRecipes.push(new IncludedRecipe("4", 0.1));
   recipes.set(
     "5",
-    new Recipe("Paul's wheat-rye bus", "2", recipeIngredients, includedRecipes)
+    new Recipe("Paul's wheat-rye bus", "2", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6667));
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.0117));
   recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0183));
-  includedRecipes.push(new IncludedRecipe("2", 0.3333));
+  IncludedRecipes.push(new IncludedRecipe("2", 0.3333));
   recipes.set(
     "6",
     new Recipe(
       "Yeastbread with Poolish",
       "1",
       recipeIngredients,
-      includedRecipes
+      IncludedRecipes
     )
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.5));
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.3));
   recipeIngredients.push(new RecipeIngredient(true, false, "183", 0.2));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.7));
   recipeIngredients.push(new RecipeIngredient(false, true, "184", 0.04));
   recipeIngredients.push(new RecipeIngredient(false, false, "185", 0.016));
-  includedRecipes.push(new IncludedRecipe("8", 0.2));
+  IncludedRecipes.push(new IncludedRecipe("8", 0.2));
   recipes.set(
     "7",
     new Recipe(
       "Tarwe rogge boekweit volkeren zuurdesem",
       "2",
       recipeIngredients,
-      includedRecipes
+      IncludedRecipes
     )
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
-  includedRecipes.push(new IncludedRecipe("9", 0.1));
+  IncludedRecipes.push(new IncludedRecipe("9", 0.1));
   recipes.set(
     "8",
-    new Recipe("Voordeeg", "3", recipeIngredients, includedRecipes)
+    new Recipe("Voordeeg", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
   recipes.set(
     "9",
-    new Recipe("Zuurdesem starter", "3", recipeIngredients, includedRecipes)
+    new Recipe("Zuurdesem starter", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "186", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "190", 1));
   recipeIngredients.push(new RecipeIngredient(false, false, "190", 1));
   recipes.set(
     "10",
-    new Recipe("Masa madre", "3", recipeIngredients, includedRecipes)
+    new Recipe("Masa madre", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "186", 0.1));
   recipeIngredients.push(new RecipeIngredient(true, false, "187", 0.9));
   recipeIngredients.push(new RecipeIngredient(false, true, "190", 1));
-  includedRecipes.push(new IncludedRecipe("10", 0.1));
+  IncludedRecipes.push(new IncludedRecipe("10", 0.1));
   recipes.set(
     "11",
-    new Recipe("Masa previa", "3", recipeIngredients, includedRecipes)
+    new Recipe("Masa previa", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
+  recipeIngredients.push(new RecipeIngredient(false, false, "109", 1));
   recipes.set(
     "12",
-    new Recipe("Ander simpel voordeeg", "3", recipeIngredients, includedRecipes)
+    new Recipe("Ander simpel voordeeg", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "187", 0.975));
   recipeIngredients.push(new RecipeIngredient(true, false, "186", 0.025));
   recipeIngredients.push(new RecipeIngredient(false, true, "190", 0.75));
   recipeIngredients.push(new RecipeIngredient(false, true, "188", 0.05));
   recipeIngredients.push(new RecipeIngredient(false, false, "189", 0.018));
-  includedRecipes.push(new IncludedRecipe("11", 0.25));
+  IncludedRecipes.push(new IncludedRecipe("11", 0.25));
   recipes.set(
     "13",
-    new Recipe("Pan Karen", "2", recipeIngredients, includedRecipes)
+    new Recipe("Pan Karen", "2", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
   recipes.set(
     "14",
-    new Recipe("Voordeeg simpel", "3", recipeIngredients, includedRecipes)
+    new Recipe("Voordeeg simpel", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6667));
-  includedRecipes.push(new IncludedRecipe("14", 0.2));
-  includedRecipes.push(new IncludedRecipe("12", 0.1));
+  IncludedRecipes.push(new IncludedRecipe("14", 0.2));
+  IncludedRecipes.push(new IncludedRecipe("12", 0.1));
   recipes.set(
     "15",
-    new Recipe("Testbrood", "1", recipeIngredients, includedRecipes)
+    new Recipe("Testbrood", "1", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 1));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1.589));
-  includedRecipes.push(new IncludedRecipe("1", 0.1071));
+  IncludedRecipes.push(new IncludedRecipe("1", 0.1071));
   recipes.set(
     "16",
-    new Recipe("Sponge", "3", recipeIngredients, includedRecipes)
+    new Recipe("Sponge", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "191", 1));
   recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.3));
   recipeIngredients.push(new RecipeIngredient(false, true, "193", 2.61));
   recipeIngredients.push(new RecipeIngredient(false, false, "194", 0.03));
   recipes.set(
     "17",
-    new Recipe("Scald", "3", recipeIngredients, includedRecipes)
+    new Recipe("Scald", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 0.71));
   recipeIngredients.push(new RecipeIngredient(true, false, "191", 0.29));
   recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.089));
   recipeIngredients.push(new RecipeIngredient(false, true, "193", 0.76));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1.13));
   recipeIngredients.push(new RecipeIngredient(false, false, "194", 0.01));
-  includedRecipes.push(new IncludedRecipe("16", 0.71));
-  includedRecipes.push(new IncludedRecipe("17", 0.29));
+  IncludedRecipes.push(new IncludedRecipe("16", 0.71));
+  IncludedRecipes.push(new IncludedRecipe("17", 0.29));
   recipes.set(
     "18",
-    new Recipe("Scald-Sponge", "3", recipeIngredients, includedRecipes)
+    new Recipe("Scald-Sponge", "3", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   // Medium Rye Flour
   recipeIngredients.push(new RecipeIngredient(true, false, "174", 0.66));
   // Rye Meal (Course)
@@ -520,7 +521,7 @@ export function makeRecipeBook() {
   // Bread Flour
   recipeIngredients.push(new RecipeIngredient(true, false, "155", 0.19));
   // Red Rye Malt
-  recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.06));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.06));
   // Water (Boiling)
   recipeIngredients.push(new RecipeIngredient(false, true, "193", 0.4));
   // Water
@@ -533,14 +534,14 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(false, false, "195", 0.054));
   // Coriander Seed
   recipeIngredients.push(new RecipeIngredient(false, false, "196", 0.0027));
-  includedRecipes.push(new IncludedRecipe("18", 0.53));
+  IncludedRecipes.push(new IncludedRecipe("18", 0.53));
   recipes.set(
     "19",
-    new Recipe("GOST Borondinsky", "2", recipeIngredients, includedRecipes)
+    new Recipe("GOST Borondinsky", "2", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   // Bread Flour
   recipeIngredients.push(new RecipeIngredient(true, false, "155", 1));
   // Water
@@ -557,11 +558,11 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.009));
   recipes.set(
     "20",
-    new Recipe("Kruidkoek", "10", recipeIngredients, includedRecipes)
+    new Recipe("Kruidkoek", "10", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   // Bread Flour
   recipeIngredients.push(new RecipeIngredient(true, false, "155", 0.8));
   // Roggemeel de Vriendschap
@@ -587,18 +588,18 @@ export function makeRecipeBook() {
   //  Sea Salt
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.009));
   // Voordeeg
-  includedRecipes.push(new IncludedRecipe("8", 0.2));
+  IncludedRecipes.push(new IncludedRecipe("8", 0.2));
   recipes.set(
     "21",
-    new Recipe("Kruidkoek zuurdesem", "10", recipeIngredients, includedRecipes)
+    new Recipe("Kruidkoek zuurdesem", "10", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   // Tarwemeel de Vriendschap
-  recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.9688));
+  recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.9687));
   // Roggemeel de Vriendschap
-  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.0312));
+  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.0313));
   // Water
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.8));
   // Zilvervliesrijst
@@ -610,14 +611,14 @@ export function makeRecipeBook() {
   //  Sea Salt
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
   // Voordeeg
-  includedRecipes.push(new IncludedRecipe("13", 0.375));
+  IncludedRecipes.push(new IncludedRecipe("13", 0.375));
   recipes.set(
     "22",
-    new Recipe("Rijstebrood Anneé", "2", recipeIngredients, includedRecipes)
+    new Recipe("Rijstebrood Anneé", "2", recipeIngredients, IncludedRecipes)
   );
 
   recipeIngredients = [];
-  includedRecipes = [];
+  IncludedRecipes = [];
   // Tarwemeel de Vriendschap
   recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.9167));
   // Roggemeel de Vriendschap
@@ -625,14 +626,14 @@ export function makeRecipeBook() {
   // Water
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6666));
   // Voordeeg
-  includedRecipes.push(new IncludedRecipe("9", 0.0833));
+  IncludedRecipes.push(new IncludedRecipe("9", 0.0833));
   recipes.set(
     "13",
-    new Recipe("Voordeeg Rijstebrood", "3", recipeIngredients, includedRecipes)
+    new Recipe("Voordeeg Rijstebrood", "3", recipeIngredients, IncludedRecipes)
   );
 
   return new RecipeBook(
-    "EditIngredient book",
+    "ingredientBook",
     recipeCategories,
     ingredientCategories,
     ingredients,

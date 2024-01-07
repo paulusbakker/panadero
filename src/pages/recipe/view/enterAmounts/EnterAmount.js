@@ -9,13 +9,13 @@ const INPUT_IDS = {
 };
 
 function EnterAmount({ name, dispatch }) {
+ 
   const [batchViewMode, toggleBatchViewMode] = useState(true);
   const [weight, setWeight] = useState(0);
   const [unitCount, setUnitCount] = useState(1);
 
   const handleClick = (e) => {
     const insidePopup = e.target.closest(`[data-action='popup']`);
-    console.log(insidePopup);
     if (!insidePopup) {
       dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT });
     }
@@ -32,6 +32,7 @@ function EnterAmount({ name, dispatch }) {
         <BackgroundOverlayStyled onClick={handleClick}>
           <PopupStyled data-action="popup">
             <h2 className="backdrop__popup__name">
+              
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </h2>
             <span>

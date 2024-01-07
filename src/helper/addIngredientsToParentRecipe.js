@@ -1,7 +1,7 @@
 import { RecipeIngredient } from "../classes/RecipeIngredient";
 
 export function addIngredientsToParentRecipe(recipe, recipeBook) {
-  recipe.nestedRecipes.forEach((includedRecipeReference) => {
+  recipe.includedRecipes.forEach((includedRecipeReference) => {
     const includedRecipe = recipeBook.recipes.get(includedRecipeReference.id);
     includedRecipe.ingredients.forEach((ingredient) => {
       let found = false;

@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import { ThemeProvider } from "styled-components";
+import { recipeBookAtom } from "./atom/recipeBookAtom";
+import { makeRecipeBook } from "./helper/makeRecipeBook";
+import Ingredient from "./pages/ingredient/Ingredient";
+import Main from "./pages/main/Main";
+import Navbar from "./pages/main/navbar/Navbar";
+import NoPage from "./pages/noPage/NoPage";
+import EditRecipe from "./pages/recipe/edit/EditRecipe";
+import ViewRecipe from "./pages/recipe/view/ViewRecipe";
 import { GlobalStyle } from "./styles/GlobalStyle";
 import theme from "./styles/Theme";
-import ViewRecipe from "./pages/recipe/view/ViewRecipe";
-import NoPage from "./pages/noPage/NoPage";
-import Main from "./pages/main/Main";
-import Ingredient from "./pages/ingredient/Ingredient";
-import { recipeBookAtom } from "./atom/recipeBookAtom";
-import { useRecoilState } from "recoil";
-import { makeRecipeBook } from "./helper/makeRecipeBook";
-import Navbar from "./pages/main/navbar/Navbar";
-import EditRecipe from "./pages/recipe/edit/EditRecipe";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
       },
     ],
   },
-   {
+  {
     path: "/recipe/edit/:id",
     element: <EditRecipe />,
   },

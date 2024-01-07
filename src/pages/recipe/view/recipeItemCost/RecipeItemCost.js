@@ -4,8 +4,8 @@ import { getSymbolType } from "../../../../helper/getSymbolType";
 import {numberFormat} from '../../../../helper/numberFormat'
 import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
 
-function RecipeItemCost({ recipeItem, totalRecipe }) {
-  const { name, isFlour, isLiquid, pricePerKilo, price } = recipeItem;
+function RecipeItemCost({ flattenedRecipeItem, totalRecipe }) {
+  const { name, isFlour, isLiquid, pricePerKilo, price } = flattenedRecipeItem;
   const symbolType = getSymbolType({ isRecipe: false, isFlour, isLiquid });
 
   return (

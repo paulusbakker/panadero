@@ -1,4 +1,4 @@
-import {ItemHeaderStyled, PopupStyled} from './Styles'
+import { ItemHeaderStyled, PopupStyled } from './Styles';
 
 const EditPopup = ({
                         editableName, setEditableName,
@@ -25,8 +25,8 @@ const EditPopup = ({
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
             >
-                {sortedCategories.map(([key, value]) => (
-                    <option key={key} value={key}>
+                {sortedCategories.map(([id , value]) => (
+                    <option id ={id } value={id }>
                         {value}
                     </option>
                 ))}

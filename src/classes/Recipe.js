@@ -1,8 +1,8 @@
 export class Recipe {
-  constructor(name, category, ingredients, nestedRecipes) {
+  constructor(name, category, ingredients, includedRecipes) {
     this.name = name;
     this.category = category;
     this.ingredients = ingredients; // []
-    this.nestedRecipes = nestedRecipes; // []
+    this.includedRecipes = includedRecipes; // []
   }
 }
