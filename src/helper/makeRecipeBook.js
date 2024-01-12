@@ -324,7 +324,7 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
+  recipeIngredients.push(new RecipeIngredient(true, false, "154", 0.9));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6));
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
   recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.001));

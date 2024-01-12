@@ -6,7 +6,7 @@ import { flattenRecipe } from "../../../helper/flattenRecipe";
 import { recipeBookAtom } from "./../../../atom/recipeBookAtom";
 import Navbar from "./navbar/Navbar";
 import { UnorderedListStyled } from "./Styles";
-import FlattenedRecipeItem from "./flattenedRecipeItem/FlattenedRecipeItem";
+import FlattenedRecipeItemEditor from "./flattenedRecipeItemEditor/FlattenedRecipeItemEditor";
 
 export const ACTIONS = {
   DELETE_RECIPE: "delete_recipe",
@@ -16,12 +16,12 @@ export const VIEWMODE = {
   VIEW_RECIPE: "view_recipe",
 };
 
-const reducer = (flattenedRecipeState, action) => {
+const reducer = (editRecipeState, action) => {
   switch (action.type) {
     case ACTIONS.HANDLE_SUBMIT:
-
+      break;
     default:
-      return flattenedRecipeState;
+      return editRecipeState;
   }
 };
 function EditRecipe() {
@@ -38,28 +38,21 @@ function EditRecipe() {
     itemId: null,
     viewMode: VIEWMODE.VIEW_RECIPE,
   };
-  const [flattenedRecipeState, dispatch] = useReducer(reducer, initialState);
-  const [deleteRecipePopup, toggleDeleteRecipePopup] = useState(false);
-  const [addRecipeMode, toggleAddRecipeMode] = useState(false);
-
+  const [editRecipeState, dispatch] = useReducer(reducer, initialState);
 
   const flattenedRecipe = id ? flattenRecipe(id, recipeBook) : null;
 
   console.log(flattenedRecipe);
   return (
     <>
-      <Navbar
-      dispatch{dispatch}
-        toggleDeleteRecipePopup={togglePopupOrMode(toggleDeleteRecipePopup)}
-        toggleAddRecipeMode={togglePopupOrMode(toggleAddRecipeMode)}
-      />
+      <Navbar dispatch={dispatch} />
       <UnorderedListStyled>
         {flattenedRecipe.slice(1).map((flattenedRecipeItem) => (
-          <FlattenedRecipeItem
+          <FlattenedRecipeItemEditor
             key={`${flattenedRecipeItem.sequenceNumber}`}
             flattenedRecipeItem={flattenedRecipeItem}
             stepsMode={false}
-            viewMode={flattenedRecipeState.viewMode}
+            viewMode={editRecipeState.viewMode}
             dispatch={dispatch}
           />
         ))}

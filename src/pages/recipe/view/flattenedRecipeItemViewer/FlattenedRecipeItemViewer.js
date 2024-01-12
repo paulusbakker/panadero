@@ -1,8 +1,9 @@
 import React from "react";
 import Symbol from "../../../../components/shared/Symbol";
 import { getSymbolType } from "../../../../helper/getSymbolType";
-import Indent from "../indent/Indent";
 import { numberFormat } from "../../../../helper/numberFormat";
+import { ACTIONS, VIEWMODE } from "../ViewRecipe";
+import Indent from "../indent/Indent";
 import {
   ContainerStyled,
   LeftAlignedFlexContainer,
@@ -10,9 +11,8 @@ import {
   RightSpacedFlexContainer,
   SpanStyled,
 } from "./Styles";
-import { ACTIONS, VIEWMODE } from "../ViewRecipe";
 
-function FlattenedRecipeItem({
+function FlattenedRecipeItemViewer({
   flattenedRecipeItem,
   stepsMode,
   viewMode,
@@ -29,7 +29,7 @@ function FlattenedRecipeItem({
     percentage,
     stepPercentage,
     stepWeight,
-    isMissing,
+    ingredientIsMissingInParentRecipe,
   } = flattenedRecipeItem;
   const symbolType = getSymbolType({ isRecipe, isFlour, isLiquid });
   return (
@@ -41,7 +41,7 @@ function FlattenedRecipeItem({
         });
       }}
       $stepPercentage={stepPercentage}
-      $isMissing={isMissing}
+      $ingredientIsMissingInParentRecipe={ingredientIsMissingInParentRecipe}
     >
       <LeftAlignedFlexContainer>
         {isRecipe ? <Indent depth={depth - 1} /> : <Indent depth={depth} />}
@@ -71,4 +71,4 @@ function FlattenedRecipeItem({
   );
 }
 
-export default FlattenedRecipeItem;
+export default FlattenedRecipeItemViewer;

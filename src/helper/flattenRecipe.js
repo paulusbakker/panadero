@@ -4,53 +4,55 @@ export function flattenRecipe(id, recipeBook) {
   const flattenedRecipe = [];
   let sequenceCounter = 0;
 
-  function ingredientPresentInParent(childIngredient, parentIngredients) {
-    return parentIngredients.some(
-      (parentIngredient) =>
-        parentIngredient.id === childIngredient.id &&
-        parentIngredient.isFlour === childIngredient.isFlour &&
-        parentIngredient.isLiquid === childIngredient.isLiquid
-    );
-  }
+  buildFlattenedRecipe(id);
+
+  return flattenedRecipe;
 
   function buildFlattenedRecipe(
     id,
     currentDepth = 0,
     recipePercentage = 1,
-    parentIngredients = []
+    parentIngredients = [],
+    parentRecipeIsFaulty = false
   ) {
     const { name, ingredients, includedRecipes } = recipeBook.recipes.get(id);
+    let flourWeightTotal = 0;
+    let hasFlour = false;
+    let markParentAsFaultyWithMissingIngredients = false;
+    let currentRecipeIsFaulty = false;
 
-    // const isMissing = currentDepth !== 0 && !ingredientsPresentInParent(ingredients, parentIngredients);
-
-    flattenedRecipe.push(
-      new FlattenedRecipeItem(
-        sequenceCounter++,
-        id,
-        true,
-        name,
-        currentDepth,
-        false,
-        false,
-        recipePercentage,
-        0,
-        false
-      )
+    const recipeItem = new FlattenedRecipeItem(
+      sequenceCounter++,
+      id,
+      true,
+      name,
+      currentDepth,
+      false,
+      false,
+      recipePercentage,
+      0,
+      false,
+      false
     );
 
-    ingredients.forEach((ingredient) => {
-      const { id, isFlour, isLiquid, percentage } = ingredient;
-      const { name, pricePerKilo } = recipeBook.ingredients.get(id);
-      const isMissing =
-        currentDepth !== 0 &&
-        !ingredientPresentInParent(ingredient, parentIngredients);
+    flattenedRecipe.push(recipeItem);
 
-      if (isMissing) {
-        let tempSequenceCounter = sequenceCounter;
-        do {
-          tempSequenceCounter--;
-        } while (!flattenedRecipe[tempSequenceCounter].isRecipe);
-        flattenedRecipe[tempSequenceCounter].isMissing = true;
+    ingredients.forEach((ingredientItem) => {
+      const { id, isFlour, isLiquid, percentage } = ingredientItem;
+      const { name, pricePerKilo } = recipeBook.ingredients.get(id);
+      const ingredientIsMissingInParentRecipe =
+        currentDepth !== 0 &&
+        !ingredientItemPresentInParent(ingredientItem, parentIngredients);
+
+      if (ingredientIsMissingInParentRecipe) {
+        markParentAsFaultyWithMissingIngredients = true;
+        recipeItem.recipeHasMissingIngredientsInParentRecipe = true;
+        // having missing ingredients in the parent doesn't make this recipe faulty
+      }
+
+      if (isFlour) {
+        hasFlour = true;
+        flourWeightTotal += percentage;
       }
 
       flattenedRecipe.push(
@@ -64,18 +66,30 @@ export function flattenRecipe(id, recipeBook) {
           isLiquid,
           percentage,
           pricePerKilo,
-          isMissing
+          ingredientIsMissingInParentRecipe,
+          false
         )
       );
 
-      updateParentRecipeItemPercentage(
-        name,
+      // Update step percentage in parent recipe
+      updateStepPercentageOfIngredientInParentRecipe(
+        id,
         isFlour,
         isLiquid,
         currentDepth,
         percentage * recipePercentage
       );
     });
+
+    if (hasFlour && flourWeightTotal !== 1) {
+      currentRecipeIsFaulty = true;
+      recipeItem.isFaultyRecipe = true;
+      recipeItem.isDeepestFaultyRecipe = true;
+      markFlourItemsAsFaulty(sequenceCounter - 1);
+      if (parentRecipeIsFaulty) {
+        markParentRecipeNotDeepest(currentDepth);
+      }
+    }
 
     includedRecipes.forEach((includedRecipe) => {
       buildFlattenedRecipe(
@@ -86,31 +100,81 @@ export function flattenRecipe(id, recipeBook) {
           id: ingredient.id,
           isFlour: ingredient.isFlour,
           isLiquid: ingredient.isLiquid,
-        }))
+        })),
+        currentRecipeIsFaulty
       );
     });
+
+    if (markParentAsFaultyWithMissingIngredients) {
+      updateParentRecipeStatus(
+        currentDepth,
+        !currentRecipeIsFaulty, // Set to false if current recipe is faulty, otherwise true
+        true,
+        true
+      );
+    }
   }
 
-  function updateParentRecipeItemPercentage(
-    ingredientName,
+  function updateParentRecipeStatus(
+    currentDepth,
+    setDeepest,
+    setFaulty,
+    setMissingIngredients
+  ) {
+    console.log(setDeepest);
+    for (let i = flattenedRecipe.length - 1; i >= 0; i--) {
+      const recipeItem = flattenedRecipe[i];
+      if (recipeItem.isRecipe && recipeItem.depth === currentDepth - 1) {
+        recipeItem.isDeepestFaultyRecipe = setDeepest;
+        recipeItem.isFaultyRecipe = setFaulty;
+        recipeItem.hasMissingNestedIngredients = setMissingIngredients;
+        break;
+      }
+    }
+  }
+
+  function markParentRecipeNotDeepest(currentDepth) {
+    for (let i = flattenedRecipe.length - 1; i >= 0; i--) {
+      const recipeItem = flattenedRecipe[i];
+      if (recipeItem.isRecipe && recipeItem.depth === currentDepth - 1) {
+        recipeItem.isDeepestFaultyRecipe = false;
+        break;
+      }
+    }
+  }
+
+  function markFlourItemsAsFaulty(currentIndex) {
+    for (let i = currentIndex; i >= 0; i--) {
+      if (flattenedRecipe[i].isRecipe) {
+        break;
+      }
+      if (flattenedRecipe[i].isFlour) {
+        flattenedRecipe[i].flourTotalNot100Percent = true;
+      }
+    }
+  }
+
+  function updateStepPercentageOfIngredientInParentRecipe(
+    ingredientId, // Use ingredientId instead of ingredientName
     isFlour,
     isLiquid,
     currentDepth,
     deductionAmount
   ) {
-    const parentRecipeItemIndex = findParentRecipeItemIndex(
-      ingredientName,
+    const indexOfIngredientInParentRecipe = findIndexOfIngredientInParentRecipe(
+      ingredientId, // Use ingredientId in the searching function
       isFlour,
       isLiquid,
       currentDepth
     );
-    if (parentRecipeItemIndex >= 0) {
-      flattenedRecipe[parentRecipeItemIndex].stepPercentage -= deductionAmount;
+    if (indexOfIngredientInParentRecipe >= 0) {
+      flattenedRecipe[indexOfIngredientInParentRecipe].stepPercentage -=
+        deductionAmount;
     }
   }
 
-  function findParentRecipeItemIndex(
-    ingredientName,
+  function findIndexOfIngredientInParentRecipe(
+    ingredientId, // Use ingredientId instead of ingredientName
     isFlour,
     isLiquid,
     currentDepth
@@ -118,7 +182,7 @@ export function flattenRecipe(id, recipeBook) {
     for (let i = flattenedRecipe.length - 1; i >= 0; i--) {
       const recipeItem = flattenedRecipe[i];
       if (
-        recipeItem.name === ingredientName &&
+        recipeItem.id === ingredientId && // Compare with ingredientId
         recipeItem.isFlour === isFlour &&
         recipeItem.isLiquid === isLiquid &&
         recipeItem.depth === currentDepth - 1
@@ -129,6 +193,12 @@ export function flattenRecipe(id, recipeBook) {
     return -1;
   }
 
-  buildFlattenedRecipe(id);
-  return flattenedRecipe;
+  function ingredientItemPresentInParent(childIngredient, parentIngredients) {
+    return parentIngredients.some(
+      (parentIngredient) =>
+        parentIngredient.id === childIngredient.id &&
+        parentIngredient.isFlour === childIngredient.isFlour &&
+        parentIngredient.isLiquid === childIngredient.isLiquid
+    );
+  }
 }

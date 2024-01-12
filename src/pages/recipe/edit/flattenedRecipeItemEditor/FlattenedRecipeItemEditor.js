@@ -10,9 +10,9 @@ import {
   RightSpacedFlexContainer,
   SpanStyled,
 } from "./Styles";
-import { ACTIONS, VIEWMODE } from "../ViewRecipe";
+import { ACTIONS, VIEWMODE } from "../EditRecipe";
 
-function FlattenedRecipeItem({
+function FlattenedRecipeItemEditor({
   flattenedRecipeItem,
   stepsMode,
   viewMode,
@@ -71,4 +71,4 @@ function FlattenedRecipeItem({
   );
 }
 
-export default FlattenedRecipeItem;
+export default FlattenedRecipeItemEditor;

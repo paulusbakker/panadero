@@ -10,7 +10,7 @@ export const ListItemStyled = styled.li`
   justify-content: space-between;
   align-items: center;
   background-color: ${(props) =>
-    props.$isMissing ? "red" : props.$stepPercentage < 0 ? "orange" : "#eae2b7"};
+    props.$ingredientIsMissingInParentRecipe ? "red" : props.$stepPercentage < 0 ? "orange" : "#eae2b7"};
 `;
 
 const FlexContainerStyled = styled.div`

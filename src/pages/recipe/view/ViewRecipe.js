@@ -13,10 +13,10 @@ import {
   UnorderedListStyled,
 } from "./Styles";
 import EnterAmount from "./enterAmounts/EnterAmount";
+import FlattenedRecipeItemViewer from "./flattenedRecipeItemViewer/FlattenedRecipeItemViewer";
 import Navbar from "./navbar/Navbar";
 import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
 import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
-import FlattenedRecipeItem from "./flattenedRecipeItem/FlattenedRecipeItem";
 
 export const ACTIONS = {
   CALCULATE_AMOUNTS: "calculate_amounts",
@@ -29,20 +29,27 @@ export const VIEWMODE = {
   VIEW_AMOUNTS: "view_amounts",
   ENTER_AMOUNTS: "enter_amounts",
 };
-const reducer = (flattenedRecipeState, action) => {
+
+export const ITEM_NAMES = {
+  TOTAL_FLOUR: 'total flour',
+  TOTAL_LIQUID: 'total liquid',
+  TOTAL_RECIPE: 'total recipe',
+};
+
+const reducer = (viewRecipeState, action) => {
   switch (action.type) {
     case ACTIONS.HANDLE_SUBMIT:
-      if (action.payload.weight === 0) return flattenedRecipeState;
+      if (action.payload.weight === 0) return viewRecipeState;
 
       const [calculatedRecipe, totalFlourWeight, totalLiquidWeight] =
         calculateAmounts(
-          flattenedRecipeState.flattenedRecipe,
+          viewRecipeState.flattenedRecipe,
           action.payload.weight,
-          flattenedRecipeState.itemIdOrTotal,
-          flattenedRecipeState.stepsMode
+          viewRecipeState.itemIdOrTotal,
+          viewRecipeState.stepsMode
         );
       return {
-        ...flattenedRecipeState,
+        ...viewRecipeState,
         flattenedRecipe: calculatedRecipe,
         totalFlourWeight: totalFlourWeight,
         totalLiquidWeight: totalLiquidWeight,
@@ -50,15 +57,15 @@ const reducer = (flattenedRecipeState, action) => {
       };
     case ACTIONS.HANDLE_ITEM_ID_OR_TOTAL:
       return {
-        ...flattenedRecipeState,
+        ...viewRecipeState,
         viewMode: VIEWMODE.ENTER_AMOUNTS,
         itemIdOrTotal: action.payload.itemIdOrTotal,
         stepsMode: action.payload.stepsMode,
       };
     case ACTIONS.CANCEL_CALCULATE_AMOUNT:
-      return { ...flattenedRecipeState, viewMode: VIEWMODE.VIEW_RECIPE };
+      return { ...viewRecipeState, viewMode: VIEWMODE.VIEW_RECIPE };
     default:
-      return flattenedRecipeState;
+      return viewRecipeState;
   }
 };
 
@@ -112,7 +119,7 @@ function ViewRecipe() {
         {flattenedRecipeState.flattenedRecipe
           .slice(1)
           .map((flattenedRecipeItem) => (
-            <FlattenedRecipeItem
+            <FlattenedRecipeItemViewer
               key={`${flattenedRecipeItem.sequenceNumber}`}
               flattenedRecipeItem={flattenedRecipeItem}
               stepsMode={false}
@@ -125,7 +132,7 @@ function ViewRecipe() {
 
         {/*totals*/}
         <RecipeItemTotal
-          name={"total flour"}
+          name={ITEM_NAMES.TOTAL_FLOUR}
           isRecipe={false}
           isFlour={true}
           isLiquid={false}
@@ -135,7 +142,7 @@ function ViewRecipe() {
           weight={flattenedRecipeState.totalFlourWeight}
         />
         <RecipeItemTotal
-          name={"total liquid"}
+          name={ITEM_NAMES.TOTAL_LIQUID}
           isRecipe={false}
           isFlour={false}
           isLiquid={true}
@@ -147,7 +154,7 @@ function ViewRecipe() {
           weight={flattenedRecipeState.totalLiquidWeight}
         />
         <RecipeItemTotal
-          name={"total recipe"}
+          name={ITEM_NAMES.TOTAL_RECIPE}
           isRecipe={true}
           isFlour={false}
           isLiquid={false}
@@ -177,7 +184,7 @@ function ViewRecipe() {
             {flattenedRecipeState.flattenedRecipe
               .slice(1)
               .map((flattenedRecipeItem) => (
-                <FlattenedRecipeItem
+                <FlattenedRecipeItemViewer
                   key={`${flattenedRecipeItem.sequenceNumber}`}
                   flattenedRecipeItem={flattenedRecipeItem}
                   stepsMode={true}
