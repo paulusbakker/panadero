@@ -314,7 +314,7 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
+  recipeIngredients.push(new RecipeIngredient(true, false, "154", .9));
   recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
   recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0025));
   recipes.set(
@@ -488,7 +488,7 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "191", 1));
+  recipeIngredients.push(new RecipeIngredient(true, false, "191", .9));
   recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.3));
   recipeIngredients.push(new RecipeIngredient(false, true, "193", 2.61));
   recipeIngredients.push(new RecipeIngredient(false, false, "194", 0.03));

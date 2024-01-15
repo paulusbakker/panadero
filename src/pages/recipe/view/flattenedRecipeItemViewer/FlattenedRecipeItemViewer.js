@@ -30,6 +30,8 @@ function FlattenedRecipeItemViewer({
     stepPercentage,
     stepWeight,
     ingredientIsMissingInParentRecipe,
+    recipeHasNegativeStepPercentage,
+    flourTotalNot100Percent,
   } = flattenedRecipeItem;
   const symbolType = getSymbolType({ isRecipe, isFlour, isLiquid });
   return (
@@ -42,6 +44,8 @@ function FlattenedRecipeItemViewer({
       }}
       $stepPercentage={stepPercentage}
       $ingredientIsMissingInParentRecipe={ingredientIsMissingInParentRecipe}
+      $recipeHasNegativeStepPercentage={recipeHasNegativeStepPercentage}
+      $flourTotalNot100Percent={flourTotalNot100Percent}
     >
       <LeftAlignedFlexContainer>
         {isRecipe ? <Indent depth={depth - 1} /> : <Indent depth={depth} />}

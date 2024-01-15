@@ -28,7 +28,8 @@ export class FlattenedRecipeItem {
     this.ingredientIsMissingInParentRecipe = ingredientIsMissingInParentRecipe;
     this.isDeepestFaultyRecipe = false;
     this.flourTotalNot100Percent = false;
-    this.hasMissingNestedIngredients = false;
+    this.hasMissingIngredientsInChildRecipe = false;
     this.isFaultyRecipe = isFaultyRecipe;
+    this.recipeHasNegativeStepPercentage= false;
   }
 }
