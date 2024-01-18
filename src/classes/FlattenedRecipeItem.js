@@ -15,7 +15,7 @@ export class FlattenedRecipeItem {
     this.sequenceNumber = sequenceNumber;
     this.id = id;
     this.isRecipe = isRecipe;
-    this.recipeHasMissingIngredientsInParentRecipe=false;
+    this.recipeHasMissingIngredientsInParentRecipe = false;
     this.name = name;
     this.depth = depth;
     this.isFlour = isFlour;
@@ -27,9 +27,10 @@ export class FlattenedRecipeItem {
     this.pricePerKilo = pricePerKilo;
     this.ingredientIsMissingInParentRecipe = ingredientIsMissingInParentRecipe;
     this.isDeepestFaultyRecipe = false;
-    this.flourTotalNot100Percent = false;
-    this.hasMissingIngredientsInChildRecipe = false;
+    this.recipeTotalFlourNot100 = false;
+    this.recipeIsMissingIngredientsPresentInChildren = false;
     this.isFaultyRecipe = isFaultyRecipe;
-    this.recipeHasNegativeStepPercentage= false;
+    this.recipeHasNegativeStepPercentage = false;
   }
+  
 }
