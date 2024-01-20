@@ -4,16 +4,16 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { flattenRecipe } from "../../../helper/flattenRecipe";
 import { recipeBookAtom } from "./../../../atom/recipeBookAtom";
-import Navbar from "./navbar/Navbar";
 import { UnorderedListStyled } from "./Styles";
 import FlattenedRecipeItemEditor from "./flattenedRecipeItemEditor/FlattenedRecipeItemEditor";
+import Navbar from "./navbar/Navbar";
 
 export const ACTIONS = {
   DELETE_RECIPE: "delete_recipe",
   ADD_ITEM: "add_item",
 };
-export const VIEWMODE = {
-  VIEW_RECIPE: "view_recipe",
+export const EDITMODE = {
+  EDIT_RECIPE: "edit_recipe",
 };
 
 const reducer = (editRecipeState, action) => {
@@ -36,7 +36,7 @@ function EditRecipe() {
   const initialState = {
     flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
     itemId: null,
-    viewMode: VIEWMODE.VIEW_RECIPE,
+    viewMode: EDITMODE.EDIT_RECIPE,
   };
   const [editRecipeState, dispatch] = useReducer(reducer, initialState);
 
@@ -47,16 +47,22 @@ function EditRecipe() {
     <>
       <Navbar dispatch={dispatch} />
       <UnorderedListStyled>
-        {flattenedRecipe.slice(1).map((flattenedRecipeItem) => (
-          <FlattenedRecipeItemEditor
-            key={`${flattenedRecipeItem.sequenceNumber}`}
-            flattenedRecipeItem={flattenedRecipeItem}
-            stepsMode={false}
-            viewMode={editRecipeState.viewMode}
-            dispatch={dispatch}
-          />
-        ))}
-      </UnorderedListStyled>
+  {flattenedRecipe
+    .slice(1)
+    .filter(item => 
+      item.depth === 0 || (item.depth === 1 && item.isRecipe === true)
+    )
+    .map((flattenedRecipeItem) => (
+      <FlattenedRecipeItemEditor
+        key={`${flattenedRecipeItem.sequenceNumber}`}
+        flattenedRecipeItem={flattenedRecipeItem}
+        stepsMode={false}
+        editMode={editRecipeState.editModeMode}
+        dispatch={dispatch}
+      />
+    ))}
+</UnorderedListStyled>
+
     </>
   );
 }

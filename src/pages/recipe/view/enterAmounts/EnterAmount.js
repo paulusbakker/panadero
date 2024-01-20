@@ -17,7 +17,7 @@ function EnterAmount({ name, dispatch }) {
   const handleClick = (e) => {
     const insidePopup = e.target.closest(`[data-action='popup']`);
     if (!insidePopup) {
-      dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT });
+      dispatch({ type: ACTIONS.CANCEL });
     }
   };
 
@@ -32,7 +32,6 @@ function EnterAmount({ name, dispatch }) {
         <BackgroundOverlayStyled onClick={handleClick}>
           <PopupStyled data-action="popup">
             <h2 className="backdrop__popup__name">
-              
               {name.charAt(0).toUpperCase() + name.slice(1)}
             </h2>
             <span>
@@ -75,7 +74,7 @@ function EnterAmount({ name, dispatch }) {
             <span>
             <button
                 onClick={() =>
-                    dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })
+                    dispatch({ type: ACTIONS.CANCEL })
                 }
             >
               Cancel

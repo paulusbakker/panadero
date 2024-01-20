@@ -37,10 +37,17 @@ function FlattenedRecipeItemViewer({
   return (
     <ListItemStyled
       onClick={() => {
-        dispatch({
-          type: ACTIONS.HANDLE_ITEM_ID_OR_TOTAL,
-          payload: { itemIdOrTotal: sequenceNumber, stepsMode: stepsMode },
-        });
+        if (isRecipe) {
+          dispatch({
+            type: ACTIONS.SHOW_CHOICE_MODAL,
+            payload: { itemIdOrTotal: sequenceNumber },
+          });
+        } else {
+          dispatch({
+            type: ACTIONS.HANDLE_ITEM_ID_OR_TOTAL,
+            payload: { itemIdOrTotal: sequenceNumber, stepsMode: stepsMode },
+          });
+        }
       }}
       $stepPercentage={stepPercentage}
       $ingredientIsMissingInParentRecipe={ingredientIsMissingInParentRecipe}
@@ -66,7 +73,11 @@ function FlattenedRecipeItemViewer({
               ) : (
                 <SpanStyled />
               )}
-              <Symbol type={"calculator"} />
+              {isRecipe ? (
+                <Symbol type={"menu"} />
+              ) : (
+                <Symbol type={"calculator"} />
+              )}
             </>
           )}
         </ContainerStyled>

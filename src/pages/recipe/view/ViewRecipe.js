@@ -12,6 +12,7 @@ import {
   ItemHeaderStyled,
   UnorderedListStyled,
 } from "./Styles";
+import ChoiceModal from "./choiceModal/ChoiceModal";
 import EnterAmount from "./enterAmounts/EnterAmount";
 import FlattenedRecipeItemViewer from "./flattenedRecipeItemViewer/FlattenedRecipeItemViewer";
 import Navbar from "./navbar/Navbar";
@@ -19,21 +20,24 @@ import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
 import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
 
 export const ACTIONS = {
+  RESET_STATE: "reset_state",
+  SHOW_CHOICE_MODAL: "show_choice_modal",
   CALCULATE_AMOUNTS: "calculate_amounts",
   HANDLE_SUBMIT: "handle_submit",
   HANDLE_ITEM_ID_OR_TOTAL: "handle_item_id_or_total",
-  CANCEL_CALCULATE_AMOUNT: "cancel_calculate_amount",
+  CANCEL: "cancel",
 };
 export const VIEWMODE = {
   VIEW_RECIPE: "view_recipe",
   VIEW_AMOUNTS: "view_amounts",
+  VIEW_CHOICE_MODAL: "view_choice_modal",
   ENTER_AMOUNTS: "enter_amounts",
 };
 
 export const ITEM_NAMES = {
-  TOTAL_FLOUR: 'total flour',
-  TOTAL_LIQUID: 'total liquid',
-  TOTAL_RECIPE: 'total recipe',
+  TOTAL_FLOUR: "total flour",
+  TOTAL_LIQUID: "total liquid",
+  TOTAL_RECIPE: "total recipe",
 };
 
 const reducer = (viewRecipeState, action) => {
@@ -55,6 +59,12 @@ const reducer = (viewRecipeState, action) => {
         totalLiquidWeight: totalLiquidWeight,
         viewMode: VIEWMODE.VIEW_AMOUNTS,
       };
+    case ACTIONS.SHOW_CHOICE_MODAL:
+      return {
+        ...viewRecipeState,
+        viewMode: VIEWMODE.VIEW_CHOICE_MODAL,
+        itemIdOrTotal: action.payload.itemIdOrTotal,
+      };
     case ACTIONS.HANDLE_ITEM_ID_OR_TOTAL:
       return {
         ...viewRecipeState,
@@ -62,23 +72,17 @@ const reducer = (viewRecipeState, action) => {
         itemIdOrTotal: action.payload.itemIdOrTotal,
         stepsMode: action.payload.stepsMode,
       };
-    case ACTIONS.CANCEL_CALCULATE_AMOUNT:
+    case ACTIONS.CANCEL:
       return { ...viewRecipeState, viewMode: VIEWMODE.VIEW_RECIPE };
+    case ACTIONS.RESET_STATE:
+      return action.payload;
     default:
       return viewRecipeState;
   }
 };
 
-function ViewRecipe() {
-  const navigate = useNavigate();
-  const recipeBook = useRecoilValue(recipeBookAtom);
-
-  const { id } = useParams();
-  useEffect(() => {
-    if (!id) navigate("/recipes", { replace: true });
-  }, [id, navigate]);
-
-  const initialState = {
+function createInitialState(id, recipeBook) {
+  return {
     flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
     itemIdOrTotal: null,
     stepsMode: false,
@@ -87,6 +91,24 @@ function ViewRecipe() {
     totalLiquidWeight: 0,
     viewMode: VIEWMODE.VIEW_RECIPE,
   };
+}
+
+
+function ViewRecipe() {
+  const navigate = useNavigate();
+  const recipeBook = useRecoilValue(recipeBookAtom);
+
+  const { id } = useParams();
+  useEffect(() => {
+    if (!id) {
+      navigate("/recipes", { replace: true });
+    } else {
+      const newState = createInitialState(id, recipeBook);
+      dispatch({ type: ACTIONS.RESET_STATE, payload: newState });
+    }
+  }, [id, navigate, recipeBook]);
+
+  const initialState = createInitialState(id, recipeBook);
   const [flattenedRecipeState, dispatch] = useReducer(reducer, initialState);
 
   if (!id) return null;
@@ -97,6 +119,22 @@ function ViewRecipe() {
     <>
       <Navbar id={id} />
       <UnorderedListStyled>
+        {flattenedRecipeState.viewMode === VIEWMODE.VIEW_CHOICE_MODAL && (
+          <ChoiceModal
+            recipeId={
+              flattenedRecipeState.flattenedRecipe[
+                flattenedRecipeState.itemIdOrTotal
+              ].id
+            }
+            sequenceNumber={
+              flattenedRecipeState.flattenedRecipe[
+                flattenedRecipeState.itemIdOrTotal
+              ].sequenceNumber
+            }
+            stepsMode={flattenedRecipeState.stepsMode}
+            dispatch={dispatch}
+          />
+        )}
         {flattenedRecipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
             name={
@@ -165,7 +203,7 @@ function ViewRecipe() {
         />
         {flattenedRecipeState.viewMode === VIEWMODE.VIEW_AMOUNTS && (
           <button
-            onClick={() => dispatch({ type: ACTIONS.CANCEL_CALCULATE_AMOUNT })}
+            onClick={() => dispatch({ type: ACTIONS.CANCEL })}
           >
             C
           </button>
