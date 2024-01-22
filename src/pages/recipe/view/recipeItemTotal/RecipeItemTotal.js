@@ -1,9 +1,9 @@
 import React from "react";
 import Symbol from "../../../../components/shared/Symbol";
+import { ACTIONS, VIEWMODE } from "../../../../constants/constants";
 import { getSymbolType } from '../../../../helper/getSymbolType';
-import {numberFormat} from '../../../../helper/numberFormat'
-import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
-import {ACTIONS, VIEWMODE} from '../ViewRecipe'
+import { numberFormat } from '../../../../helper/numberFormat';
+import { LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled } from './Styles';
 
 function RecipeItemTotal({
                            name,

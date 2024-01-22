@@ -3,6 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { recipeBookAtom } from "../../../atom/recipeBookAtom";
 import Symbol from "../../../components/shared/Symbol";
+import { ACTIONS, TOTAL, VIEWMODE } from "../../../constants/constants";
 import { calculateAmounts } from "../../../helper/calculateAmounts";
 import { calculateTotalOverallLiquidPercentage } from "../../../helper/calculateTotalOverallLiquidPercentage";
 import { flattenRecipe } from "../../../helper/flattenRecipe";
@@ -18,27 +19,6 @@ import FlattenedRecipeItemViewer from "./flattenedRecipeItemViewer/FlattenedReci
 import Navbar from "./navbar/Navbar";
 import RecipeItemCost from "./recipeItemCost/RecipeItemCost";
 import RecipeItemTotal from "./recipeItemTotal/RecipeItemTotal";
-
-export const ACTIONS = {
-  RESET_STATE: "reset_state",
-  SHOW_CHOICE_MODAL: "show_choice_modal",
-  CALCULATE_AMOUNTS: "calculate_amounts",
-  HANDLE_SUBMIT: "handle_submit",
-  HANDLE_ITEM_ID_OR_TOTAL: "handle_item_id_or_total",
-  CANCEL: "cancel",
-};
-export const VIEWMODE = {
-  VIEW_RECIPE: "view_recipe",
-  VIEW_AMOUNTS: "view_amounts",
-  VIEW_CHOICE_MODAL: "view_choice_modal",
-  ENTER_AMOUNTS: "enter_amounts",
-};
-
-export const ITEM_NAMES = {
-  TOTAL_FLOUR: "total flour",
-  TOTAL_LIQUID: "total liquid",
-  TOTAL_RECIPE: "total recipe",
-};
 
 const reducer = (viewRecipeState, action) => {
   switch (action.type) {
@@ -112,8 +92,6 @@ function ViewRecipe() {
   const [flattenedRecipeState, dispatch] = useReducer(reducer, initialState);
 
   if (!id) return null;
-  console.log(recipeBook.recipes.get(id));
-  console.log(flattenedRecipeState.flattenedRecipe);
 
   return (
     <>
@@ -138,7 +116,7 @@ function ViewRecipe() {
         {flattenedRecipeState.viewMode === VIEWMODE.ENTER_AMOUNTS && (
           <EnterAmount
             name={
-              ["total flour", "total liquid", "total recipe"].includes(
+              [TOTAL.FLOUR, TOTAL.LIQUID, TOTAL.RECIPE].includes(
                 flattenedRecipeState.itemIdOrTotal
               )
                 ? flattenedRecipeState.itemIdOrTotal
@@ -170,7 +148,7 @@ function ViewRecipe() {
 
         {/*totals*/}
         <RecipeItemTotal
-          name={ITEM_NAMES.TOTAL_FLOUR}
+          name={TOTAL.FLOUR}
           isRecipe={false}
           isFlour={true}
           isLiquid={false}
@@ -180,7 +158,7 @@ function ViewRecipe() {
           weight={flattenedRecipeState.totalFlourWeight}
         />
         <RecipeItemTotal
-          name={ITEM_NAMES.TOTAL_LIQUID}
+          name={TOTAL.LIQUID}
           isRecipe={false}
           isFlour={false}
           isLiquid={true}
@@ -192,7 +170,7 @@ function ViewRecipe() {
           weight={flattenedRecipeState.totalLiquidWeight}
         />
         <RecipeItemTotal
-          name={ITEM_NAMES.TOTAL_RECIPE}
+          name={TOTAL.RECIPE}
           isRecipe={true}
           isFlour={false}
           isLiquid={false}

@@ -5,6 +5,8 @@ export function flattenRecipe(id, recipeBook) {
   let sequenceCounter = 0;
 
   buildFlattenedRecipe(id);
+  console.log(recipeBook);
+  console.log(flattenedRecipe);
 
   return flattenedRecipe;
 
@@ -27,6 +29,9 @@ export function flattenRecipe(id, recipeBook) {
       false,
       false
     );
+
+    sortIngredients(ingredients);
+    sortIncludedRecipes(includedRecipes);
 
     flattenedRecipe.push(recipeItem);
 
@@ -187,5 +192,48 @@ export function flattenRecipe(id, recipeBook) {
       ].recipeHasMissingIngredientsInParentRecipe = true;
       recipeItem.recipeIsMissingIngredientsPresentInChildren = true;
     }
+  }
+
+  // Function to sort ingredients
+  function sortIngredients(ingredients) {
+    ingredients.sort((a, b) => {
+      const categoryOrderA = getCategoryOrder(a);
+      const categoryOrderB = getCategoryOrder(b);
+
+      if (categoryOrderA !== categoryOrderB) {
+        return categoryOrderA - categoryOrderB;
+      }
+
+      if (b.percentage !== a.percentage) {
+        return b.percentage - a.percentage; // Sort by descending percentage
+      }
+
+      // If percentages are equal, sort by name
+      const nameA = recipeBook.ingredients.get(a.id).name;
+      const nameB = recipeBook.ingredients.get(b.id).name;
+      return nameA.localeCompare(nameB);
+    });
+  }
+
+  // ... rest of the existing code ...
+
+  // Function to get category order
+  function getCategoryOrder(ingredientItem) {
+    if (ingredientItem.isFlour) return 1;
+    if (ingredientItem.isLiquid) return 2;
+    return 3; // Non-flour, non-liquid
+  }
+
+  // Function to sort included recipes
+  function sortIncludedRecipes(includedRecipes) {
+    includedRecipes.sort((a, b) => {
+      if (b.percentage !== a.percentage) {
+        return b.percentage - a.percentage; // Sort by descending percentage
+      }
+
+      const nameA = recipeBook.recipes.get(a.id).name;
+      const nameB = recipeBook.recipes.get(b.id).name;
+      return nameA.localeCompare(nameB);
+    });
   }
 }

@@ -2,7 +2,7 @@ import React from "react";
 import Symbol from "../../../../components/shared/Symbol";
 import { getSymbolType } from "../../../../helper/getSymbolType";
 import { numberFormat } from "../../../../helper/numberFormat";
-import { ACTIONS, VIEWMODE } from "../ViewRecipe";
+import { ACTIONS, VIEWMODE } from "../../../../constants/constants";
 import Indent from "../indent/Indent";
 import {
   ContainerStyled,

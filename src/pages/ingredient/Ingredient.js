@@ -107,7 +107,7 @@ const Ingredient = ({ isNew: propIsNew, toggleAddIngredientMode }) => {
 
     if (!isNew) {
       togglePopup(setEditPopup)();
-      navigate(`/ingredient/${id}`, {});
+      navigate(`/ingredient/view/${id}`, {});
       return;
     }
 

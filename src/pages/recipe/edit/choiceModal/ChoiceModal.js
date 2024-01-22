@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ACTIONS } from "../../../../constants/constants";
+import { ACTIONS } from "../ViewRecipe";
 import { BackgroundOverlayStyled, PopupStyled } from "./Styles";
 
 function ChoiceModal({ recipeId, sequenceNumber, stepsMode, dispatch }) {

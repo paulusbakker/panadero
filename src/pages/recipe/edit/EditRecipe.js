@@ -9,6 +9,8 @@ import FlattenedRecipeItemEditor from "./flattenedRecipeItemEditor/FlattenedReci
 import Navbar from "./navbar/Navbar";
 
 export const ACTIONS = {
+  RESET_STATE: "reset_state",
+  SHOW_CHOICE_MODAL: "show_choice_modal",
   DELETE_RECIPE: "delete_recipe",
   ADD_ITEM: "add_item",
 };
@@ -24,14 +26,31 @@ const reducer = (editRecipeState, action) => {
       return editRecipeState;
   }
 };
+
+function createInitialState(id, recipeBook) {
+  return {
+    flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
+    itemIdOrTotal: null,
+    stepsMode: false,
+    currentWeight: 0,
+    totalFlourWeight: 0,
+    totalLiquidWeight: 0,
+    viewMode: EDITMODE.EDIT_RECIPE,
+  };
+}
 function EditRecipe() {
   const navigate = useNavigate();
   const recipeBook = useRecoilValue(recipeBookAtom);
 
   const { id } = useParams();
   useEffect(() => {
-    if (!id) navigate("/recipes", { replace: true });
-  }, [id, navigate]);
+    if (!id) {
+      navigate("/recipes", { replace: true });
+    } else {
+      const newState = createInitialState(id, recipeBook);
+      dispatch({ type: ACTIONS.RESET_STATE, payload: newState });
+    }
+  }, [id, navigate, recipeBook]);
 
   const initialState = {
     flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,

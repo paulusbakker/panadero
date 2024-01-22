@@ -1,12 +1,7 @@
 import React, { useState } from "react";
 import Symbol from "../../../../components/shared/Symbol";
-import { ACTIONS } from "../ViewRecipe";
-import {BackgroundOverlayStyled, PopupStyled} from './Styles'
-
-const INPUT_IDS = {
-  BATCH: "batch",
-  UNIT: "unit",
-};
+import { ACTIONS, INPUT_IDS } from "../../../../constants/constants";
+import { BackgroundOverlayStyled, PopupStyled } from './Styles';
 
 function EnterAmount({ name, dispatch }) {
  

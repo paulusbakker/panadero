@@ -26,7 +26,7 @@ const EditPopup = ({
                 onChange={(e) => setSelectedCategory(e.target.value)}
             >
                 {sortedCategories.map(([id , value]) => (
-                    <option id ={id } value={id }>
+                    <option key={id } value={id }>
                         {value}
                     </option>
                 ))}

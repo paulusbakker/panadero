@@ -1,4 +1,4 @@
-import { ITEM_NAMES } from "../pages/recipe/view/ViewRecipe";
+import { TOTAL } from "../constants/constants";
 import { calculateTotalOverallLiquidPercentage } from "./calculateTotalOverallLiquidPercentage";
 
 export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMode) {
@@ -44,15 +44,15 @@ export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMo
   let totalIngredientPercentage = 0;
 
   switch (itemIdOrTotal) {
-    case ITEM_NAMES.TOTAL_FLOUR:
+    case TOTAL.FLOUR:
       totalFlourWeight = weight;
       totalLiquidWeight = weight * overallTotalLiquidPercentage;
       break;
-    case ITEM_NAMES.TOTAL_LIQUID:
+    case TOTAL.LIQUID:
       totalFlourWeight = weight / overallTotalLiquidPercentage;
       totalLiquidWeight = weight;
       break;
-    case ITEM_NAMES.TOTAL_RECIPE:
+    case TOTAL.RECIPE:
       totalIngredientPercentage = calculateTotalIngredientPercentage(0);
       totalFlourWeight = weight / totalIngredientPercentage;
       totalLiquidWeight = totalFlourWeight * overallTotalLiquidPercentage;
