@@ -1,6 +1,6 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import { ACTIONS } from "../../../../constants/constants";
+import React from "react";
+import { useNavigate } from "react-router-dom";
+import { ACTIONS } from "../../../../../constants/constants";
 import { BackgroundOverlayStyled, PopupStyled } from "./Styles";
 
 function ChoiceModal({ recipeId, sequenceNumber, stepsMode, dispatch }) {
@@ -25,14 +25,12 @@ function ChoiceModal({ recipeId, sequenceNumber, stepsMode, dispatch }) {
   };
 
   return (
-    <>
-      <BackgroundOverlayStyled onClick={handleClick}>
-        <PopupStyled data-action="popup">
-          <button onClick={handleNavigate}>Go to Recipe</button>
-          <button onClick={handleCalculate}>Calculate Amounts</button>
-        </PopupStyled>
-      </BackgroundOverlayStyled>
-    </>
+    <BackgroundOverlayStyled onClick={handleClick}>
+      <PopupStyled data-action="popup">
+        <button onClick={handleNavigate}>Go to Recipe</button>
+        <button onClick={handleCalculate}>Calculate Amounts</button>
+      </PopupStyled>
+    </BackgroundOverlayStyled>
   );
 }
 

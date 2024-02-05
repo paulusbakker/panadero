@@ -1,13 +1,15 @@
 const theme = {
   colors: {
-    navbarBackgroundColor: "#d62828",
-    navbarTextAndHamburgerMenuBackgroundColor: "#fcbf49",
-    navbarTabColor: "#f77f00",
+    navbarBackgroundColor: "#2A4E28",
+    navbarTextAndHamburgerMenuBackgroundColor: "#FCBF49",
+    navbarTabColor: "#F77F00",
     textColor: "black",
+    faultyItem: "#D62828",
+    isOrHasMissing: "#FCBF49",
     backgroundColor: "lightgray",
-    contentBackgroundColor: "#eae2b7",
+    contentBackgroundColor: "#EAE2B7",
     overlayBackgroundColor: "#f7f1f185",
-    popupBackground: "rgba(255, 255, 255, 0.25)",
+    popupBackground: "rgba(10,147,150, 0.25)",
   },
   boxShadow: {
     default: "10px 10px 34px -11px rgba(0, 0, 0, 0.75)",

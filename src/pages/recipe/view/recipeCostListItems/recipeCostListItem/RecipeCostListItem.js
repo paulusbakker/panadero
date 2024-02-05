@@ -1,10 +1,14 @@
-import React from "react";
-import Symbol from "../../../../components/shared/Symbol";
-import { getSymbolType } from "../../../../helper/getSymbolType";
-import {numberFormat} from '../../../../helper/numberFormat'
-import {LeftAlignedFlexContainer, ListItemStyled, RightSpacedFlexContainer, SpanStyled} from './Styles'
+import { getSymbolType } from "../../../../../helper/getSymbolType";
+import { numberFormat } from "../../../../../helper/numberFormat";
+import Symbol from "../../../../../shared_components/Symbol";
+import {
+  LeftAlignedFlexContainer,
+  ListItemStyled,
+  RightSpacedFlexContainer,
+  SpanStyled,
+} from "./Styles";
 
-function RecipeItemCost({ flattenedRecipeItem, totalRecipe }) {
+function RecipeCostListItem({ flattenedRecipeItem, totalRecipe }) {
   const { name, isFlour, isLiquid, pricePerKilo, price } = flattenedRecipeItem;
   const symbolType = getSymbolType({ isRecipe: false, isFlour, isLiquid });
 
@@ -24,4 +28,4 @@ function RecipeItemCost({ flattenedRecipeItem, totalRecipe }) {
   );
 }
 
-export default RecipeItemCost;
+export default RecipeCostListItem;

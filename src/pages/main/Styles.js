@@ -1,9 +1,8 @@
 import styled from "styled-components";
-// import { Link } from "react-router-dom";
 
-export const SpaceBelowNavbarStyled = styled.div`
-  height: calc(100vh - 78px);
-`;
+// export const SpaceBelowNavbarStyled = styled.div`
+//   height: calc(100vh - 78px);
+// `;
 
 export const TabContainerUlStyled = styled.ul`
   font-family: ${(props) => props.theme.fonts.secondary};

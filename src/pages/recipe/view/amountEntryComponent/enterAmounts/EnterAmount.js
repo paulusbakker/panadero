@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import Symbol from "../../../../components/shared/Symbol";
-import { ACTIONS, INPUT_IDS } from "../../../../constants/constants";
+import Symbol from "../../../../../shared_components/Symbol";
+import { ACTIONS, INPUT_IDS } from "../../../../../constants/constants";
 import { BackgroundOverlayStyled, PopupStyled } from './Styles';
 
 function EnterAmount({ name, dispatch }) {
@@ -14,7 +14,7 @@ function EnterAmount({ name, dispatch }) {
     if (!insidePopup) {
       dispatch({ type: ACTIONS.CANCEL });
     }
-  };
+  }; 
 
   const handleChange = (e) => {
     if (e.target.id === INPUT_IDS.BATCH) setWeight(e.target.value);

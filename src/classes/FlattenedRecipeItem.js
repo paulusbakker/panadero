@@ -1,16 +1,16 @@
 export class FlattenedRecipeItem {
   constructor(
-    sequenceNumber, // needed
-    id, // needed
-    isRecipe, // needed
-    name, // needed
-    depth, // needed
-    isFlour, // needed
-    isLiquid, // needed
-    percentage, // needed
-    pricePerKilo, // needed
-    ingredientIsMissingInParentRecipe, // needed
-    isFaultyRecipe, // needed
+    sequenceNumber, 
+    id, 
+    isRecipe, 
+    name, 
+    depth, 
+    isFlour, 
+    isLiquid, 
+    percentage, 
+    pricePerKilo, 
+    ingredientIsMissingInParentRecipe, 
+    isFaultyRecipe, 
   ) {
     this.sequenceNumber = sequenceNumber;
     this.id = id;
@@ -27,10 +27,11 @@ export class FlattenedRecipeItem {
     this.pricePerKilo = pricePerKilo;
     this.ingredientIsMissingInParentRecipe = ingredientIsMissingInParentRecipe;
     this.isDeepestFaultyRecipe = false;
-    this.recipeTotalFlourNot100 = false;
+    this.totalFlourNot100 = false;
     this.recipeIsMissingIngredientsPresentInChildren = false;
     this.isFaultyRecipe = isFaultyRecipe;
     this.recipeHasNegativeStepPercentage = false;
+    this.isFaultyIngredient= false
   }
   
 }

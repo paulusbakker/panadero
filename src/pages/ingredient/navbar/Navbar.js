@@ -1,12 +1,11 @@
 import React from "react";
-import Symbol from "../../../components/shared/Symbol";
+import Symbol from '../../../shared_components/Symbol';
 import {
   NavButtonContainerStyled,
   NavButtonStyled,
   NavLinkStyled,
   NavStyled,
 } from './Styles'
-
 
 function Navbar({ toggleEditIngredientWindow, toggleDeleteIngredientWindow }) {
 

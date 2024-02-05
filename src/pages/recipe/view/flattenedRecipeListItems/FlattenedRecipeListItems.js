@@ -1,9 +1,8 @@
-import React from "react";
-import Symbol from "../../../../components/shared/Symbol";
+import { ACTIONS, VIEWMODE } from "../../../../constants/constants";
 import { getSymbolType } from "../../../../helper/getSymbolType";
 import { numberFormat } from "../../../../helper/numberFormat";
-import { ACTIONS, VIEWMODE } from "../../../../constants/constants";
-import Indent from "../indent/Indent";
+import Indent from "../../../../shared_components/Indent";
+import Symbol from "../../../../shared_components/Symbol";
 import {
   ContainerStyled,
   LeftAlignedFlexContainer,
@@ -12,7 +11,7 @@ import {
   SpanStyled,
 } from "./Styles";
 
-function FlattenedRecipeItemViewer({
+function FlattenedRecipeListItems({
   flattenedRecipeItem,
   stepsMode,
   viewMode,
@@ -27,15 +26,20 @@ function FlattenedRecipeItemViewer({
     isLiquid,
     weight,
     percentage,
-    stepPercentage,
     stepWeight,
+    isFaultyRecipe,
+    isFaultyIngredient,
     ingredientIsMissingInParentRecipe,
-    recipeHasNegativeStepPercentage,
-    flourTotalNot100Percent,
+    recipeHasMissingIngredientsInParentRecipe,
   } = flattenedRecipeItem;
   const symbolType = getSymbolType({ isRecipe, isFlour, isLiquid });
   return (
     <ListItemStyled
+      $isFaulty={isFaultyRecipe || isFaultyIngredient}
+      $isOrHasMissingInParent={
+        ingredientIsMissingInParentRecipe ||
+        recipeHasMissingIngredientsInParentRecipe
+      }
       onClick={() => {
         if (isRecipe) {
           dispatch({
@@ -49,10 +53,6 @@ function FlattenedRecipeItemViewer({
           });
         }
       }}
-      $stepPercentage={stepPercentage}
-      $ingredientIsMissingInParentRecipe={ingredientIsMissingInParentRecipe}
-      $recipeHasNegativeStepPercentage={recipeHasNegativeStepPercentage}
-      $flourTotalNot100Percent={flourTotalNot100Percent}
     >
       <LeftAlignedFlexContainer>
         {isRecipe ? <Indent depth={depth - 1} /> : <Indent depth={depth} />}
@@ -86,4 +86,4 @@ function FlattenedRecipeItemViewer({
   );
 }
 
-export default FlattenedRecipeItemViewer;
+export default FlattenedRecipeListItems;

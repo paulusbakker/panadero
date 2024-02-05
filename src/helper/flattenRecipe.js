@@ -3,12 +3,13 @@ import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
 export function flattenRecipe(id, recipeBook) {
   const flattenedRecipe = [];
   let sequenceCounter = 0;
+  let isValidOverallRecipe = true;
 
   buildFlattenedRecipe(id);
   console.log(recipeBook);
   console.log(flattenedRecipe);
 
-  return flattenedRecipe;
+  return { flattenedRecipe, isValidOverallRecipe };
 
   function buildFlattenedRecipe(id, currentDepth = 0, recipePercentage = 1) {
     const { name, ingredients, includedRecipes } = recipeBook.recipes.get(id);
@@ -63,8 +64,8 @@ export function flattenRecipe(id, recipeBook) {
 
     if (hasFlour && flourWeightTotal !== 1) {
       recipeItem.isFaultyRecipe = true;
-      recipeItem.recipeTotalFlourNot100 = true;
-      markFlourItemsAsFaulty(currentDepth);
+      recipeItem.totalFlourNot100 = true;
+      markFlourItemsAsFaulty(sequenceCounter);
     }
 
     const directChildRecipeSeqNumbers = [];
@@ -125,6 +126,7 @@ export function flattenRecipe(id, recipeBook) {
     });
 
     if (recipeItem.isFaultyRecipe) {
+      isValidOverallRecipe = false;
       if (
         !deepestFaultyRecipeInfo.found ||
         currentDepth > deepestFaultyRecipeInfo.depth
@@ -141,12 +143,14 @@ export function flattenRecipe(id, recipeBook) {
   }
 
   function markFlourItemsAsFaulty(currentIndex) {
-    for (let i = currentIndex; i >= 0; i--) {
+    console.log(currentIndex);
+    for (let i = currentIndex-1; i >= 0; i--) {
       if (flattenedRecipe[i].isRecipe) {
         break;
       }
       if (flattenedRecipe[i].isFlour) {
-        flattenedRecipe[i].flourTotalNot100Percent = true;
+        flattenedRecipe[i].totalFlourNot100 = true;
+        flattenedRecipe[i].isFaultyIngredient= true;
       }
     }
   }
@@ -179,8 +183,10 @@ export function flattenRecipe(id, recipeBook) {
         flattenedRecipe[childIngredientSeqNum].percentage *
         flattenedRecipe[childRecipeSeqNum].percentage;
       if (flattenedRecipe[parentIngredientSeqNum].stepPercentage < 0) {
+        flattenedRecipe[parentIngredientSeqNum].isFaultyIngredient=true
         recipeItem.recipeHasNegativeStepPercentage = true;
         recipeItem.isFaultyRecipe = true;
+      
       }
     } else {
       recipeItem.isFaultyRecipe = true;

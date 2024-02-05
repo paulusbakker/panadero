@@ -1,5 +1,5 @@
 import React from "react";
-import Symbol from "../../../components/shared/Symbol";
+import Symbol from "../../../shared_components/Symbol";
 import EditCategoryButton from "../editCategoryButton/EditCategoryButton";
 import EditCategory from "../editCategory/EditCategory";
 import { ItemHeaderStyled, ItemsCountStyled, LinkStyled } from "./Styles";

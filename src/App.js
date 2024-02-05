@@ -10,8 +10,8 @@ import Navbar from "./pages/main/navbar/Navbar";
 import NoPage from "./pages/noPage/NoPage";
 import EditRecipe from "./pages/recipe/edit/EditRecipe";
 import ViewRecipe from "./pages/recipe/view/ViewRecipe";
-import { GlobalStyle } from "./styles/GlobalStyle";
-import theme from "./styles/Theme";
+import { GlobalStyle } from "./global_style & theme/GlobalStyle";
+import theme from "./global_style & theme/Theme";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes

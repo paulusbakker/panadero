@@ -4,29 +4,24 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useRecoilValue } from "recoil";
 import { flattenRecipe } from "../../../helper/flattenRecipe";
 import { recipeBookAtom } from "./../../../atom/recipeBookAtom";
+import { ACTIONS, VIEWMODE } from "../../../constants/constants";
 import { UnorderedListStyled } from "./Styles";
 import FlattenedRecipeItemEditor from "./flattenedRecipeItemEditor/FlattenedRecipeItemEditor";
 import Navbar from "./navbar/Navbar";
-
-export const ACTIONS = {
-  RESET_STATE: "reset_state",
-  SHOW_CHOICE_MODAL: "show_choice_modal",
-  DELETE_RECIPE: "delete_recipe",
-  ADD_ITEM: "add_item",
-};
-export const EDITMODE = {
-  EDIT_RECIPE: "edit_recipe",
-};
 
 const reducer = (editRecipeState, action) => {
   switch (action.type) {
     case ACTIONS.HANDLE_SUBMIT:
       break;
+      case ACTIONS.CANCEL:
+      return { ...editRecipeState, viewMode: VIEWMODE.VIEW_RECIPE };
+    case ACTIONS.RESET_STATE:
+      return action.payload;
     default:
       return editRecipeState;
   }
 };
-
+ 
 function createInitialState(id, recipeBook) {
   return {
     flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
@@ -35,7 +30,7 @@ function createInitialState(id, recipeBook) {
     currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
-    viewMode: EDITMODE.EDIT_RECIPE,
+    viewMode: VIEWMODE.EDIT_RECIPE,
   };
 }
 function EditRecipe() {
@@ -52,12 +47,8 @@ function EditRecipe() {
     }
   }, [id, navigate, recipeBook]);
 
-  const initialState = {
-    flattenedRecipe: id ? flattenRecipe(id, recipeBook) : null,
-    itemId: null,
-    viewMode: EDITMODE.EDIT_RECIPE,
-  };
-  const [editRecipeState, dispatch] = useReducer(reducer, initialState);
+  const initialState = createInitialState(id, recipeBook);
+  const [flattenedRecipeState, dispatch] = useReducer(reducer, initialState);
 
   const flattenedRecipe = id ? flattenRecipe(id, recipeBook) : null;
 
@@ -76,7 +67,7 @@ function EditRecipe() {
         key={`${flattenedRecipeItem.sequenceNumber}`}
         flattenedRecipeItem={flattenedRecipeItem}
         stepsMode={false}
-        editMode={editRecipeState.editModeMode}
+        viewMode={flattenedRecipeState.viewMode}
         dispatch={dispatch}
       />
     ))}

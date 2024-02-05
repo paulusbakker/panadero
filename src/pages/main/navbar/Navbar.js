@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Symbol from "../../../components/shared/Symbol";
+import Symbol from "../../../shared_components/Symbol";
 import { useRecoilState } from 'recoil';
 import {skipActionIfNavbarHamburgerMenuIsOpenAtom } from '../../../atom/skipActionIfNavbarHamburgerMenuIsOpenAtom'
 import {

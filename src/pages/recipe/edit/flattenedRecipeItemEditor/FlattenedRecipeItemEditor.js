@@ -1,9 +1,9 @@
 import React from "react";
-import Symbol from "../../../../components/shared/Symbol";
+import Symbol from "../../../../shared_components/Symbol";
 import { getSymbolType } from "../../../../helper/getSymbolType";
 import { numberFormat } from "../../../../helper/numberFormat";
 import { ACTIONS, VIEWMODE } from "../../../../constants/constants";
-import Indent from "../indent/Indent";
+import Indent from "../../../../shared_components/Indent";
 import {
     ContainerStyled,
     LeftAlignedFlexContainer,
@@ -15,7 +15,7 @@ import {
 function FlattenedRecipeItemEditor({
   flattenedRecipeItem,
   stepsMode,
-  editMode,
+  viewMode,
   dispatch,
 }) {
   const {
@@ -51,7 +51,7 @@ function FlattenedRecipeItemEditor({
       <RightSpacedFlexContainer>
         <Symbol type={symbolType} />
         <ContainerStyled>
-          {editMode === VIEWMODE.VIEW_AMOUNTS ? (
+          {viewMode === VIEWMODE.VIEW_AMOUNTS ? (
             <SpanStyled>{`${numberFormat(
               !stepsMode ? weight : stepWeight
             )}g`}</SpanStyled>

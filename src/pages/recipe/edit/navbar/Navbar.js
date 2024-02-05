@@ -1,6 +1,6 @@
 import React from "react";
-import Symbol from "../../../../components/shared/Symbol";
-import { ACTIONS } from "../EditRecipe";
+import Symbol from "../../../../shared_components/Symbol";
+import { ACTIONS } from "../../../../constants/constants";
 
 import {
   NavButtonContainerStyled,

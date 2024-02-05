@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Symbol from "../../../../components/shared/Symbol";
+import Symbol from '../../../../shared_components/Symbol';
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -8,7 +8,7 @@ import {
   MainNavLinkStyled,
   MainNavStyled,
   UnderlayWindow,
-} from "./Styles";
+} from './Styles';
 
 function Navbar({ id }) {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
@@ -29,10 +29,7 @@ function Navbar({ id }) {
         <ButtonContainerStyled>
           {!hamburgerMenuOpen && (
             <div>
-              <Link
-                to={`/recipe/edit/${id }`}
-                state={{ id }}
-              >
+              <Link to={`/recipe/edit/${id}`} state={{ id }}>
                 <Symbol type={"pencil"} />
               </Link>
             </div>

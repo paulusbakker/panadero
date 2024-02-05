@@ -581,7 +581,7 @@ export function makeRecipeBook() {
   recipeIngredients.push(new RecipeIngredient(false, false, "109", 0.03));
   // Egg
   recipeIngredients.push(new RecipeIngredient(false, false, "134", 0.14));
-  // Sucade
+  // Sukade
   recipeIngredients.push(new RecipeIngredient(false, false, "198", 0.14));
   // Baking powder
   recipeIngredients.push(new RecipeIngredient(false, false, "104", 0.01));
