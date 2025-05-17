@@ -1,5 +1,5 @@
 import React from "react";
-import SymbolStyles from '../../shared/components/SymbolStyles';
+import SymbolStyles from '../../../shared/components/SymbolStyles';
 import {
   NavButtonContainerStyled,
   NavButtonStyled,

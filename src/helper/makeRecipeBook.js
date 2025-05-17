@@ -259,39 +259,15 @@ export function makeRecipeBook() {
   ingredients.set("178", new Ingredient("Tapioca Starch", "1", 3.33, 0));
   ingredients.set("179", new Ingredient("Teff Flour", "1", 3.76, 0));
   ingredients.set("180", new Ingredient("Vital Wheat Gluten", "1", 3.7, 0));
-  ingredients.set(
-    "181",
-    new Ingredient("Tarwemeel De Vriendschap", "1", 3.7, 0.816)
-  );
-  ingredients.set(
-    "182",
-    new Ingredient("Roggemeel De Vriendschap", "1", 3.7, 0.816)
-  );
-  ingredients.set(
-    "183",
-    new Ingredient("Boekweitmeel De Vriendschap", "1", 3.7, 1.92)
-  );
+  ingredients.set("181", new Ingredient("Tarwemeel De Vriendschap", "1", 3.7, 0.816));
+  ingredients.set("182", new Ingredient("Roggemeel De Vriendschap", "1", 3.7, 0.816));
+  ingredients.set("183", new Ingredient("Boekweitmeel De Vriendschap", "1", 3.7, 1.92));
   ingredients.set("184", new Ingredient("Zonnebloemolie Dirk", "8", 3.7, 2.79));
-  ingredients.set(
-    "185",
-    new Ingredient("Bakkerszout De Vriendschap", "6", 3.7, 0.96)
-  );
-  ingredients.set(
-    "186",
-    new Ingredient("Harina integral de centeno Jumbo", "1", 3.7, 1899)
-  );
-  ingredients.set(
-    "187",
-    new Ingredient("Harina integral de trigo  Jumbo", "1", 3.7, 2299)
-  );
-  ingredients.set(
-    "188",
-    new Ingredient("Aceite Vegetal Lider", "8", 3.7, 2290)
-  );
-  ingredients.set(
-    "189",
-    new Ingredient("Sal Fina Seleccionada Lider", "6", 3.7, 350)
-  );
+  ingredients.set("185", new Ingredient("Bakkerszout De Vriendschap", "6", 3.7, 0.96));
+  ingredients.set("186", new Ingredient("Harina integral de centeno Jumbo", "1", 3.7, 1899));
+  ingredients.set("187", new Ingredient("Harina integral de trigo  Jumbo", "1", 3.7, 2299));
+  ingredients.set("188", new Ingredient("Aceite Vegetal Lider", "8", 3.7, 2290));
+  ingredients.set("189", new Ingredient("Sal Fina Seleccionada Lider", "6", 3.7, 350));
   ingredients.set("190", new Ingredient("Agua", "4", 0, 0));
   ingredients.set("191", new Ingredient("Rye Meal (Course)", "1", 3.84, 0));
   ingredients.set("192", new Ingredient("Red Rye Malt", "1", 3.84, 0));
@@ -302,6 +278,13 @@ export function makeRecipeBook() {
   ingredients.set("197", new Ingredient("Koekkruiden", "15", 0, 0));
   ingredients.set("198", new Ingredient("Sucade", "13", 0, 0));
   ingredients.set("199", new Ingredient("Zilvervliesrijst", "11", 0, 0));
+  ingredients.set("200", new Ingredient("Tarwebloem De Vriendschap", "1", 0, 0));
+  ingredients.set("201", new Ingredient("Maïsbloem De Vriendschap", "1", 0, 0));
+  ingredients.set("202", new Ingredient("Speltmeel De Vriendschap", "1", 0, 0));
+  ingredients.set("203", new Ingredient("Anise (Ground)", "15", 2.6, 0));
+  ingredients.set("204", new Ingredient("Anise Seed)", "15", 2.6, 0));
+
+
 
   let recipeIngredients = [];
   let IncludedRecipes = [];
@@ -312,15 +295,7 @@ export function makeRecipeBook() {
     new Recipe("Rye Sour Culture", "3", recipeIngredients, IncludedRecipes)
   );
 
-  recipeIngredients = [];
-  IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "154", .9));
-  recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
-  recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0025));
-  recipes.set(
-    "2",
-    new Recipe("100% Poolish", "3", recipeIngredients, IncludedRecipes)
-  );
+
 
   recipeIngredients = [];
   IncludedRecipes = [];
@@ -361,27 +336,10 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
-  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.6667));
-  recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.0117));
-  recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0183));
-  IncludedRecipes.push(new IncludedRecipe("2", 0.3333));
-  recipes.set(
-    "6",
-    new Recipe(
-      "Yeastbread with Poolish",
-      "1",
-      recipeIngredients,
-      IncludedRecipes
-    )
-  );
-
-  recipeIngredients = [];
-  IncludedRecipes = [];
   recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.5));
   recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.3));
   recipeIngredients.push(new RecipeIngredient(true, false, "183", 0.2));
-  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.7));
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.62));
   recipeIngredients.push(new RecipeIngredient(false, true, "184", 0.04));
   recipeIngredients.push(new RecipeIngredient(false, false, "185", 0.016));
   IncludedRecipes.push(new IncludedRecipe("8", 0.2));
@@ -490,7 +448,7 @@ export function makeRecipeBook() {
 
   recipeIngredients = [];
   IncludedRecipes = [];
-  recipeIngredients.push(new RecipeIngredient(true, false, "191", .9));
+  recipeIngredients.push(new RecipeIngredient(true, false, "191", 1.0));
   recipeIngredients.push(new RecipeIngredient(false, false, "192", 0.3));
   recipeIngredients.push(new RecipeIngredient(false, true, "193", 2.61));
   recipeIngredients.push(new RecipeIngredient(false, false, "194", 0.03));
@@ -613,7 +571,7 @@ export function makeRecipeBook() {
   //  Sea Salt
   recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
   // Voordeeg
-  IncludedRecipes.push(new IncludedRecipe("13", 0.375));
+  IncludedRecipes.push(new IncludedRecipe("23", 0.375));
   recipes.set(
     "22",
     new Recipe("Rijstebrood Anneé", "2", recipeIngredients, IncludedRecipes)
@@ -630,8 +588,164 @@ export function makeRecipeBook() {
   // Voordeeg
   IncludedRecipes.push(new IncludedRecipe("9", 0.0833));
   recipes.set(
-    "13",
+    "23",
     new Recipe("Voordeeg Rijstebrood", "3", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  // Tarwebloem de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "200", 0.9167));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.0833));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
+  // Voordeeg
+  IncludedRecipes.push(new IncludedRecipe("9", 0.0833));
+  recipes.set(
+    "24",
+    new Recipe("Voordeeg Maïsbrood", "3", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  // Tarwebloem de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "200", 0.66));
+  // Maïsbloem de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "201", 0.3087));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.0313));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.65));
+  // ongezouten boter
+  recipeIngredients.push(new RecipeIngredient(false, false, "8", 0.033));
+  //  Sea Salt
+  recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
+  //  Honing
+  recipeIngredients.push(new RecipeIngredient(false, false, "93", 0.02));
+
+  // Voordeeg
+  IncludedRecipes.push(new IncludedRecipe("24", 0.375));
+  recipes.set(
+    "25",
+    new Recipe("Maïsbrood", "2", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  // Speltmeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "202", 0.92));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.08));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
+  // Voordeeg
+  IncludedRecipes.push(new IncludedRecipe("9", 0.08));
+  recipes.set(
+    "26",
+    new Recipe("Voordeeg Graham spelt", "3", recipeIngredients, IncludedRecipes)
+  );
+  
+  recipeIngredients = [];
+  IncludedRecipes = [];
+   // Speltmeel de Vriendschap
+   recipeIngredients.push(new RecipeIngredient(true, false, "202", 0.97));
+  // // Tarwemeel de Vriendschap
+  // recipeIngredients.push(new RecipeIngredient(true, false, "181", 0.9687));
+  // Roggemeel de Vriendschap
+  recipeIngredients.push(new RecipeIngredient(true, false, "182", 0.03));
+  // Water
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.65));
+  // Zonnebloemolie
+  recipeIngredients.push(new RecipeIngredient(false, true, "184", 0.05));
+  // Molasse Dark
+  recipeIngredients.push(new RecipeIngredient(false, false, "195", 0.025));
+  //  Sea Salt
+  recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.016));
+  // Voordeeg
+  IncludedRecipes.push(new IncludedRecipe("26", 0.375));
+  recipes.set(
+    "27",
+    new Recipe("Graham spelt", "2", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 1));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0025));
+  recipes.set(
+      "2",
+      new Recipe("100% Poolish", "3", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.15));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.0117));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0183));
+  IncludedRecipes.push(new IncludedRecipe("2", 0.20));
+  recipes.set(
+      "6",
+      new Recipe(
+          "Yeastbread with Poolish",
+          "1",
+          recipeIngredients,
+          IncludedRecipes
+      )
+  );
+
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, "154", 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, "109", 0.01));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "102", 0.0117));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0183));
+  IncludedRecipes.push(new IncludedRecipe("6", 0.50));
+  recipes.set(
+      "28",
+      new Recipe(
+          "Yeastbread with Poolish double",
+          "1",
+          recipeIngredients,
+          IncludedRecipes
+      )
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, "200", 1));
+  recipeIngredients.push(new RecipeIngredient(false, true, "141", 1));
+  // recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.0025));
+  recipes.set(
+      "29",
+      new Recipe("100% Milk Poolish", "3", recipeIngredients, IncludedRecipes)
+  );
+
+  recipeIngredients = [];
+  IncludedRecipes = [];
+  recipeIngredients.push(new RecipeIngredient(true, false, "200", .60));
+  recipeIngredients.push(new RecipeIngredient(true, false, "181", .40));
+  recipeIngredients.push(new RecipeIngredient(false, false, "150", 0.014));
+  recipeIngredients.push(new RecipeIngredient(false, false, "73", 0.01));
+  recipeIngredients.push(new RecipeIngredient(false, false, "203", 0.01));
+  recipeIngredients.push(new RecipeIngredient(false, false, "204", 0.01));
+  recipeIngredients.push(new RecipeIngredient(false, false, "8", 0.1));
+  recipeIngredients.push(new RecipeIngredient(false, false, "86", 0.1));
+  recipeIngredients.push(new RecipeIngredient(false, false, "134", 0.1));
+  recipeIngredients.push(new RecipeIngredient(false, true, "141", 0.6));
+  recipeIngredients.push(new RecipeIngredient(false, false, "99", 0.015));
+  IncludedRecipes.push(new IncludedRecipe("29", 0.2));
+  recipes.set(
+      "30",
+      new Recipe(
+          "Krollen",
+          "1",
+          recipeIngredients,
+          IncludedRecipes
+      )
   );
 
   return new RecipeBook(

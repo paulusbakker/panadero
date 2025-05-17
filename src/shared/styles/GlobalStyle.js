@@ -1,7 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import theme from './Theme'
-import FredokaOneWoff from '../fonts/FredokaOneWoff'
-import FredokaOneWoff2 from '../fonts/FredokaOneWoff2'
+import FredokaOneWoff from '../../fonts/FredokaOneWoff'
+import FredokaOneWoff2 from '../../fonts/FredokaOneWoff2'
 export const GlobalStyle = createGlobalStyle`
 
   @font-face {

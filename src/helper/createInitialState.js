@@ -1,4 +1,4 @@
-import { VIEWMODE } from "../constants/constants";
+import { RECIPE_VIEW } from "../shared/constants/constants";
 import { flattenRecipe } from "./flattenRecipe";
 
 export function createInitialState(id, recipeBook) {
@@ -12,14 +12,15 @@ export function createInitialState(id, recipeBook) {
   }
 
   return {
-    flattenedRecipe: flattenedRecipeResult,
+    flattenedRecipe: flattenedRecipeResult || [],
     isValidOverallRecipe: isValidOverallRecipe,
-    itemIdOrTotal: null,
+    index: null,
     stepsMode: false,
     currentWeight: 0,
     totalFlourWeight: 0,
     totalLiquidWeight: 0,
-    viewMode: VIEWMODE.VIEW_RECIPE,
-    isFirstLoad: true,
+    isFirstView: true,
+    showPopup: !isValidOverallRecipe, // Show popup if the overall recipe is not valid
+    recipe_view: RECIPE_VIEW.DEFAULT,
   };
 }

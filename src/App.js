@@ -2,16 +2,16 @@ import React, { useEffect } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { useRecoilState } from "recoil";
 import { ThemeProvider } from "styled-components";
-import { recipeBookAtom } from "../state/recipeBookAtom";
-import { makeRecipeBook } from "../helper/makeRecipeBook";
-import Ingredient from "../features/ingredient/components/Ingredient";
-import Main from "../features/main/components/Main";
-import Navbar from "../features/main/components/Navbar";
-import NoPage from "../features/noPage/NoPage";
-import EditRecipe from "../features/recipe/EditRecipe";
-import ViewRecipe from "../features/recipe/ViewRecipe";
-import { GlobalStyle } from "../shared/styles/GlobalStyle";
-import theme from "../shared/styles/Theme";
+import { recipeBookAtom } from "./state/recipeBookAtom";
+import { makeRecipeBook } from "./helper/makeRecipeBook";
+import Ingredient from "./features/ingredient/components/Ingredient";
+import Main from "./features/main/components/Main";
+import Navbar from "./features/main/components/Navbar";
+import NoPage from "./features/noPage/NoPage";
+import EditRecipe from "./features/recipe/EditRecipe";
+import ViewRecipe from "./features/recipe/ViewRecipe";
+import { GlobalStyle } from "./shared/styles/GlobalStyle";
+import theme from "./shared/styles/Theme";
 
 const router = createBrowserRouter([
   // Homepage #1, active tab=recipes: /recipes

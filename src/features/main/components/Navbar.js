@@ -1,8 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import SymbolStyles from "../../shared/components/SymbolStyles";
+import SymbolStyles from "../../../shared/components/SymbolStyles";
 import { useRecoilState } from 'recoil';
-import {skipActionIfNavbarHamburgerMenuIsOpenAtom } from '../../state/skipActionIfNavbarHamburgerMenuIsOpenAtom'
+import {skipActionIfNavbarHamburgerMenuIsOpenAtom } from '../../../state/skipActionIfNavbarHamburgerMenuIsOpenAtom'
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -12,7 +12,7 @@ import {
   TabsStyled,
   TabStyled,
 } from "./NavbarStyles";
-import Ingredient from '../ingredient/Ingredient'
+import Ingredient from '../../ingredient/components/Ingredient'
 
 function Navbar() {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);

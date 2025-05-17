@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import Symbol from '../../../shared_components/Symbol';
+import SymbolStyles from '../../../shared/components/SymbolStyles';
 import {
   ButtonContainerStyled,
   HamburgerMenuItemStyled,
@@ -10,7 +10,7 @@ import {
   UnderlayWindow,
 } from './ViewNavbarStyles';
 
-function Navbar({ id }) {
+function ViewNavbar({ id }) {
   const [hamburgerMenuOpen, toggleHamburgerMenuOpen] = useState(false);
 
   const closeHamburgerMenu = () => {
@@ -30,14 +30,14 @@ function Navbar({ id }) {
           {!hamburgerMenuOpen && (
             <div>
               <Link to={`/recipe/edit/${id}`} state={{ id }}>
-                <Symbol type={"pencil"} />
+                <SymbolStyles type={"pencil"} />
               </Link>
             </div>
           )}
           <ButtonContainerStyled
             onClick={() => toggleHamburgerMenuOpen(!hamburgerMenuOpen)}
           >
-            <Symbol type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
+            <SymbolStyles type={hamburgerMenuOpen ? "closeMenu" : "openMenu"} />
           </ButtonContainerStyled>
         </ButtonContainerStyled>
         {hamburgerMenuOpen && (
@@ -55,4 +55,4 @@ function Navbar({ id }) {
   );
 }
 
-export default Navbar;
+export default ViewNavbar;

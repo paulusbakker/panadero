@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRecoilState, useRecoilValue } from "recoil";
-import { recipeBookAtom } from "../../state/recipeBookAtom";
-import { skipActionIfNavbarHamburgerMenuIsOpenAtom } from "../../state/skipActionIfNavbarHamburgerMenuIsOpenAtom";
+import { recipeBookAtom } from "../../../state/recipeBookAtom";
+import { skipActionIfNavbarHamburgerMenuIsOpenAtom } from "../../../state/skipActionIfNavbarHamburgerMenuIsOpenAtom";
 import { useLocation } from "react-router-dom";
-import { getItemsByCategory } from "../../helper/getItemsByCategory";
+import { getItemsByCategory } from "../../../helper/getItemsByCategory";
 import AccordionItem from "./AccordionItem";
 import { TabContainerUlStyled } from "./MainStyles";
 

@@ -1,16 +1,16 @@
 import React from "react";
-import Symbol from "../../../../shared_components/Symbol";
-import { getSymbolType } from "../../../../helper/getSymbolType";
-import { numberFormat } from "../../../../helper/numberFormat";
-import { ACTIONS, RECIPE_VIEW } from "../../../../constants/constants";
-import Indent from "../../../../shared_components/Indent";
+import SymbolStyles from "../../../shared/components/SymbolStyles";
+import { getSymbolType } from "../../../helper/getSymbolType";
+import { numberFormat } from "../../../helper/numberFormat";
+import { ACTIONS, RECIPE_VIEW } from "../../../shared/constants/constants";
+import Indent from "../../../shared/components/Indent";
 import {
     ContainerStyled,
     LeftAlignedFlexContainer,
     ListItemStyled,
     RightSpacedFlexContainer,
     SpanStyled,
-} from "./Styles";
+} from "./FlattenedRecipeItemEditorStyles";
 
 function FlattenedRecipeItemEditor({
   flattenedRecipeItem,
@@ -49,7 +49,7 @@ function FlattenedRecipeItemEditor({
         {name}
       </LeftAlignedFlexContainer>
       <RightSpacedFlexContainer>
-        <Symbol type={symbolType} />
+        <SymbolStyles type={symbolType} />
         <ContainerStyled>
           {recipe_view === RECIPE_VIEW.PROCESSED ? (
             <SpanStyled>{`${numberFormat(
@@ -62,7 +62,7 @@ function FlattenedRecipeItemEditor({
               ) : (
                 <SpanStyled />
               )}
-              <Symbol type={"calculator"} />
+              <SymbolStyles type={"calculator"} />
             </>
           )}
         </ContainerStyled>

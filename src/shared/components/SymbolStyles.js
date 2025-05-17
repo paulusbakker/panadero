@@ -1,19 +1,33 @@
+import styled from "styled-components";
 import { BiDotsVertical } from "react-icons/bi";
 import {
   BsBook,
   BsCurrencyExchange,
   BsDroplet,
   BsPlusLg,
+  BsFillPencilFill,
 } from "react-icons/bs";
-import { FaBalanceScale } from "react-icons/fa";
+import { FaBalanceScale, FaInfo } from "react-icons/fa";
 import { GiBread, GiGrainBundle } from "react-icons/gi";
+import { ImCalculator } from "react-icons/im";
 import { MdClose, MdDelete } from "react-icons/md";
 import { IoChevronForwardCircleOutline } from "react-icons/io5";
-import { CalculatorStyled, PencilStyled, SymbolWrapperStyled } from "./Styles";
-import { FaInfo } from "react-icons/fa";
+
+export const SymbolWrapperStyled = styled.span`
+  align-items: center;
+  display: flex;
+`;
+
+export const PencilStyled = styled(BsFillPencilFill)`
+  transform: scale(0.75);
+`;
+
+export const CalculatorStyled = styled(ImCalculator)`
+  margin-left: 10px;
+`;
 
 
-function Symbol({ type, ...props }) {
+function SymbolStyles({ type, ...props }) {
   // symbolClass needed to avoid sending the same isFaultyOverallRecipe prop to all flattenedRecipeItem items..
   return (
     <SymbolWrapperStyled data-action="symbol" {...props}>
@@ -38,4 +52,4 @@ function Symbol({ type, ...props }) {
   );
 }
 
-export default Symbol;
+export default SymbolStyles;

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a30f1b6c-6a44-4e76-aadd-5bf749ac0953" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/classes/Issue.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/features/recipe/ViewRecipe.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/constants/constants.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/panadero.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/panadero.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/atom/recipeBookAtom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/recipeBookAtom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/atom/skipActionIfNavbarHamburgerMenuIsOpenAtom.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/state/skipActionIfNavbarHamburgerMenuIsOpenAtom.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/classes/FlattenedRecipeItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/classes/FlattenedRecipeItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/constants/constants.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global_style &amp; theme/GlobalStyle.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/styles/GlobalStyle.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/global_style &amp; theme/Theme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/styles/Theme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/calculateAmounts.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/calculateAmounts.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/createInitialState.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/createInitialState.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/flattenRecipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/flattenRecipe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/helper/makeRecipeBook.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/helper/makeRecipeBook.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/Ingredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/Ingredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/IngredientStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/deletePopup/DeletePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/DeletePopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/deletePopup/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/DeletePopupStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/editPopup/EditPopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/EditPopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/editPopup/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/EditPopupStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/IngredientNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ingredient/navbar/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/ingredient/components/IngredientNavbarStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/Main.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/Main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/MainStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/accordionItem/AccordionItem.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AccordionItem.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/accordionItem/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AccordionItemStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addIngredient/AddIngredient.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddIngredient.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addIngredient/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddIngredientStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addIngredientCategory/AddIngredientCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddIngredientCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addIngredientCategory/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddIngredientCategoryStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addRecipeCategory/AddRecipeCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddRecipeCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/addRecipeCategory/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/AddRecipeCategoryStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/editCategory/EditCategory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/EditCategory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/editCategory/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/EditCategoryStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/editCategoryButton/EditCategoryButton.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/editCategoryButton/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/Navbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/main/navbar/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/main/components/NavbarStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/noPage/NoPage.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/noPage/NoPage.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/EditRecipe.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/EditRecipe.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/EditRecipeStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/choiceModal/ChoiceModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/choiceModal/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/flattenedRecipeItemEditor/FlattenedRecipeItemEditor.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/FlattenedRecipeItemEditor.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/flattenedRecipeItemEditor/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/FlattenedRecipeItemEditorStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/EditNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/edit/navbar/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/EditNavbarStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/ViewRecipe.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/amountEntryComponent/AmountEntryComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/amountEntryComponent/enterAmounts/EnterAmount.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/amountEntryComponent/enterAmounts/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/choiceModalHandler/ChoiceModalHandler.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/choiceModalHandler/choiceModal/ChoiceModal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/choiceModalHandler/choiceModal/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/errorHandlingComponent/ErrorHandlingComponent.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/errorHandlingComponent/errorPopup/ErrorPopup.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/errorHandlingComponent/errorPopup/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/flattenedRecipeListItems/FlattenedRecipeListItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/flattenedRecipeListItems/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/ingredientsMinusPredoughsListItems/IngredientsMinusPredoughsListItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/ingredientsMinusPredoughsListItems/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/navbar/Navbar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/ViewNavbar.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/navbar/Styles.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/recipe/components/ViewNavbarStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeCostListItems/RecipeCostListItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeCostListItems/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeCostListItems/recipeCostListItem/RecipeCostListItem.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeCostListItems/recipeCostListItem/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeTotalsListItems/RecipeTotalsListItems.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeTotalsListItems/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeTotalsListItems/recipeTotalListItem/RecipeItemTotal.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/recipe/view/recipeTotalsListItems/recipeTotalListItem/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared_components/Indent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/Indent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared_components/Styles.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared_components/Symbol.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/components/SymbolStyles.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/styles/styles.css" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;paulusbakker&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/paulusbakker/panadero.git&quot;,
+    &quot;accountId&quot;: &quot;3dcefb06-9c3c-40e3-b583-9753359a8ec0&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 8
+}</component>
+  <component name="ProjectId" id="2hBPYvZuNgqtmxPhKUI00pCU9Zx" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;JavaScript Debug.React Brave Debug.executor&quot;: &quot;Debug&quot;,
+    &quot;JavaScript Debug.localhost:3000.executor&quot;: &quot;Run&quot;,
+    &quot;Node.js.ViewRecipe.js.executor&quot;: &quot;Debug&quot;,
+    &quot;Node.js.flattenRecipe.js.executor&quot;: &quot;Debug&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.codeium.enabled&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Paul Bakker/Documents/Coding projecten/panadero&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Program Files\\JetBrains\\WebStorm 2024.1.3\\plugins\\javascript-plugin\\jsLanguageServicesImpl\\external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  }
+}</component>
+  <component name="ReactDesignerToolWindowState">
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.intellij.reactbuddy.reactComponents" value="false" />
+        <entry key="com.intellij.reactbuddy.reactInspector" value="false" />
+        <entry key="com.intellij.reactbuddy.storybook" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Paul Bakker\Documents\Coding projecten\panadero\src" />
+      <recent name="C:\Users\Paul Bakker\Documents\Coding projecten\panadero\src\features\main\components" />
+      <recent name="C:\Users\Paul Bakker\Documents\Coding projecten\panadero\src\features\ingredient\components" />
+      <recent name="C:\Users\Paul Bakker\Documents\Coding projecten\panadero\src\shared\constants" />
+      <recent name="C:\Users\Paul Bakker\Documents\Coding projecten\panadero\src\shared\components" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="localhost:3000" type="JavascriptDebugType" temporary="true" nameIsGenerated="true" uri="http://localhost:3000">
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JavaScript Debug.localhost:3000" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-f27c65a3e318-JavaScript-WS-251.23774.424" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a30f1b6c-6a44-4e76-aadd-5bf749ac0953" name="Changes" comment="" />
+      <created>1717064549284</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1717064549284</updated>
+      <workItem from="1717064550237" duration="142000" />
+      <workItem from="1717064704466" duration="715000" />
+      <workItem from="1717065434587" duration="728000" />
+      <workItem from="1717073376052" duration="3308000" />
+      <workItem from="1717080602325" duration="349000" />
+      <workItem from="1717080971316" duration="37000" />
+      <workItem from="1717081019990" duration="63000" />
+      <workItem from="1717081092012" duration="436000" />
+      <workItem from="1717081540294" duration="39000" />
+      <workItem from="1717081588372" duration="15721000" />
+      <workItem from="1717311514610" duration="1558000" />
+      <workItem from="1717316243128" duration="2870000" />
+      <workItem from="1717319154308" duration="490000" />
+      <workItem from="1717319661187" duration="233000" />
+      <workItem from="1717319910300" duration="283000" />
+      <workItem from="1717320207920" duration="218000" />
+      <workItem from="1717320440239" duration="835000" />
+      <workItem from="1717321296649" duration="20000" />
+      <workItem from="1717321330267" duration="1376000" />
+      <workItem from="1717493240397" duration="2234000" />
+      <workItem from="1717575622371" duration="10767000" />
+      <workItem from="1717649771054" duration="3657000" />
+      <workItem from="1717947770737" duration="3364000" />
+      <workItem from="1718008354592" duration="15094000" />
+      <workItem from="1718190673397" duration="104000" />
+      <workItem from="1718191019636" duration="890000" />
+      <workItem from="1718208494127" duration="3640000" />
+      <workItem from="1720788504089" duration="13428000" />
+      <workItem from="1721049939585" duration="8674000" />
+      <workItem from="1721567239343" duration="6093000" />
+      <workItem from="1721742715447" duration="6797000" />
+      <workItem from="1722612704108" duration="5343000" />
+      <workItem from="1728915396094" duration="4463000" />
+      <workItem from="1729098959005" duration="623000" />
+      <workItem from="1741721793587" duration="365000" />
+      <workItem from="1741726145074" duration="114000" />
+      <workItem from="1741726415887" duration="22000" />
+      <workItem from="1746264814721" duration="404000" />
+      <workItem from="1746265233283" duration="16000" />
+      <workItem from="1746265257670" duration="9000" />
+      <workItem from="1746265882930" duration="3988000" />
+      <workItem from="1746286393017" duration="38000" />
+      <workItem from="1746286449690" duration="742000" />
+      <workItem from="1746338283786" duration="74000" />
+      <workItem from="1746338373473" duration="1996000" />
+      <workItem from="1747435320387" duration="6316000" />
+      <workItem from="1747470696405" duration="1887000" />
+      <workItem from="1747475545753" duration="431000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="XDebuggerManager">
+    <watches-manager>
+      <configuration name="JavascriptDebugType">
+        <watch expression="parentIndex" language="JavaScript" />
+        <watch expression="index" language="JavaScript" />
+        <watch expression="flattenedRecipe" language="JavaScript" />
+        <watch expression="parentIndex" language="JavaScript" />
+        <watch expression="recipeItem" />
+      </configuration>
+    </watches-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/panadero$React_Brave_Debug.dat" NAME="React Brave Debug Coverage Results" MODIFIED="1718190206456" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="WipCoverageRunner" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

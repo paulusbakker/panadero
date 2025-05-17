@@ -1,10 +1,10 @@
-import { TOTAL } from "../constants/constants";
+import { TOTAL } from "../shared/constants/constants";
 import { calculateTotalOverallLiquidPercentage } from "./calculateTotalOverallLiquidPercentage";
 
-export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMode) {
+export function calculateAmounts(flattenedRecipe, weight, index, stepsMode) {
   console.log(flattenedRecipe);
   console.log('weight', weight);
-  console.log('itemIdOrTotal', itemIdOrTotal);
+  console.log('index', index);
   console.log('stepsMode', stepsMode);
 
   function findParentRecipe(currentIndex) {
@@ -43,7 +43,7 @@ export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMo
   let totalFlourWeight, totalLiquidWeight;
   let totalIngredientPercentage = 0;
 
-  switch (itemIdOrTotal) {
+  switch (index) {
     case TOTAL.FLOUR:
       totalFlourWeight = weight;
       totalLiquidWeight = weight * overallTotalLiquidPercentage;
@@ -58,34 +58,34 @@ export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMo
       totalLiquidWeight = totalFlourWeight * overallTotalLiquidPercentage;
       break;
     default:
-      if (!flattenedRecipe[itemIdOrTotal].isRecipe) {
+      if (!flattenedRecipe[index].isRecipe) {
         !stepsMode
-          ? (totalFlourWeight = weight / flattenedRecipe[itemIdOrTotal].percentage)
-          : (totalFlourWeight = weight / flattenedRecipe[itemIdOrTotal].stepPercentage);
+          ? (totalFlourWeight = weight / flattenedRecipe[index].percentage)
+          : (totalFlourWeight = weight / flattenedRecipe[index].stepPercentage);
 
-        while (!flattenedRecipe[itemIdOrTotal].isRecipe) {
-          itemIdOrTotal--;
+        while (!flattenedRecipe[index].isRecipe) {
+          index--;
         }
       } else {
-        totalIngredientPercentage = calculateTotalIngredientPercentage(itemIdOrTotal);
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
         totalFlourWeight = weight / totalIngredientPercentage;
       }
 
-      while (itemIdOrTotal > 0) {
-        totalFlourWeight = totalFlourWeight / flattenedRecipe[itemIdOrTotal].percentage;
-        itemIdOrTotal = findParentRecipe(itemIdOrTotal);
+      while (index > 0) {
+        totalFlourWeight = totalFlourWeight / flattenedRecipe[index].percentage;
+        index = findParentRecipe(index);
       }
   }
 
   const totalFlourWeightHistory = [];
   let currentDepth = -1;
 
-  for (const [itemIdOrTotal, recipeItem] of flattenedRecipe.entries()) {
+  for (const [index, recipeItem] of flattenedRecipe.entries()) {
     const { isRecipe, depth, percentage, stepPercentage } = recipeItem;
     if (isRecipe) {
       if (depth > currentDepth) {
         totalFlourWeight = totalFlourWeight * percentage;
-        totalIngredientPercentage = calculateTotalIngredientPercentage(itemIdOrTotal);
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
         totalFlourWeightHistory.push(totalFlourWeight);
         currentDepth++;
       } else {
@@ -95,7 +95,7 @@ export function calculateAmounts(flattenedRecipe, weight, itemIdOrTotal, stepsMo
         } while (depth <= currentDepth);
         totalFlourWeight =
           totalFlourWeightHistory[totalFlourWeightHistory.length - 1] * percentage;
-        totalIngredientPercentage = calculateTotalIngredientPercentage(itemIdOrTotal);
+        totalIngredientPercentage = calculateTotalIngredientPercentage(index);
       }
       recipeItem.weight = recipeItem.stepWeight =
         totalFlourWeight * totalIngredientPercentage;

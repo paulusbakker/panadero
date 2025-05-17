@@ -1,245 +1,227 @@
-import { FlattenedRecipeItem } from "../classes/FlattenedRecipeItem";
+import { FlattenedRecipeItem } from '../classes/FlattenedRecipeItem';
+import { TYPES } from '../shared/constants/constants';
 
 export function flattenRecipe(id, recipeBook) {
-  const flattenedRecipe = [];
-  let sequenceCounter = 0;
-  let isValidOverallRecipe = true;
+    const flattenedRecipe = [];
+    let index = 0;
+    let isValidOverallRecipe = true;
 
-  buildFlattenedRecipe(id);
-  console.log(recipeBook);
-  console.log(flattenedRecipe);
+    buildFlattenedRecipe(id);
+    console.log(recipeBook);
+    console.log(flattenedRecipe);
 
-  return { flattenedRecipe, isValidOverallRecipe };
+    return { flattenedRecipe, isValidOverallRecipe };
 
-  function buildFlattenedRecipe(id, currentDepth = 0, recipePercentage = 1) {
-    const { name, ingredients, includedRecipes } = recipeBook.recipes.get(id);
-    let flourWeightTotal = 0;
-    let hasFlour = false;
-    let deepestFaultyRecipeInfo = { found: false, depth: -1 };
+    function buildFlattenedRecipe(id, currentDepth = 0, recipePercentage = 1, parentIndex = -1) {
+        const { name, ingredients, includedRecipes } = recipeBook.recipes.get(id);
+        let flourWeightTotal = 0;
+        let hasFlour = false;
+        let deepestFaultyRecipeInfo = { found: false, depth: -1 };
 
-    const recipeItem = new FlattenedRecipeItem(
-      sequenceCounter++,
-      id,
-      true,
-      name,
-      currentDepth,
-      false,
-      false,
-      recipePercentage,
-      0,
-      false,
-      false
-    );
-
-    sortIngredients(ingredients);
-    sortIncludedRecipes(includedRecipes);
-
-    flattenedRecipe.push(recipeItem);
-
-    ingredients.forEach((ingredientItem) => {
-      const { id, isFlour, isLiquid, percentage } = ingredientItem;
-      const { name, pricePerKilo } = recipeBook.ingredients.get(id);
-
-      flattenedRecipe.push(
-        new FlattenedRecipeItem(
-          sequenceCounter++,
-          id,
-          false,
-          name,
-          currentDepth,
-          isFlour,
-          isLiquid,
-          percentage,
-          pricePerKilo,
-          false,
-          false
-        )
-      );
-
-      if (isFlour) {
-        hasFlour = true;
-        flourWeightTotal += percentage;
-      }
-    });
-
-    if (hasFlour && flourWeightTotal !== 1) {
-      recipeItem.isFaultyRecipe = true;
-      recipeItem.totalFlourNot100 = true;
-      markFlourItemsAsFaulty(sequenceCounter);
-    }
-
-    const directChildRecipeSeqNumbers = [];
-
-    includedRecipes.forEach((includedRecipe) => {
-      const { directChildRecipeSeqNum, faultyRecipeInfo } =
-        buildFlattenedRecipe(
-          includedRecipe.id,
-          currentDepth + 1,
-          includedRecipe.percentage,
-          ingredients.map((ingredient) => ({
-            id: ingredient.id,
-            isFlour: ingredient.isFlour,
-            isLiquid: ingredient.isLiquid,
-          })),
-          false
+        const currentRecipe = new FlattenedRecipeItem(
+            index++,
+            id,
+            true,
+            name,
+            currentDepth,
+            false,
+            false,
+            recipePercentage,
+            0,
+            parentIndex
         );
 
-      directChildRecipeSeqNumbers.push(directChildRecipeSeqNum);
+        sortIngredients(ingredients);
+        sortIncludedRecipes(includedRecipes);
 
-      if (
-        faultyRecipeInfo.found &&
-        faultyRecipeInfo.depth > deepestFaultyRecipeInfo.depth
-      ) {
-        deepestFaultyRecipeInfo = faultyRecipeInfo;
-      }
-    });
+        flattenedRecipe.push(currentRecipe);
 
-    // Process each direct child recipe sequence number
-    directChildRecipeSeqNumbers.forEach((childRecipeSeqNum) => {
-      let childIngredientSeqNum = childRecipeSeqNum + 1;
+        ingredients.forEach((ingredient) => {
+            const { id, isFlour, isLiquid, percentage } = ingredient;
+            const { name, pricePerKilo } = recipeBook.ingredients.get(id);
 
-      // Iterate through the ingredients of the child recipe
-      while (isIngredient(childIngredientSeqNum)) {
-        let parentIngredientSeqNum = recipeItem.sequenceNumber + 1;
-        let ingredientMatchFound = false;
+            const currentIngredient = new FlattenedRecipeItem(
+                index++,
+                id,
+                false,
+                name,
+                currentDepth,
+                isFlour,
+                isLiquid,
+                percentage,
+                pricePerKilo,
+                currentRecipe.index
+            );
 
-        // Compare ingredients in the parent recipe
-        while (isIngredient(parentIngredientSeqNum)) {
-          if (isSameIngredient(childIngredientSeqNum, parentIngredientSeqNum)) {
-            ingredientMatchFound = true;
-            break;
-          }
-          parentIngredientSeqNum++;
+            flattenedRecipe.push(currentIngredient);
+
+            if (isFlour) {
+                hasFlour = true;
+                flourWeightTotal += percentage;
+            }
+        });
+
+        if (hasFlour && flourWeightTotal !== 1) {
+            currentRecipe.addIssue(TYPES.TOTAL_FLOUR_NOT_100, true, { invalidFlourPercentage: flourWeightTotal });
+            markFlourItemsAsFaulty(index, TYPES.TOTAL_FLOUR_NOT_100, { invalidFlourPercentage: flourWeightTotal });
         }
 
-        // Update recipe details based on ingredient match
-        updateRecipeDetails(
-          recipeItem,
-          parentIngredientSeqNum,
-          childRecipeSeqNum,
-          childIngredientSeqNum,
-          ingredientMatchFound
+        const childRecipeIndexes = [];
+
+        includedRecipes.forEach((includedRecipe) => {
+            const { directChildRecipeIndex, faultyRecipeInfo } = buildFlattenedRecipe(
+                includedRecipe.id,
+                currentDepth + 1,
+                includedRecipe.percentage,
+                currentRecipe.index
+            );
+
+            childRecipeIndexes.push(directChildRecipeIndex);
+
+            if (faultyRecipeInfo.found && faultyRecipeInfo.depth > deepestFaultyRecipeInfo.depth) {
+                deepestFaultyRecipeInfo = faultyRecipeInfo;
+            }
+        });
+        console.log(childRecipeIndexes)
+
+        childRecipeIndexes.forEach((childRecipeIndex) => {
+            let childIngredientIndex = childRecipeIndex + 1;
+
+            while (isIngredient(childIngredientIndex)) {
+                let parentIngredientIndex = currentRecipe.index + 1;
+                let ingredientMatchFound = false;
+
+                while (isIngredient(parentIngredientIndex)) {
+                    if (isSameIngredient(childIngredientIndex, parentIngredientIndex)) {
+                        ingredientMatchFound = true;
+                        break;
+                    }
+                    parentIngredientIndex++;
+                }
+
+                updateRecipeDetails(
+                    currentRecipe,
+                    parentIngredientIndex,
+                    childRecipeIndex,
+                    childIngredientIndex,
+                    ingredientMatchFound
+                );
+
+                childIngredientIndex++;
+            }
+        });
+
+        if (currentRecipe.isFaulty) {
+            isValidOverallRecipe = false;
+            if (!deepestFaultyRecipeInfo.found || currentDepth > deepestFaultyRecipeInfo.depth) {
+                currentRecipe.isDeepestFaultyRecipe = true;
+                deepestFaultyRecipeInfo = { found: true, depth: currentDepth };
+            }
+        }
+
+        return {
+            directChildRecipeIndex: currentRecipe.index,
+            faultyRecipeInfo: deepestFaultyRecipeInfo,
+        };
+    }
+
+    function markFlourItemsAsFaulty(currentIndex, issueType, details) {
+        for (let i = currentIndex - 1; i >= 0; i--) {
+            if (flattenedRecipe[i].isRecipe) {
+                break;
+            }
+            if (flattenedRecipe[i].isFlour) {
+                flattenedRecipe[i].addIssue(issueType, true, details);
+            }
+        }
+    }
+
+    function isIngredient(index) {
+        return flattenedRecipe[index] && !flattenedRecipe[index].isRecipe;
+    }
+
+    function isSameIngredient(childIndex, parentIndex) {
+        const childIngredient = flattenedRecipe[childIndex];
+        const parentIngredient = flattenedRecipe[parentIndex];
+        return (
+            childIngredient.id === parentIngredient.id &&
+            childIngredient.isFlour === parentIngredient.isFlour &&
+            childIngredient.isLiquid === parentIngredient.isLiquid
         );
-
-        childIngredientSeqNum++;
-      }
-    });
-
-    if (recipeItem.isFaultyRecipe) {
-      isValidOverallRecipe = false;
-      if (
-        !deepestFaultyRecipeInfo.found ||
-        currentDepth > deepestFaultyRecipeInfo.depth
-      ) {
-        recipeItem.isDeepestFaultyRecipe = true;
-        deepestFaultyRecipeInfo = { found: true, depth: currentDepth };
-      }
     }
 
-    return {
-      directChildRecipeSeqNum: recipeItem.sequenceNumber,
-      faultyRecipeInfo: deepestFaultyRecipeInfo,
-    };
-  }
-
-  function markFlourItemsAsFaulty(currentIndex) {
-    console.log(currentIndex);
-    for (let i = currentIndex-1; i >= 0; i--) {
-      if (flattenedRecipe[i].isRecipe) {
-        break;
-      }
-      if (flattenedRecipe[i].isFlour) {
-        flattenedRecipe[i].totalFlourNot100 = true;
-        flattenedRecipe[i].isFaultyIngredient= true;
-      }
+    function updateRecipeDetails(
+        currentRecipe,
+        parentIngredientIndex,
+        childRecipeIndex,
+        childIngredientIndex,
+        ingredientMatchFound
+    ) {
+        if (ingredientMatchFound) {
+            flattenedRecipe[parentIngredientIndex].stepPercentage -=
+                flattenedRecipe[childIngredientIndex].percentage *
+                flattenedRecipe[childRecipeIndex].percentage;
+            if (flattenedRecipe[parentIngredientIndex].stepPercentage < 0) {
+                flattenedRecipe[parentIngredientIndex].addIssue(TYPES.NEGATIVE_STEP_PERCENTAGE, true);
+                currentRecipe.addIssue(TYPES.NEGATIVE_STEP_PERCENTAGE, true);
+            }
+        } else {
+            console.log(currentRecipe)
+            // currentRecipe.addIssue(TYPES.MISSING_INGREDIENT_IN_PARENT, false);
+            flattenedRecipe[childIngredientIndex].addIssue(TYPES.MISSING_INGREDIENT_IN_PARENT, false);
+            flattenedRecipe[childRecipeIndex].addIssue(TYPES.MISSING_INGREDIENT_IN_PARENT, false, childIngredientIndex);
+            propagateFaultyFlag(currentRecipe.index);
+        }
     }
-  }
-  function isIngredient(sequenceNumber) {
-    return (
-      flattenedRecipe[sequenceNumber] &&
-      !flattenedRecipe[sequenceNumber].isRecipe
-    );
-  }
 
-  function isSameIngredient(childSeqNum, parentSeqNum) {
-    const childIngredient = flattenedRecipe[childSeqNum];
-    const parentIngredient = flattenedRecipe[parentSeqNum];
-    return (
-      childIngredient.id === parentIngredient.id &&
-      childIngredient.isFLour === parentIngredient.isFLour &&
-      childIngredient.isLiquid === parentIngredient.isLiquid
-    );
-  }
-
-  function updateRecipeDetails(
-    recipeItem,
-    parentIngredientSeqNum,
-    childRecipeSeqNum,
-    childIngredientSeqNum,
-    ingredientMatchFound
-  ) {
-    if (ingredientMatchFound) {
-      flattenedRecipe[parentIngredientSeqNum].stepPercentage -=
-        flattenedRecipe[childIngredientSeqNum].percentage *
-        flattenedRecipe[childRecipeSeqNum].percentage;
-      if (flattenedRecipe[parentIngredientSeqNum].stepPercentage < 0) {
-        flattenedRecipe[parentIngredientSeqNum].isFaultyIngredient=true
-        recipeItem.recipeHasNegativeStepPercentage = true;
-        recipeItem.isFaultyRecipe = true;
-      
-      }
-    } else {
-      recipeItem.isFaultyRecipe = true;
-      flattenedRecipe[
-        childIngredientSeqNum
-      ].ingredientIsMissingInParentRecipe = true;
-      flattenedRecipe[
-        childRecipeSeqNum
-      ].recipeHasMissingIngredientsInParentRecipe = true;
-      recipeItem.recipeIsMissingIngredientsPresentInChildren = true;
+    function propagateFaultyFlag(recipeIndex) {
+        let currentRecipeIndex = recipeIndex;
+        while (currentRecipeIndex >= 0) {
+            const currentRecipe = flattenedRecipe[currentRecipeIndex];
+            currentRecipe.isFaulty = true;
+            currentRecipe.addIssue(TYPES.MISSING_INGREDIENTS_IN_CHILD, true);
+            const parentIndex = currentRecipe.parentIndex;
+            if (parentIndex === -1) {
+                break;
+            }
+            currentRecipeIndex = parentIndex;
+        }
     }
-  }
 
-  // Function to sort ingredients
-  function sortIngredients(ingredients) {
-    ingredients.sort((a, b) => {
-      const categoryOrderA = getCategoryOrder(a);
-      const categoryOrderB = getCategoryOrder(b);
+    function sortIngredients(ingredients) {
+        ingredients.sort((a, b) => {
+            const categoryOrderA = getCategoryOrder(a);
+            const categoryOrderB = getCategoryOrder(b);
 
-      if (categoryOrderA !== categoryOrderB) {
-        return categoryOrderA - categoryOrderB;
-      }
+            if (categoryOrderA !== categoryOrderB) {
+                return categoryOrderA - categoryOrderB;
+            }
 
-      if (b.percentage !== a.percentage) {
-        return b.percentage - a.percentage; // Sort by descending percentage
-      }
+            if (b.percentage !== a.percentage) {
+                return b.percentage - a.percentage;
+            }
 
-      // If percentages are equal, sort by name
-      const nameA = recipeBook.ingredients.get(a.id).name;
-      const nameB = recipeBook.ingredients.get(b.id).name;
-      return nameA.localeCompare(nameB);
-    });
-  }
+            const nameA = recipeBook.ingredients.get(a.id).name;
+            const nameB = recipeBook.ingredients.get(b.id).name;
+            return nameA.localeCompare(nameB);
+        });
+    }
 
-  // ... rest of the existing code ...
+    function getCategoryOrder(ingredientItem) {
+        if (ingredientItem.isFlour) return 1;
+        if (ingredientItem.isLiquid) return 2;
+        return 3;
+    }
 
-  // Function to get category order
-  function getCategoryOrder(ingredientItem) {
-    if (ingredientItem.isFlour) return 1;
-    if (ingredientItem.isLiquid) return 2;
-    return 3; // Non-flour, non-liquid
-  }
+    function sortIncludedRecipes(includedRecipes) {
+        includedRecipes.sort((a, b) => {
+            if (b.percentage !== a.percentage) {
+                return b.percentage - a.percentage;
+            }
 
-  // Function to sort included recipes
-  function sortIncludedRecipes(includedRecipes) {
-    includedRecipes.sort((a, b) => {
-      if (b.percentage !== a.percentage) {
-        return b.percentage - a.percentage; // Sort by descending percentage
-      }
-
-      const nameA = recipeBook.recipes.get(a.id).name;
-      const nameB = recipeBook.recipes.get(b.id).name;
-      return nameA.localeCompare(nameB);
-    });
-  }
+            const nameA = recipeBook.recipes.get(a.id).name;
+            const nameB = recipeBook.recipes.get(b.id).name;
+            return nameA.localeCompare(nameB);
+        });
+    }
 }

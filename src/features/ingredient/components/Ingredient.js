@@ -9,8 +9,8 @@ import {
   IngredientDetailsContainer,
   ItemHeaderStyled,
 } from "./IngredientStyles";
-import { Ingredient as IngredientClass } from "../../classes/Ingredient";
-import { recipeBookAtom } from "../../state/recipeBookAtom";
+import { Ingredient as IngredientClass } from "../../../classes/Ingredient";
+import { recipeBookAtom } from "../../../state/recipeBookAtom";
 import { nanoid } from "nanoid";
 
 const Ingredient = ({ isNew: propIsNew, toggleAddIngredientMode }) => {

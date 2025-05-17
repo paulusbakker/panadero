@@ -2,12 +2,12 @@ import React, { useEffect, useReducer } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useRecoilValue } from "recoil";
-import { flattenRecipe } from "../../../helper/flattenRecipe";
-import { recipeBookAtom } from "./../../../atom/recipeBookAtom";
-import { ACTIONS, RECIPE_VIEW } from "../../../constants/constants";
-import { UnorderedListStyled } from "./Styles";
-import FlattenedRecipeItemEditor from "./flattenedRecipeItemEditor/FlattenedRecipeItemEditor";
-import Navbar from "./navbar/Navbar";
+import { flattenRecipe } from "../../helper/flattenRecipe";
+import { recipeBookAtom } from "../../state/recipeBookAtom";
+import { ACTIONS, RECIPE_VIEW } from "../../shared/constants/constants";
+import { UnorderedListStyled } from "./EditRecipeStyles";
+import FlattenedRecipeItemEditor from "./components/FlattenedRecipeItemEditor";
+import EditNavbar from "./components/EditNavbar";
 
 const reducer = (editRecipeState, action) => {
   switch (action.type) {
@@ -58,7 +58,7 @@ function EditRecipe() {
   console.log(flattenedRecipeData);
   return (
     <>
-      <Navbar dispatch={dispatch} />
+      <EditNavbar dispatch={dispatch} />
       <UnorderedListStyled>
   {flattenedRecipe.length > 0 && flattenedRecipe
     .slice(1)

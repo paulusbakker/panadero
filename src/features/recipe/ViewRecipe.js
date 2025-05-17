@@ -1,13 +1,13 @@
 import {useEffect, useReducer} from 'react'
 import {useNavigate, useParams} from 'react-router-dom'
 import {useRecoilValue} from 'recoil'
-import {recipeBookAtom} from '../../../atom/recipeBookAtom'
-import {ACTIONS, RECIPE_VIEW} from '../../../constants/constants'
-import {calculateAmounts} from '../../../helper/calculateAmounts'
-import {createInitialState} from '../../../helper/createInitialState'
-import RecipeCard from '../../../features/recipe/components/RecipeCard'
-import Navbar from './navbar/Navbar'
-import Popup from './recipeCard/popup/Popup'
+import {recipeBookAtom} from '../../state/recipeBookAtom'
+import {ACTIONS, RECIPE_VIEW} from '../../shared/constants/constants'
+import {calculateAmounts} from '../../helper/calculateAmounts'
+import {createInitialState} from '../../helper/createInitialState'
+import RecipeCard from './components/RecipeCard'
+import ViewNavbar from './components/ViewNavbar'
+import Popup from './components/Popup'
 
 const handleActionSubmit = (flattenedRecipeState, action) => {
     if (action.payload.weight === 0) return flattenedRecipeState
@@ -82,7 +82,7 @@ function ViewRecipe() {
 
     return (<>
         {console.log('Updated state:', flattenedRecipeState)}
-        <Navbar id={id}/>
+        <ViewNavbar id={id}/>
         <Popup flattenedRecipeState={flattenedRecipeState} dispatch={dispatch}/>
         <RecipeCard
             flattenedRecipeState={flattenedRecipeState}

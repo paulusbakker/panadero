@@ -1,13 +1,13 @@
 import React from "react";
-import Symbol from "../../../../shared_components/Symbol";
-import { ACTIONS } from "../../../../constants/constants";
+import SymbolStyles from "../../../shared/components/SymbolStyles";
+import { ACTIONS } from "../../../shared/constants/constants";
 
 import {
   NavButtonContainerStyled,
   NavButtonStyled,
   NavLinkStyled,
   NavStyled,
-} from "./Styles";
+} from "./EditNavbarStyles";
 
 function EditNavbar({ dispatch }) {
   return (
@@ -17,10 +17,10 @@ function EditNavbar({ dispatch }) {
         <NavButtonStyled
           onClick={() => dispatch({ type: ACTIONS.DELETE_RECIPE })}
         >
-          <Symbol type={"delete"} />
+          <SymbolStyles type={"delete"} />
         </NavButtonStyled>
         <NavButtonStyled onClick={() => dispatch({ type: ACTIONS.ADD_ITEM })}>
-          <Symbol type={"add"} />
+          <SymbolStyles type={"add"} />
         </NavButtonStyled>
       </NavButtonContainerStyled>
     </NavStyled>
