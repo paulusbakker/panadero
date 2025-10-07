@@ -1,8 +1,10 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import { render, screen } from "@testing-library/react";
+import App from "./App";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("App", () => {
+  test("toont basisbediening voor recepten", () => {
+    render(<App />);
+    expect(screen.getByLabelText(/recept:/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /nieuw/i })).toBeInTheDocument();
+  });
 });
